@@ -1,0 +1,11 @@
+{
+  "name": "tmymoney",
+  "version": "0.0.1",
+  "description": "Re-write of some parts of KMyMoney using Typescript and Node, keeping the same file format.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "David Ma",
+  "license": "ISC"
+}
