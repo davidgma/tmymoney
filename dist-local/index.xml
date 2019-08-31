@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>TMyMoney Documentation</title>
+    <link>http://localhost:4202/</link>
+    <description>Recent content on TMyMoney Documentation</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Sat, 31 Aug 2019 12:49:09 +0100</lastBuildDate>
+    
+	<atom:link href="http://localhost:4202/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Node</title>
+      <link>http://localhost:4202/architecture/node/</link>
+      <pubDate>Sat, 31 Aug 2019 12:18:08 +0100</pubDate>
+      
+      <guid>http://localhost:4202/architecture/node/</guid>
+      <description>I installed Node using the Node Version Manager.
+You can install it with apt too but this doesn&amp;rsquo;t give such a recent version. After installing it per the instructions I installed the latest LTS version of Node.
+bash command -v nvm nvm ls-remote nvm install --lts node --version which node which npm  The which commands should give paths that are under the directory ~/.nvm rather than under /usr.</description>
+    </item>
+    
+    <item>
+      <title>Typescript</title>
+      <link>http://localhost:4202/architecture/language/</link>
+      <pubDate>Sat, 31 Aug 2019 11:07:26 +0100</pubDate>
+      
+      <guid>http://localhost:4202/architecture/language/</guid>
+      <description>I used Typescript.
+npm install -g typescript  Inside a node project (created later), you will need the node types.
+npm install --save @types/node  A useful place to look for other types (for other npm packages you may want to use) is Microsoft&amp;rsquo;s TypeSearch page.</description>
+    </item>
+    
+    <item>
+      <title>Angular</title>
+      <link>http://localhost:4202/architecture/angular/</link>
+      <pubDate>Sat, 31 Aug 2019 12:36:47 +0100</pubDate>
+      
+      <guid>http://localhost:4202/architecture/angular/</guid>
+      <description>I used Angular] for the web client. Angular produces static web sites - a web site where all the code is served once by the web server and then doesn&amp;rsquo;t need to be served again for the entire running of the web app by the user, unless the user refreshes the web page. The advantage of this is that it&amp;rsquo;s cheaper to serve and a lot of companies now offer free serving of static websites, such as Github with Github Pages.</description>
+    </item>
+    
+    <item>
+      <title>Git</title>
+      <link>http://localhost:4202/architecture/git/</link>
+      <pubDate>Sat, 31 Aug 2019 12:49:09 +0100</pubDate>
+      
+      <guid>http://localhost:4202/architecture/git/</guid>
+      <description>Git is needed for version control and for safely storing code on Github.
+I used the Ubuntu packaged version of git.
+sudo apt update sudo apt install git git --version  </description>
+    </item>
+    
+  </channel>
+</rss>

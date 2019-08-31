@@ -1,17 +1,45 @@
 [
 {
-	"uri": "https://davidgma.github.io/tmymoney/intro/",
-	"title": "Introduction",
+	"uri": "https://davidgma.github.io/tmymoney/architecture/",
+	"title": "Architecture and Set-up",
 	"tags": [],
 	"description": "",
-	"content": " Introduction TMyMoney TMyMoney is a re-write of some of the functionality of KMyMoney using Typescript and Node.\n"
+	"content": " Architecture and Set-up While KMyMoney can be installed and used without much technical knowledge, I don\u0026rsquo;t think this will ever be the case for TMyMoney. It runs in a terminal, it uses node, you need to be able to configure a web server with SSL and authentication if you want to use over the internet. Setting up a free Google Cloud Platform VM is a good idea too.\nThis is the architecture of the application and the tools I used in building it.\nServer: Runs on a Google Cloud Platform free VM Uses the Compute Engine product. nginx web server. Free SSL certificate from Let\u0026rsquo;s Encrypt. Google Authentication is used to authenticate the user (myself) so that only I can use the web client over the internet for my own installation.\nWeb client: Written in Typescript and Angular.\nProcessing KMyMoney file: The file is a gzip-compressed xml file and I unzip it using gunzip and then convert it to a json file using xml2json.\nThe server program then parses the json file and writes the bits it needs to an sqlite3 database which it stores on a drive that is in memory - /dev/shm.\nAny changes that are made during the usage of the program are then written back to the master KMyMoney file using xquery and the tool xqilla.\nSSH is used to connect to the VM from other computers where a terminal access is wanted, or to use the web client via port forwarding.\nFor the documentation I used Hugo with the Learn Theme.\nI used Visual Studio Code as my IDE.\n"
+},
+{
+	"uri": "https://davidgma.github.io/tmymoney/architecture/node/",
+	"title": "Node",
+	"tags": [],
+	"description": "",
+	"content": "I installed Node using the Node Version Manager.\nYou can install it with apt too but this doesn\u0026rsquo;t give such a recent version. After installing it per the instructions I installed the latest LTS version of Node.\nbash command -v nvm nvm ls-remote nvm install --lts node --version which node which npm  The which commands should give paths that are under the directory ~/.nvm rather than under /usr.\n"
+},
+{
+	"uri": "https://davidgma.github.io/tmymoney/architecture/language/",
+	"title": "Typescript",
+	"tags": [],
+	"description": "",
+	"content": "I used Typescript.\nnpm install -g typescript  Inside a node project (created later), you will need the node types.\nnpm install --save @types/node  A useful place to look for other types (for other npm packages you may want to use) is Microsoft\u0026rsquo;s TypeSearch page.\n"
+},
+{
+	"uri": "https://davidgma.github.io/tmymoney/architecture/angular/",
+	"title": "Angular",
+	"tags": [],
+	"description": "",
+	"content": "I used Angular] for the web client. Angular produces static web sites - a web site where all the code is served once by the web server and then doesn\u0026rsquo;t need to be served again for the entire running of the web app by the user, unless the user refreshes the web page. The advantage of this is that it\u0026rsquo;s cheaper to serve and a lot of companies now offer free serving of static websites, such as Github with Github Pages. Plus, cloud file servers such as Google Drive and pCloud let you run a static web site just by putting the files into a folder on the cloud and making it public or selecting an option to publish.\nThere is a back end that the web client uses but this is via RESTful API calls.\nnpm install -g @angular/cli  "
+},
+{
+	"uri": "https://davidgma.github.io/tmymoney/architecture/git/",
+	"title": "Git",
+	"tags": [],
+	"description": "",
+	"content": "Git is needed for version control and for safely storing code on Github.\nI used the Ubuntu packaged version of git.\nsudo apt update sudo apt install git git --version  "
 },
 {
 	"uri": "https://davidgma.github.io/tmymoney/",
 	"title": "",
 	"tags": [],
 	"description": "",
-	"content": " TMyMoney Documentation /tmymoney/intro/ I have been using KMyMoney to organise my finances for many years, I really like the program and I plan to continue using it. However, there are a few aspects of it that, for me, are lacking. The user interface doesn\u0026rsquo;t cope well on smaller screens, there is no web interface, no mobile phone interface and no command line interface. Also it could perhaps be easier to input the sort of transactions that I input very regularly.\nFurthermore, I have become spoiled by the benefits provided by many web apps in that you can access then from any machine - laptop, tablet or phone - and from anywhere. I have moved my daily computing life almost entirely into the cloud. But KMyMoney remains stubbornly local as it only runs on a laptop and has no facilities to synchronise different versions that have been changed on different laptops. As a workaround I use a cloud file server so that I can at least access the same master file from different computers. This works pretty well, but I like programming in Typescript and so I thought I\u0026rsquo;d try to improve on this.\nTMyMoney aims to address some of these things. It runs in a terminal and provides a terminal interface and a web interface. It provides some of the existing functionality of KMyMoney and some additional functionality. It shares the same underlying KMyMoney file (.kmy file). There isn\u0026rsquo;t any protection against both KMyMoney and TMyMoney using the file at the same time, so don\u0026rsquo;t do this. But so long as you either use KMyMoney or TMyMoney at any particular time, and save the file, they should be able to coexist.\nTMyMoney actually works by providing a REST API to both the terminal program and the web app, on http://localhost:someport.\nTo access the web app through the internet, you can set up SSL and Google authentication on your web server (e.g. nginx) and then, once authenticated, have the web server forward calls to the localhost port. You can also access the localhost API via SSH from another machine that you have set up to have access via SSH, using port forwarding. This way, you can use the terminal interface or the web interface from another machine while only having one master KMyMoney file.\n"
+	"content": " TMyMoney Documentation Overview and background I have been using KMyMoney to organise my finances for many years, I really like the program and I plan to continue using it. However, there are a few aspects of it that, for me, are lacking. The user interface doesn\u0026rsquo;t cope well on smaller screens, there is no web interface, no mobile phone interface and no command line interface. Also it could perhaps be easier to input the sort of transactions that I input very regularly.\nFurthermore, I have become spoiled by the benefits provided by many web apps in that you can access then from any machine - laptop, tablet or phone - and from anywhere. I have moved my daily computing life almost entirely into the cloud. But KMyMoney remains stubbornly local as it only runs on a laptop and has no facilities to synchronise different versions that have been changed on different laptops. As a workaround I use a cloud file server mapped to a local directory so that I can at least access the same master file from different computers. This works pretty well, but I like programming in Typescript and so I thought I\u0026rsquo;d try to improve on this.\nTMyMoney aims to address some of these things. It runs in a terminal and provides a terminal interface and a scalable web interface. It provides some of the existing functionality of KMyMoney and some additional functionality. It shares the same underlying KMyMoney file (.kmy file). There isn\u0026rsquo;t any protection against both KMyMoney and TMyMoney using the file at the same time, so don\u0026rsquo;t do this. But so long as you either use KMyMoney or TMyMoney at any particular time, and save the file, they should be able to coexist.\nTMyMoney actually works by providing a REST API to both the terminal program and the web app, on http://localhost:someport.\nTo access the web app through the internet, you can set up SSL and Google authentication on your web server (e.g. nginx) and then, once authenticated, have the web server forward calls to the localhost port. You can also access the localhost port via SSH from another machine using port forwarding. This way, you can use the terminal interface or the web interface from another machine - mobile, tablet or laptop - and from anywhere with an internet connection while only having one master KMyMoney file.\nJump to: Architecture and Set-up\n"
 },
 {
 	"uri": "https://davidgma.github.io/tmymoney/categories/",

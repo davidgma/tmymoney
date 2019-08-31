@@ -3,12 +3,33 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://davidgma.github.io/tmymoney/intro/</loc>
+    <loc>https://davidgma.github.io/tmymoney/architecture/</loc>
     <lastmod>2019-08-31T08:45:50+01:00</lastmod>
   </url>
   
   <url>
+    <loc>https://davidgma.github.io/tmymoney/architecture/node/</loc>
+    <lastmod>2019-08-31T12:18:08+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://davidgma.github.io/tmymoney/architecture/language/</loc>
+    <lastmod>2019-08-31T11:07:26+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://davidgma.github.io/tmymoney/architecture/angular/</loc>
+    <lastmod>2019-08-31T12:36:47+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://davidgma.github.io/tmymoney/architecture/git/</loc>
+    <lastmod>2019-08-31T12:49:09+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://davidgma.github.io/tmymoney/</loc>
+    <lastmod>2019-08-31T12:49:09+01:00</lastmod>
     <priority>0</priority>
   </url>
   
