@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Git :: TMyMoney Documentation</title>
+    <title>Overview :: TMyMoney Documentation</title>
 
     
     <link href="/css/nucleus.css?1567271457" rel="stylesheet">
@@ -35,7 +35,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/architecture/git/">
+  <body class="" data-url="/architecture/overview/">
     <nav id="sidebar" class="">
 
 
@@ -104,7 +104,7 @@ height="15%" width="15%">
  
   
     
-      <li data-nav-id="/architecture/overview/" title="Overview" class="dd-item ">
+      <li data-nav-id="/architecture/overview/" title="Overview" class="dd-item active">
         <a href="/architecture/overview/">
         Overview
         
@@ -180,7 +180,7 @@ height="15%" width="15%">
  
   
     
-      <li data-nav-id="/architecture/git/" title="Git" class="dd-item active">
+      <li data-nav-id="/architecture/git/" title="Git" class="dd-item ">
         <a href="/architecture/git/">
         Git
         
@@ -248,7 +248,7 @@ height="15%" width="15%">
                   
                   
                   <div id="top-github-link">
-                    <a class="github-link" title='Edit this page' href="https://github.com/davidgma/tmymoney/tree/master/docarchitecture/git.md" target="blank">
+                    <a class="github-link" title='Edit this page' href="https://github.com/davidgma/tmymoney/tree/master/docarchitecture/overview.md" target="blank">
                       <i class="fas fa-code-branch"></i>
                       <span id="top-github-link-text">Edit this page</span>
                     </a>
@@ -279,7 +279,7 @@ height="15%" width="15%">
             
           
           
-            <a href='/'></a> > <a href='/architecture/'>Architecture and Set-up</a> > Git
+            <a href='/'></a> > <a href='/architecture/'>Architecture and Set-up</a> > Overview
           
          
           
@@ -292,7 +292,11 @@ height="15%" width="15%">
                 
                     <div class="progress">
     <div class="wrapper">
-
+<nav id="TableOfContents">
+<ul>
+<li><a href="#architecture-and-set-up">Architecture and Set-up</a></li>
+</ul>
+</nav>
     </div>
 </div>
 
@@ -308,7 +312,7 @@ height="15%" width="15%">
           
             <h1>
               
-              Git
+              Overview
             </h1>
           
 
@@ -316,14 +320,35 @@ height="15%" width="15%">
 
 
 
-<p>Git is needed for version control and for safely storing code on Github.</p>
 
-<p>I used the Ubuntu packaged version of git.</p>
 
-<pre><code>sudo apt update
-sudo apt install git
-git --version
-</code></pre>
+<h1 id="architecture-and-set-up">Architecture and Set-up</h1>
+
+<p>While KMyMoney can be installed and used without much technical knowledge, I don&rsquo;t think this will ever be the case for TMyMoney. It runs in a terminal, it uses node, you need to be able to configure a web server with SSL and authentication if you want to use over the internet. Setting up a free Google Cloud Platform VM is a good idea too.</p>
+
+<p>This is the architecture of the application and the tools I used in building it.</p>
+
+<p>Server:
+Runs on a <a href="https://cloud.google.com/free/">Google Cloud Platform free</a> VM Uses the <a href="https://cloud.google.com/compute/">Compute Engine</a> product.
+<a href="https://nginx.org">nginx</a> web server.
+Free SSL certificate from <a href="https://letsencrypt.org">Let&rsquo;s Encrypt</a>.
+Google Authentication is used to authenticate the user (myself) so that only I can use the web client over the internet for my own installation.</p>
+
+<p>Web client:
+Written in <a href="https://www.typescriptlang.org">Typescript</a> and <a href="https://angular.io">Angular</a>.</p>
+
+<p>Processing KMyMoney file:
+The file is a <a href="https://docs.kde.org/trunk5/en/extragear-office/kmymoney/details.formats.compressed.html">gzip-compressed xml file</a> and I unzip it using <a href="https://linux.die.net/man/1/gunzip">gunzip</a> and then convert it to a json file using <a href="https://github.com/Cheedoong/xml2json">xml2json</a>.</p>
+
+<p>The server program then parses the json file and writes the bits it needs to an <a href="https://www.sqlite.org/index.html">sqlite3</a> database which it stores on a drive that is in memory - <a href="https://www.howtoforge.com/storing-files-directories-in-memory-with-tmpfs">/dev/shm</a>.</p>
+
+<p>Any changes that are made during the usage of the program are then written back to the master KMyMoney file using <a href="https://en.wikipedia.org/wiki/XQuery">xquery</a> and the tool <a href="http://xqilla.sourceforge.net/HomePage">xqilla</a>.</p>
+
+<p><a href="https://help.ubuntu.com/community/SSH/OpenSSH/Configuring">SSH</a> is used to connect to the VM from other computers where a terminal access is wanted, or to use the web client via port forwarding.</p>
+
+<p>For the documentation I used <a href="https://gohugo.io">Hugo</a> with the <a href="https://learn.netlify.com/en/">Learn Theme</a>.</p>
+
+<p>I used <a href="https://code.visualstudio.com/">Visual Studio Code</a> as my IDE.</p>
 
 
 <footer class=" footline" >
@@ -376,6 +401,23 @@ git --version
             
                 
                     
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
                         
                         
                     
@@ -442,26 +484,6 @@ git --version
             
             
                 
-                    
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
                     
                 
                 
@@ -486,10 +508,10 @@ git --version
 	 
 	 
 		
-			<a class="nav nav-prev" href="/architecture/angular/" title="Angular"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/architecture/" title="Architecture and Set-up"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/architecture/hugo/" title="Hugo" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/architecture/node/" title="Node" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>

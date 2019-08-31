@@ -6,10 +6,20 @@
     <description>Recent content on TMyMoney Documentation</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Sat, 31 Aug 2019 12:49:09 +0100</lastBuildDate>
+    <lastBuildDate>Sat, 31 Aug 2019 17:12:02 +0100</lastBuildDate>
     
 	<atom:link href="http://localhost:4202/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Overview</title>
+      <link>http://localhost:4202/architecture/overview/</link>
+      <pubDate>Sat, 31 Aug 2019 16:38:48 +0100</pubDate>
+      
+      <guid>http://localhost:4202/architecture/overview/</guid>
+      <description>Architecture and Set-up While KMyMoney can be installed and used without much technical knowledge, I don&amp;rsquo;t think this will ever be the case for TMyMoney. It runs in a terminal, it uses node, you need to be able to configure a web server with SSL and authentication if you want to use over the internet. Setting up a free Google Cloud Platform VM is a good idea too.
+This is the architecture of the application and the tools I used in building it.</description>
+    </item>
     
     <item>
       <title>Node</title>
@@ -51,6 +61,19 @@ npm install --save @types/node  A useful place to look for other types (for othe
       <description>Git is needed for version control and for safely storing code on Github.
 I used the Ubuntu packaged version of git.
 sudo apt update sudo apt install git git --version  </description>
+    </item>
+    
+    <item>
+      <title>Hugo</title>
+      <link>http://localhost:4202/architecture/hugo/</link>
+      <pubDate>Sat, 31 Aug 2019 17:12:02 +0100</pubDate>
+      
+      <guid>http://localhost:4202/architecture/hugo/</guid>
+      <description>The documentation is created using Hugo with the theme learn.
+Installation of Hugo:
+snap install hugo --channel=extended hugo version  The documentation is written in the subdirectory of the project doc. From the main project folder (tmymoney):
+hugo new site doc  Then install the theme:
+cd doc cd themes hugo mod init https://github.com/matcornic/hugo-theme-learn.git hugo mod get -u git clone https://github.com/matcornic/hugo-theme-learn.git  Note that some of the theme isn&amp;rsquo;t stored by git, so after cloning the project to another computer, you need to re-do the above step.</description>
     </item>
     
   </channel>

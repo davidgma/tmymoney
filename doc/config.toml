@@ -13,6 +13,7 @@ home = [ "HTML", "RSS", "JSON"]
 [params]
   # Change default color scheme with a variant one. Can be "red", "blue", "green".
   themeVariant = "blue"
+  editURL = "https://github.com/davidgma/tmymoney/tree/master/doc"
 
 [Languages]
 [Languages.en]
