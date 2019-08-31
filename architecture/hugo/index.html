@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/tmymoney/images/favicon.png" type="image/png">
 
-    <title>Tags :: TMyMoney Documentation</title>
+    <title>Hugo :: TMyMoney Documentation</title>
 
     
     <link href="/tmymoney/css/nucleus.css?1567271514" rel="stylesheet">
@@ -35,7 +35,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/tmymoney/tags/">
+  <body class="" data-url="/tmymoney/architecture/hugo/">
     <nav id="sidebar" class="">
 
 
@@ -80,7 +80,7 @@ height="15%" width="15%">
   
     
     <li data-nav-id="/tmymoney/architecture/" title="Architecture and Set-up" class="dd-item 
-        
+        parent
         
         
         ">
@@ -199,7 +199,7 @@ height="15%" width="15%">
  
   
     
-      <li data-nav-id="/tmymoney/architecture/hugo/" title="Hugo" class="dd-item ">
+      <li data-nav-id="/tmymoney/architecture/hugo/" title="Hugo" class="dd-item active">
         <a href="/tmymoney/architecture/hugo/">
         Hugo
         
@@ -244,6 +244,17 @@ height="15%" width="15%">
               <div>
                 <div id="top-bar">
                 
+                  
+                  
+                  
+                  <div id="top-github-link">
+                    <a class="github-link" title='Edit this page' href="https://github.com/davidgma/tmymoney/tree/master/docarchitecture/hugo.md" target="blank">
+                      <i class="fas fa-code-branch"></i>
+                      <span id="top-github-link-text">Edit this page</span>
+                    </a>
+                  </div>
+                  
+                
                 
                 <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                     <span id="sidebar-toggle-span">
@@ -264,7 +275,13 @@ height="15%" width="15%">
             
           
           
-            <a href='/tmymoney/'></a> > Tags
+            
+            
+          
+          
+            <a href='/tmymoney/'></a> > <a href='/tmymoney/architecture/'>Architecture and Set-up</a> > Hugo
+          
+         
           
          
           
@@ -275,7 +292,15 @@ height="15%" width="15%">
                 
                     <div class="progress">
     <div class="wrapper">
-
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#update-scripts">Update scripts</a></li>
+</ul></li>
+<li><a href="#markdown">Markdown</a></li>
+</ul>
+</nav>
     </div>
 </div>
 
@@ -291,7 +316,7 @@ height="15%" width="15%">
           
             <h1>
               
-              Tags
+              Hugo
             </h1>
           
 
@@ -301,15 +326,56 @@ height="15%" width="15%">
 
 
 
+<p>The documentation is created using <a href="https://gohugo.io">Hugo</a> with the theme <a href="https://learn.netlify.com/">learn</a>.</p>
 
-<ul>
-	
-</ul>
+<p>Installation of Hugo:</p>
+
+<pre><code>snap install hugo --channel=extended
+hugo version
+</code></pre>
+
+<p>The documentation is written in the subdirectory of the project doc.
+From the main project folder (tmymoney):</p>
+
+<pre><code>hugo new site doc
+</code></pre>
+
+<p>Then <a href="https://learn.netlify.com/en/basics/installation/">install the theme</a>:</p>
+
+<pre><code>cd doc
+cd themes
+hugo mod init https://github.com/matcornic/hugo-theme-learn.git
+hugo mod get -u
+git clone https://github.com/matcornic/hugo-theme-learn.git
+</code></pre>
+
+<p><strong>Note that some of the theme isn&rsquo;t stored by git, so after cloning the project to another computer, you need to re-do the above step.</strong></p>
+
+<p>The theme&rsquo;s <a href="https://github.com/matcornic/hugo-theme-learn/tree/master/exampleSite">example site on Github</a>, which is also the theme&rsquo;s documentation site, is a good place to look to see examples of how to use Hugo and the theme.</p>
+
+<h2 id="update-scripts">Update scripts</h2>
+
+<p>There&rsquo;s a script to update just the documentation and host it on a localhost site using busybox. To check whether busybox is installed:</p>
+
+<pre><code>busybox
+</code></pre>
+
+<p>To install it:</p>
+
+<pre><code>sudo apt install busybox
+</code></pre>
+
+<p>The script is in the main project folder and is called ./hugo-update. After running it, you can view the output at <a href="http://localhost:4202">http://localhost:4202</a>.</p>
+
+<h1 id="markdown">Markdown</h1>
+
+<p>Hugo uses markdown. A simple guide is <a href="https://www.markdownguide.org">here</a>.</p>
 
 
 <footer class=" footline" >
 	
 </footer>
+
 
         
         </div> 
@@ -342,8 +408,6 @@ height="15%" width="15%">
             
                 
                     
-                        
-                        
                     
                 
                 
@@ -357,6 +421,9 @@ height="15%" width="15%">
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -437,6 +504,7 @@ height="15%" width="15%">
             
             
                 
+                    
                     
                 
                 
@@ -461,8 +529,10 @@ height="15%" width="15%">
 	 
 	 
 		
+			<a class="nav nav-prev" href="/tmymoney/architecture/git/" title="Git"> <i class="fa fa-chevron-left"></i></a>
 		
-			<a class="nav nav-next" href="/tmymoney/architecture/" title="Architecture and Set-up" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+			<a class="nav nav-next" href="/tmymoney/architecture/overview/" title="Overview" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -492,3 +562,4 @@ height="15%" width="15%">
 
   </body>
 </html>
+

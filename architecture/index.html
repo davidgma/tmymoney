@@ -12,20 +12,20 @@
     <title>Architecture and Set-up :: TMyMoney Documentation</title>
 
     
-    <link href="/tmymoney/css/nucleus.css?1567254537" rel="stylesheet">
-    <link href="/tmymoney/css/fontawesome-all.min.css?1567254537" rel="stylesheet">
-    <link href="/tmymoney/css/hybrid.css?1567254537" rel="stylesheet">
-    <link href="/tmymoney/css/featherlight.min.css?1567254537" rel="stylesheet">
-    <link href="/tmymoney/css/perfect-scrollbar.min.css?1567254537" rel="stylesheet">
-    <link href="/tmymoney/css/auto-complete.css?1567254537" rel="stylesheet">
-    <link href="/tmymoney/css/atom-one-dark-reasonable.css?1567254537" rel="stylesheet">
-    <link href="/tmymoney/css/theme.css?1567254537" rel="stylesheet">
-    <link href="/tmymoney/css/hugo-theme.css?1567254537" rel="stylesheet">
+    <link href="/tmymoney/css/nucleus.css?1567271514" rel="stylesheet">
+    <link href="/tmymoney/css/fontawesome-all.min.css?1567271514" rel="stylesheet">
+    <link href="/tmymoney/css/hybrid.css?1567271514" rel="stylesheet">
+    <link href="/tmymoney/css/featherlight.min.css?1567271514" rel="stylesheet">
+    <link href="/tmymoney/css/perfect-scrollbar.min.css?1567271514" rel="stylesheet">
+    <link href="/tmymoney/css/auto-complete.css?1567271514" rel="stylesheet">
+    <link href="/tmymoney/css/atom-one-dark-reasonable.css?1567271514" rel="stylesheet">
+    <link href="/tmymoney/css/theme.css?1567271514" rel="stylesheet">
+    <link href="/tmymoney/css/hugo-theme.css?1567271514" rel="stylesheet">
     
-      <link href="/tmymoney/css/theme-blue.css?1567254537" rel="stylesheet">
+      <link href="/tmymoney/css/theme-blue.css?1567271514" rel="stylesheet">
     
 
-    <script src="/tmymoney/js/jquery-3.3.1.min.js?1567254537"></script>
+    <script src="/tmymoney/js/jquery-3.3.1.min.js?1567271514"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -56,14 +56,14 @@ height="15%" width="15%">
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/tmymoney/js/lunr.min.js?1567254537"></script>
-<script type="text/javascript" src="/tmymoney/js/auto-complete.js?1567254537"></script>
+<script type="text/javascript" src="/tmymoney/js/lunr.min.js?1567271514"></script>
+<script type="text/javascript" src="/tmymoney/js/auto-complete.js?1567271514"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/davidgma.github.io\/tmymoney\/";
     
 </script>
-<script type="text/javascript" src="/tmymoney/js/search.js?1567254537"></script>
+<script type="text/javascript" src="/tmymoney/js/search.js?1567271514"></script>
 
     
   </div>
@@ -96,6 +96,25 @@ height="15%" width="15%">
           
           
         
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/tmymoney/architecture/overview/" title="Overview" class="dd-item ">
+        <a href="/tmymoney/architecture/overview/">
+        Overview
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
           
             
             
@@ -173,6 +192,25 @@ height="15%" width="15%">
 
             
           
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/tmymoney/architecture/hugo/" title="Hugo" class="dd-item ">
+        <a href="/tmymoney/architecture/hugo/">
+        Hugo
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
         
         </ul>
               
@@ -205,6 +243,17 @@ height="15%" width="15%">
               
               <div>
                 <div id="top-bar">
+                
+                  
+                  
+                  
+                  <div id="top-github-link">
+                    <a class="github-link" title='Edit this page' href="https://github.com/davidgma/tmymoney/tree/master/docarchitecture/_index.md" target="blank">
+                      <i class="fas fa-code-branch"></i>
+                      <span id="top-github-link-text">Edit this page</span>
+                    </a>
+                  </div>
+                  
                 
                 
                 <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
@@ -253,32 +302,6 @@ height="15%" width="15%">
 	
 
 <h1 id="architecture-and-set-up">Architecture and Set-up</h1>
-
-<p>While KMyMoney can be installed and used without much technical knowledge, I don&rsquo;t think this will ever be the case for TMyMoney. It runs in a terminal, it uses node, you need to be able to configure a web server with SSL and authentication if you want to use over the internet. Setting up a free Google Cloud Platform VM is a good idea too.</p>
-
-<p>This is the architecture of the application and the tools I used in building it.</p>
-
-<p>Server:
-Runs on a <a href="https://cloud.google.com/free/">Google Cloud Platform free</a> VM Uses the <a href="https://cloud.google.com/compute/">Compute Engine</a> product.
-<a href="https://nginx.org">nginx</a> web server.
-Free SSL certificate from <a href="https://letsencrypt.org">Let&rsquo;s Encrypt</a>.
-Google Authentication is used to authenticate the user (myself) so that only I can use the web client over the internet for my own installation.</p>
-
-<p>Web client:
-Written in <a href="https://www.typescriptlang.org">Typescript</a> and <a href="https://angular.io">Angular</a>.</p>
-
-<p>Processing KMyMoney file:
-The file is a <a href="https://docs.kde.org/trunk5/en/extragear-office/kmymoney/details.formats.compressed.html">gzip-compressed xml file</a> and I unzip it using <a href="https://linux.die.net/man/1/gunzip">gunzip</a> and then convert it to a json file using <a href="https://github.com/Cheedoong/xml2json">xml2json</a>.</p>
-
-<p>The server program then parses the json file and writes the bits it needs to an <a href="https://www.sqlite.org/index.html">sqlite3</a> database which it stores on a drive that is in memory - <a href="https://www.howtoforge.com/storing-files-directories-in-memory-with-tmpfs">/dev/shm</a>.</p>
-
-<p>Any changes that are made during the usage of the program are then written back to the master KMyMoney file using <a href="https://en.wikipedia.org/wiki/XQuery">xquery</a> and the tool <a href="http://xqilla.sourceforge.net/HomePage">xqilla</a>.</p>
-
-<p><a href="https://help.ubuntu.com/community/SSH/OpenSSH/Configuring">SSH</a> is used to connect to the VM from other computers where a terminal access is wanted, or to use the web client via port forwarding.</p>
-
-<p>For the documentation I used <a href="https://gohugo.io">Hugo</a> with the <a href="https://learn.netlify.com/en/">Learn Theme</a>.</p>
-
-<p>I used <a href="https://code.visualstudio.com/">Visual Studio Code</a> as my IDE.</p>
 
 
 
@@ -397,6 +420,38 @@ The file is a <a href="https://docs.kde.org/trunk5/en/extragear-office/kmymoney/
             
         
                     
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
             
         
                     
@@ -412,7 +467,7 @@ The file is a <a href="https://docs.kde.org/trunk5/en/extragear-office/kmymoney/
 			<a class="nav nav-prev" href="/tmymoney/" title=""> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/tmymoney/architecture/node/" title="Node" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/tmymoney/architecture/overview/" title="Overview" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -422,19 +477,19 @@ The file is a <a href="https://docs.kde.org/trunk5/en/extragear-office/kmymoney/
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/tmymoney/js/clipboard.min.js?1567254537"></script>
-    <script src="/tmymoney/js/perfect-scrollbar.min.js?1567254537"></script>
-    <script src="/tmymoney/js/perfect-scrollbar.jquery.min.js?1567254537"></script>
-    <script src="/tmymoney/js/jquery.sticky.js?1567254537"></script>
-    <script src="/tmymoney/js/featherlight.min.js?1567254537"></script>
-    <script src="/tmymoney/js/highlight.pack.js?1567254537"></script>
+    <script src="/tmymoney/js/clipboard.min.js?1567271514"></script>
+    <script src="/tmymoney/js/perfect-scrollbar.min.js?1567271514"></script>
+    <script src="/tmymoney/js/perfect-scrollbar.jquery.min.js?1567271514"></script>
+    <script src="/tmymoney/js/jquery.sticky.js?1567271514"></script>
+    <script src="/tmymoney/js/featherlight.min.js?1567271514"></script>
+    <script src="/tmymoney/js/highlight.pack.js?1567271514"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/tmymoney/js/modernizr.custom-3.6.0.js?1567254537"></script>
-    <script src="/tmymoney/js/learn.js?1567254537"></script>
-    <script src="/tmymoney/js/hugo-learn.js?1567254537"></script>
+    <script src="/tmymoney/js/modernizr.custom-3.6.0.js?1567271514"></script>
+    <script src="/tmymoney/js/learn.js?1567271514"></script>
+    <script src="/tmymoney/js/hugo-learn.js?1567271514"></script>
 
-    <link href="/tmymoney/mermaid/mermaid.css?1567254537" rel="stylesheet" />
-    <script src="/tmymoney/mermaid/mermaid.js?1567254537"></script>
+    <link href="/tmymoney/mermaid/mermaid.css?1567271514" rel="stylesheet" />
+    <script src="/tmymoney/mermaid/mermaid.js?1567271514"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
