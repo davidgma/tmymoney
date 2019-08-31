@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>TMyMoney Documentation</title>
-    <link>https://davidgma.github.io/tmymoney/</link>
-    <description>Recent content on TMyMoney Documentation</description>
+    <title>Architecture and Set-up on TMyMoney Documentation</title>
+    <link>https://davidgma.github.io/tmymoney/architecture/</link>
+    <description>Recent content in Architecture and Set-up on TMyMoney Documentation</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Sat, 31 Aug 2019 12:49:09 +0100</lastBuildDate>
+    <lastBuildDate>Sat, 31 Aug 2019 08:45:50 +0100</lastBuildDate>
     
-	<atom:link href="https://davidgma.github.io/tmymoney/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://davidgma.github.io/tmymoney/architecture/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>

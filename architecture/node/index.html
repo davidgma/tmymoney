@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/tmymoney/images/favicon.png" type="image/png">
 
-    <title> :: TMyMoney Documentation</title>
+    <title>Node :: TMyMoney Documentation</title>
 
     
     <link href="/tmymoney/css/nucleus.css?1567254153" rel="stylesheet">
@@ -35,7 +35,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/tmymoney/">
+  <body class="" data-url="/tmymoney/architecture/node/">
     <nav id="sidebar" class="">
 
 
@@ -80,7 +80,7 @@ height="15%" width="15%">
   
     
     <li data-nav-id="/tmymoney/architecture/" title="Architecture and Set-up" class="dd-item 
-        
+        parent
         
         
         ">
@@ -104,7 +104,7 @@ height="15%" width="15%">
  
   
     
-      <li data-nav-id="/tmymoney/architecture/node/" title="Node" class="dd-item ">
+      <li data-nav-id="/tmymoney/architecture/node/" title="Node" class="dd-item active">
         <a href="/tmymoney/architecture/node/">
         Node
         
@@ -203,40 +203,92 @@ height="15%" width="15%">
         <div id="overlay"></div>
         <div class="padding highlightable">
               
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/tmymoney/'></a> > <a href='/tmymoney/architecture/'>Architecture and Set-up</a> > Node
+          
+         
+          
+         
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
         <div id="head-tags">
         
         </div>
         
         <div id="body-inner">
           
+            <h1>
+              
+              Node
+            </h1>
+          
 
         
 
 
-<span id="sidebar-toggle-span">
-<a href="#" id="sidebar-toggle" data-sidebar-toggle=""><i class="fas fa-bars"></i> navigation</a>
-</span>
 
- 
+<p>I installed Node using the <a href="https://github.com/nvm-sh/nvm">Node Version Manager</a>.</p>
+
+<p>You can install it with apt too but this doesn&rsquo;t give such a recent version.
+After installing it per the instructions I installed the latest LTS version of Node.</p>
+
+<pre><code>bash
+command -v nvm
+nvm ls-remote
+nvm install --lts
+node --version
+which node
+which npm
+</code></pre>
+
+<p>The <code>which</code> commands should give paths that are under the directory ~/.nvm rather than under /usr.</p>
 
 
-<h2 id="tmymoney-documentation">TMyMoney Documentation</h2>
-
-<h4 id="overview-and-background">Overview and background</h4>
-
-<p>I have been using KMyMoney to organise my finances for many years, I really like the program and I plan to continue using it. However, there are a few aspects of it that, for me, are lacking. The user interface doesn&rsquo;t cope well on smaller screens, there is no web interface, no mobile phone interface and no command line interface. Also it could perhaps be easier to input the sort of transactions that I input very regularly.<br />
-Furthermore, I have become spoiled by the benefits provided by many web apps in that you can access then from any machine - laptop, tablet or phone - and from anywhere. I have moved my daily computing life almost entirely into the cloud. But KMyMoney remains stubbornly local as it only runs on a laptop and has no facilities to synchronise different versions that have been changed on different laptops. As a workaround I use a cloud file server mapped to a local directory so that I can at least access the same master file from different computers. This works pretty well, but I like programming in Typescript and so I thought I&rsquo;d try to improve on this.</p>
-
-<p>TMyMoney aims to address some of these things. It runs in a terminal and provides a terminal interface and a scalable web interface. It provides some of the existing functionality of KMyMoney and some additional functionality. It shares the same underlying KMyMoney file (.kmy file). There isn&rsquo;t any protection against both KMyMoney and TMyMoney using the file at the same time, so don&rsquo;t do this. But so long as you either use KMyMoney or TMyMoney at any particular time, and save the file, they should be able to coexist.</p>
-
-<p>TMyMoney actually works by providing a REST API to both the terminal program and the web app, on <a href="http://localhost:someport">http://localhost:someport</a>.<br />
-To access the web app through the internet, you can set up SSL and Google authentication on your web server (e.g. nginx) and then, once authenticated, have the web server forward calls to the localhost port.  You can also access the localhost port via SSH from another machine using port forwarding. This way, you can use the terminal interface or the web interface from another machine - mobile, tablet or laptop - and from anywhere with an internet connection while only having one master KMyMoney file.</p>
-
-<h4 id="jump-to">Jump to:</h4>
-
-<p><a href="/tmymoney/architecture/">Architecture and Set-up</a></p>
+<footer class=" footline" >
 	
-  
+</footer>
+
+
         
         </div> 
         
@@ -268,8 +320,6 @@ To access the web app through the internet, you can set up SSL and Google authen
             
                 
                     
-                        
-                        
                     
                 
                 
@@ -283,6 +333,7 @@ To access the web app through the internet, you can set up SSL and Google authen
             
             
                 
+                    
                     
                 
                 
@@ -299,6 +350,9 @@ To access the web app through the internet, you can set up SSL and Google authen
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -355,8 +409,10 @@ To access the web app through the internet, you can set up SSL and Google authen
 	 
 	 
 		
+			<a class="nav nav-prev" href="/tmymoney/architecture/" title="Architecture and Set-up"> <i class="fa fa-chevron-left"></i></a>
 		
-			<a class="nav nav-next" href="/tmymoney/architecture/" title="Architecture and Set-up" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+			<a class="nav nav-next" href="/tmymoney/architecture/language/" title="Typescript" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>

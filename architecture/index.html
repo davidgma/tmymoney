@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/tmymoney/images/favicon.png" type="image/png">
 
-    <title> :: TMyMoney Documentation</title>
+    <title>Architecture and Set-up :: TMyMoney Documentation</title>
 
     
     <link href="/tmymoney/css/nucleus.css?1567254153" rel="stylesheet">
@@ -35,7 +35,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/tmymoney/">
+  <body class="" data-url="/tmymoney/architecture/">
     <nav id="sidebar" class="">
 
 
@@ -80,8 +80,8 @@ height="15%" width="15%">
   
     
     <li data-nav-id="/tmymoney/architecture/" title="Architecture and Set-up" class="dd-item 
-        
-        
+        parent
+        active
         
         ">
       <a href="/tmymoney/architecture/">
@@ -203,9 +203,44 @@ height="15%" width="15%">
         <div id="overlay"></div>
         <div class="padding highlightable">
               
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            <a href='/tmymoney/'></a> > Architecture and Set-up
+          
+         
+          
+        
+                 
+                  </span>
+                </div>
+                
+              </div>
+            </div>
+            
         <div id="head-tags">
         
         </div>
+        
+          <div id="chapter">
         
         <div id="body-inner">
           
@@ -213,30 +248,48 @@ height="15%" width="15%">
         
 
 
-<span id="sidebar-toggle-span">
-<a href="#" id="sidebar-toggle" data-sidebar-toggle=""><i class="fas fa-bars"></i> navigation</a>
-</span>
-
- 
 
 
-<h2 id="tmymoney-documentation">TMyMoney Documentation</h2>
-
-<h4 id="overview-and-background">Overview and background</h4>
-
-<p>I have been using KMyMoney to organise my finances for many years, I really like the program and I plan to continue using it. However, there are a few aspects of it that, for me, are lacking. The user interface doesn&rsquo;t cope well on smaller screens, there is no web interface, no mobile phone interface and no command line interface. Also it could perhaps be easier to input the sort of transactions that I input very regularly.<br />
-Furthermore, I have become spoiled by the benefits provided by many web apps in that you can access then from any machine - laptop, tablet or phone - and from anywhere. I have moved my daily computing life almost entirely into the cloud. But KMyMoney remains stubbornly local as it only runs on a laptop and has no facilities to synchronise different versions that have been changed on different laptops. As a workaround I use a cloud file server mapped to a local directory so that I can at least access the same master file from different computers. This works pretty well, but I like programming in Typescript and so I thought I&rsquo;d try to improve on this.</p>
-
-<p>TMyMoney aims to address some of these things. It runs in a terminal and provides a terminal interface and a scalable web interface. It provides some of the existing functionality of KMyMoney and some additional functionality. It shares the same underlying KMyMoney file (.kmy file). There isn&rsquo;t any protection against both KMyMoney and TMyMoney using the file at the same time, so don&rsquo;t do this. But so long as you either use KMyMoney or TMyMoney at any particular time, and save the file, they should be able to coexist.</p>
-
-<p>TMyMoney actually works by providing a REST API to both the terminal program and the web app, on <a href="http://localhost:someport">http://localhost:someport</a>.<br />
-To access the web app through the internet, you can set up SSL and Google authentication on your web server (e.g. nginx) and then, once authenticated, have the web server forward calls to the localhost port.  You can also access the localhost port via SSH from another machine using port forwarding. This way, you can use the terminal interface or the web interface from another machine - mobile, tablet or laptop - and from anywhere with an internet connection while only having one master KMyMoney file.</p>
-
-<h4 id="jump-to">Jump to:</h4>
-
-<p><a href="/tmymoney/architecture/">Architecture and Set-up</a></p>
 	
-  
+
+<h1 id="architecture-and-set-up">Architecture and Set-up</h1>
+
+<p>While KMyMoney can be installed and used without much technical knowledge, I don&rsquo;t think this will ever be the case for TMyMoney. It runs in a terminal, it uses node, you need to be able to configure a web server with SSL and authentication if you want to use over the internet. Setting up a free Google Cloud Platform VM is a good idea too.</p>
+
+<p>This is the architecture of the application and the tools I used in building it.</p>
+
+<p>Server:
+Runs on a <a href="https://cloud.google.com/free/">Google Cloud Platform free</a> VM Uses the <a href="https://cloud.google.com/compute/">Compute Engine</a> product.
+<a href="https://nginx.org">nginx</a> web server.
+Free SSL certificate from <a href="https://letsencrypt.org">Let&rsquo;s Encrypt</a>.
+Google Authentication is used to authenticate the user (myself) so that only I can use the web client over the internet for my own installation.</p>
+
+<p>Web client:
+Written in <a href="https://www.typescriptlang.org">Typescript</a> and <a href="https://angular.io">Angular</a>.</p>
+
+<p>Processing KMyMoney file:
+The file is a <a href="https://docs.kde.org/trunk5/en/extragear-office/kmymoney/details.formats.compressed.html">gzip-compressed xml file</a> and I unzip it using <a href="https://linux.die.net/man/1/gunzip">gunzip</a> and then convert it to a json file using <a href="https://github.com/Cheedoong/xml2json">xml2json</a>.</p>
+
+<p>The server program then parses the json file and writes the bits it needs to an <a href="https://www.sqlite.org/index.html">sqlite3</a> database which it stores on a drive that is in memory - <a href="https://www.howtoforge.com/storing-files-directories-in-memory-with-tmpfs">/dev/shm</a>.</p>
+
+<p>Any changes that are made during the usage of the program are then written back to the master KMyMoney file using <a href="https://en.wikipedia.org/wiki/XQuery">xquery</a> and the tool <a href="http://xqilla.sourceforge.net/HomePage">xqilla</a>.</p>
+
+<p><a href="https://help.ubuntu.com/community/SSH/OpenSSH/Configuring">SSH</a> is used to connect to the VM from other computers where a terminal access is wanted, or to use the web client via port forwarding.</p>
+
+<p>For the documentation I used <a href="https://gohugo.io">Hugo</a> with the <a href="https://learn.netlify.com/en/">Learn Theme</a>.</p>
+
+<p>I used <a href="https://code.visualstudio.com/">Visual Studio Code</a> as my IDE.</p>
+
+
+
+
+
+<footer class=" footline" >
+	
+</footer>
+
+        
+            </div> 
         
         </div> 
         
@@ -268,8 +321,6 @@ To access the web app through the internet, you can set up SSL and Google authen
             
                 
                     
-                        
-                        
                     
                 
                 
@@ -283,6 +334,9 @@ To access the web app through the internet, you can set up SSL and Google authen
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -355,8 +409,10 @@ To access the web app through the internet, you can set up SSL and Google authen
 	 
 	 
 		
+			<a class="nav nav-prev" href="/tmymoney/" title=""> <i class="fa fa-chevron-left"></i></a>
 		
-			<a class="nav nav-next" href="/tmymoney/architecture/" title="Architecture and Set-up" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+			<a class="nav nav-next" href="/tmymoney/architecture/node/" title="Node" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -386,4 +442,3 @@ To access the web app through the internet, you can set up SSL and Google authen
 
   </body>
 </html>
-
