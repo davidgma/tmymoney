@@ -8,15 +8,16 @@
   </url>
   
   <url>
+    <loc>https://davidgma.github.io/tmymoney/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://davidgma.github.io/tmymoney/categories/</loc>
   </url>
   
   <url>
     <loc>https://davidgma.github.io/tmymoney/tags/</loc>
-  </url>
-  
-  <url>
-    <loc>https://davidgma.github.io/tmymoney/</loc>
   </url>
   
 </urlset>
