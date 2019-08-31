@@ -1,0 +1,22 @@
+#!/bin/bash
+# The command to update git and the Github Pages site.
+# For the doc (which is the Github Pages site, output to "dist" in the root directory of the project
+# (the same directory as this file).
+# The Github setting for pages should choose the gh-pages branch.
+# npm install -g angular-cli-ghpages
+
+
+if [ $# -gt 0 ]; then
+	message=$*
+else
+	message="Upload changes."
+fi
+
+echo $message
+
+# Send to github
+git add *
+git commit -a -m "${message}"
+git push
+#ngh
+
