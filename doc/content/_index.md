@@ -1,6 +1,5 @@
 ## TMyMoney Documentation
 
-#### Overview and background
 I have been using KMyMoney to organise my finances for many years, I really like the program and I plan to continue using it. However, there are a few aspects of it that, for me, are lacking. The user interface doesn't cope well on smaller screens, there is no web interface, no mobile phone interface and no command line interface. Also it could perhaps be easier to input the sort of transactions that I input very regularly.  
 Furthermore, I have become spoiled by the benefits provided by many web apps in that you can access then from any machine - laptop, tablet or phone - and from anywhere. I have moved my daily computing life almost entirely into the cloud. But KMyMoney remains stubbornly local as it only runs on a laptop and has no facilities to synchronise different versions that have been changed on different laptops. As a workaround I use a cloud file server mapped to a local directory so that I can at least access the same master file from different computers. This works pretty well, but I like programming in Typescript and so I thought I'd try to improve on this.  
 
