@@ -16,7 +16,7 @@ echo $message
 
 # Build the Hugo documentation
 cd doc
-hugo
+hugo --baseURL "https://davidgma.github.io/tmymoney/" --destination "../dist"
 cd ..
 
 # Send to github

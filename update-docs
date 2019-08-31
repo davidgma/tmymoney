@@ -1,0 +1,7 @@
+#!/bin/bash
+# Update the documentation
+
+# Build the Hugo documentation
+cd doc
+hugo --baseURL "http://localhost:4202" --destination "../dist-local"
+cd ..
