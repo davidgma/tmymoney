@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Use busybox to serve the Hugo documentation locally for checking as sometimes changes can take a while to filter through on Github Pages.
+
+busybox httpd -p 4202 -h ./dist
