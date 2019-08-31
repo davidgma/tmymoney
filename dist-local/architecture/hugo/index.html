@@ -12,20 +12,20 @@
     <title>Hugo :: TMyMoney Documentation</title>
 
     
-    <link href="/css/nucleus.css?1567271457" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1567271457" rel="stylesheet">
-    <link href="/css/hybrid.css?1567271457" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1567271457" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1567271457" rel="stylesheet">
-    <link href="/css/auto-complete.css?1567271457" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1567271457" rel="stylesheet">
-    <link href="/css/theme.css?1567271457" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1567271457" rel="stylesheet">
+    <link href="/css/nucleus.css?1567276907" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1567276907" rel="stylesheet">
+    <link href="/css/hybrid.css?1567276907" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1567276907" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1567276907" rel="stylesheet">
+    <link href="/css/auto-complete.css?1567276907" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1567276907" rel="stylesheet">
+    <link href="/css/theme.css?1567276907" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1567276907" rel="stylesheet">
     
-      <link href="/css/theme-blue.css?1567271457" rel="stylesheet">
+      <link href="/css/theme-blue.css?1567276907" rel="stylesheet">
     
 
-    <script src="/js/jquery-3.3.1.min.js?1567271457"></script>
+    <script src="/js/jquery-3.3.1.min.js?1567276907"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -56,14 +56,14 @@ height="15%" width="15%">
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1567271457"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1567271457"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1567276907"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1567276907"></script>
 <script type="text/javascript">
     
         var baseurl = "http:\/\/localhost:4202";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1567271457"></script>
+<script type="text/javascript" src="/js/search.js?1567276907"></script>
 
     
   </div>
@@ -248,7 +248,7 @@ height="15%" width="15%">
                   
                   
                   <div id="top-github-link">
-                    <a class="github-link" title='Edit this page' href="https://github.com/davidgma/tmymoney/tree/master/docarchitecture/hugo.md" target="blank">
+                    <a class="github-link" title='Edit this page' href="https://github.com/davidgma/tmymoney/tree/master/doc/content/architecture/hugo.md" target="blank">
                       <i class="fas fa-code-branch"></i>
                       <span id="top-github-link-text">Edit this page</span>
                     </a>
@@ -297,8 +297,10 @@ height="15%" width="15%">
 <li>
 <ul>
 <li><a href="#update-scripts">Update scripts</a></li>
-</ul></li>
+<li><a href="#hugo-server">Hugo server</a></li>
 <li><a href="#markdown">Markdown</a></li>
+<li><a href="#using-hugo-shortcodes-https-gohugo-io-content-management-shortcodes">Using Hugo <a href="https://gohugo.io/content-management/shortcodes/">shortcodes</a></a></li>
+</ul></li>
 </ul>
 </nav>
     </div>
@@ -349,7 +351,10 @@ hugo mod get -u
 git clone https://github.com/matcornic/hugo-theme-learn.git
 </code></pre>
 
-<p><strong>Note that some of the theme isn&rsquo;t stored by git, so after cloning the project to another computer, you need to re-do the above step.</strong></p>
+
+<div class="notices note" ><p><strong>Some of the theme isn&rsquo;t stored by git, so after cloning the  project to another computer, you need to re-do the above step.</strong></p>
+</div>
+
 
 <p>The theme&rsquo;s <a href="https://github.com/matcornic/hugo-theme-learn/tree/master/exampleSite">example site on Github</a>, which is also the theme&rsquo;s documentation site, is a good place to look to see examples of how to use Hugo and the theme.</p>
 
@@ -367,9 +372,33 @@ git clone https://github.com/matcornic/hugo-theme-learn.git
 
 <p>The script is in the main project folder and is called ./hugo-update. After running it, you can view the output at <a href="http://localhost:4202">http://localhost:4202</a>.</p>
 
-<h1 id="markdown">Markdown</h1>
+<h2 id="hugo-server">Hugo server</h2>
+
+<p>An even better way to make changes and then see the effect immediately is to use the <a href="https://gohugo.io/commands/hugo_server/">Hugo server</a>.</p>
+
+<pre><code>cd doc
+hugo server
+</code></pre>
+
+<h2 id="markdown">Markdown</h2>
 
 <p>Hugo uses markdown. A simple guide is <a href="https://www.markdownguide.org">here</a>.</p>
+
+<h2 id="using-hugo-shortcodes-https-gohugo-io-content-management-shortcodes">Using Hugo <a href="https://gohugo.io/content-management/shortcodes/">shortcodes</a></h2>
+
+<p>Shortcodes containing parameters can be a bit tricky. Here are some examples. The examples contain a single curly bracket, to stop Hugo rendering them here, but to use them you need a double curly bracket.</p>
+
+<pre><code>{%param Date %}
+{%param title %}
+</code></pre>
+
+<p>2019-08-31 17:12:02 &#43;0100 BST<br />
+Hugo</p>
+
+<pre><code>{%ref &quot;/architecture/_index.md&quot;%}
+</code></pre>
+
+<p>/architecture/</p>
 
 
 <footer class=" footline" >
@@ -542,19 +571,19 @@ git clone https://github.com/matcornic/hugo-theme-learn.git
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1567271457"></script>
-    <script src="/js/perfect-scrollbar.min.js?1567271457"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1567271457"></script>
-    <script src="/js/jquery.sticky.js?1567271457"></script>
-    <script src="/js/featherlight.min.js?1567271457"></script>
-    <script src="/js/highlight.pack.js?1567271457"></script>
+    <script src="/js/clipboard.min.js?1567276907"></script>
+    <script src="/js/perfect-scrollbar.min.js?1567276907"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1567276907"></script>
+    <script src="/js/jquery.sticky.js?1567276907"></script>
+    <script src="/js/featherlight.min.js?1567276907"></script>
+    <script src="/js/highlight.pack.js?1567276907"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1567271457"></script>
-    <script src="/js/learn.js?1567271457"></script>
-    <script src="/js/hugo-learn.js?1567271457"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1567276907"></script>
+    <script src="/js/learn.js?1567276907"></script>
+    <script src="/js/hugo-learn.js?1567276907"></script>
 
-    <link href="/mermaid/mermaid.css?1567271457" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1567271457"></script>
+    <link href="/mermaid/mermaid.css?1567276907" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1567276907"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

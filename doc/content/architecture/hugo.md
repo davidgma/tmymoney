@@ -26,8 +26,10 @@ hugo mod init https://github.com/matcornic/hugo-theme-learn.git
 hugo mod get -u
 git clone https://github.com/matcornic/hugo-theme-learn.git
 ```
+{{% notice note %}}
+**Some of the theme isn't stored by git, so after cloning the  project to another computer, you need to re-do the above step.**
+{{% /notice %}}
 
-**Note that some of the theme isn't stored by git, so after cloning the project to another computer, you need to re-do the above step.**
 
 The theme's [example site on Github](https://github.com/matcornic/hugo-theme-learn/tree/master/exampleSite), which is also the theme's documentation site, is a good place to look to see examples of how to use Hugo and the theme.
 
@@ -44,8 +46,31 @@ sudo apt install busybox
 
 The script is in the main project folder and is called ./hugo-update. After running it, you can view the output at http://localhost:4202.
 
-# Markdown
+## Hugo server
+An even better way to make changes and then see the effect immediately is to use the [Hugo server](https://gohugo.io/commands/hugo_server/).
+
+```
+cd doc
+hugo server
+```
+
+## Markdown
 
 Hugo uses markdown. A simple guide is [here](https://www.markdownguide.org).
 
+## Using Hugo [shortcodes](https://gohugo.io/content-management/shortcodes/)
+
+Shortcodes containing parameters can be a bit tricky. Here are some examples. The examples contain a single curly bracket, to stop Hugo rendering them here, but to use them you need a double curly bracket.
+
+ ```
+{%param Date %}
+{%param title %}
+ ```
+{{%param Date %}}  
+{{%param title %}}
+
+ ```
+{%ref "/architecture/_index.md"%}
+ ```
+{{%ref "/architecture/_index.md"%}}
 

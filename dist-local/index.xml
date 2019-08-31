@@ -17,7 +17,7 @@
       <pubDate>Sat, 31 Aug 2019 16:38:48 +0100</pubDate>
       
       <guid>http://localhost:4202/architecture/overview/</guid>
-      <description>Architecture and Set-up While KMyMoney can be installed and used without much technical knowledge, I don&amp;rsquo;t think this will ever be the case for TMyMoney. It runs in a terminal, it uses node, you need to be able to configure a web server with SSL and authentication if you want to use over the internet. Setting up a free Google Cloud Platform VM is a good idea too.
+      <description>While KMyMoney can be installed and used without much technical knowledge, I don&amp;rsquo;t think this will ever be the case for TMyMoney. It runs in a terminal, it uses node, you need to be able to configure a web server with SSL and authentication if you want to use it over the internet. Setting up a free Google Cloud Platform VM is a good idea too.
 This is the architecture of the application and the tools I used in building it.</description>
     </item>
     
@@ -73,7 +73,7 @@ sudo apt update sudo apt install git git --version  </description>
 Installation of Hugo:
 snap install hugo --channel=extended hugo version  The documentation is written in the subdirectory of the project doc. From the main project folder (tmymoney):
 hugo new site doc  Then install the theme:
-cd doc cd themes hugo mod init https://github.com/matcornic/hugo-theme-learn.git hugo mod get -u git clone https://github.com/matcornic/hugo-theme-learn.git  Note that some of the theme isn&amp;rsquo;t stored by git, so after cloning the project to another computer, you need to re-do the above step.</description>
+cd doc cd themes hugo mod init https://github.com/matcornic/hugo-theme-learn.git hugo mod get -u git clone https://github.com/matcornic/hugo-theme-learn.git  Some of the theme isn&amp;rsquo;t stored by git, so after cloning the project to another computer, you need to re-do the above step.</description>
     </item>
     
   </channel>

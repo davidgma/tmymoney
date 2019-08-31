@@ -3,10 +3,7 @@ title: "Overview"
 date: 2019-08-31T16:38:48+01:00
 weight: 6
 ---
-
-# Architecture and Set-up
-
-While KMyMoney can be installed and used without much technical knowledge, I don't think this will ever be the case for TMyMoney. It runs in a terminal, it uses node, you need to be able to configure a web server with SSL and authentication if you want to use over the internet. Setting up a free Google Cloud Platform VM is a good idea too.
+While KMyMoney can be installed and used without much technical knowledge, I don't think this will ever be the case for TMyMoney. It runs in a terminal, it uses node, you need to be able to configure a web server with SSL and authentication if you want to use it over the internet. Setting up a free Google Cloud Platform VM is a good idea too.
 
 This is the architecture of the application and the tools I used in building it.
 
