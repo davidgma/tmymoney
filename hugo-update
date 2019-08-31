@@ -1,0 +1,10 @@
+#!/bin/bash
+# Update the documentation only
+
+# Build the Hugo documentation locally
+cd doc
+hugo --baseURL "http://localhost:4202" --destination "../dist-local"
+cd ..
+
+pkill -f "busybox httpd -p 4202 -h ./dist-local"
+busybox httpd -p 4202 -h ./dist-local
