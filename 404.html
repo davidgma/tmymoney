@@ -9,23 +9,23 @@
 
     <link rel="icon" href="/tmymoney/images/favicon.png" type="image/png">
 
-    <title>TMyMoney Documentation :: TMyMoney Documentation</title>
+    <title> :: TMyMoney Documentation</title>
 
     
-    <link href="/tmymoney/css/nucleus.css?1567237745" rel="stylesheet">
-    <link href="/tmymoney/css/fontawesome-all.min.css?1567237745" rel="stylesheet">
-    <link href="/tmymoney/css/hybrid.css?1567237745" rel="stylesheet">
-    <link href="/tmymoney/css/featherlight.min.css?1567237745" rel="stylesheet">
-    <link href="/tmymoney/css/perfect-scrollbar.min.css?1567237745" rel="stylesheet">
-    <link href="/tmymoney/css/auto-complete.css?1567237745" rel="stylesheet">
-    <link href="/tmymoney/css/atom-one-dark-reasonable.css?1567237745" rel="stylesheet">
-    <link href="/tmymoney/css/theme.css?1567237745" rel="stylesheet">
-    <link href="/tmymoney/css/hugo-theme.css?1567237745" rel="stylesheet">
+    <link href="/tmymoney/css/nucleus.css?1567241188" rel="stylesheet">
+    <link href="/tmymoney/css/fontawesome-all.min.css?1567241188" rel="stylesheet">
+    <link href="/tmymoney/css/hybrid.css?1567241188" rel="stylesheet">
+    <link href="/tmymoney/css/featherlight.min.css?1567241188" rel="stylesheet">
+    <link href="/tmymoney/css/perfect-scrollbar.min.css?1567241188" rel="stylesheet">
+    <link href="/tmymoney/css/auto-complete.css?1567241188" rel="stylesheet">
+    <link href="/tmymoney/css/atom-one-dark-reasonable.css?1567241188" rel="stylesheet">
+    <link href="/tmymoney/css/theme.css?1567241188" rel="stylesheet">
+    <link href="/tmymoney/css/hugo-theme.css?1567241188" rel="stylesheet">
     
-      <link href="/tmymoney/css/theme-blue.css?1567237745" rel="stylesheet">
+      <link href="/tmymoney/css/theme-blue.css?1567241188" rel="stylesheet">
     
 
-    <script src="/tmymoney/js/jquery-3.3.1.min.js?1567237745"></script>
+    <script src="/tmymoney/js/jquery-3.3.1.min.js?1567241188"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -70,14 +70,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/tmymoney/js/lunr.min.js?1567237745"></script>
-<script type="text/javascript" src="/tmymoney/js/auto-complete.js?1567237745"></script>
+<script type="text/javascript" src="/tmymoney/js/lunr.min.js?1567241188"></script>
+<script type="text/javascript" src="/tmymoney/js/auto-complete.js?1567241188"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/davidgma.github.io\/tmymoney\/";
     
 </script>
-<script type="text/javascript" src="/tmymoney/js/search.js?1567237745"></script>
+<script type="text/javascript" src="/tmymoney/js/search.js?1567241188"></script>
 
     
   </div>
@@ -145,17 +145,20 @@
 <a href="#" id="sidebar-toggle" data-sidebar-toggle=""><i class="fas fa-bars"></i> navigation</a>
 </span>
 
-           
-	
-		<h1>Customize your own home page</h1>
-		<p>
-		  The site is working. Don't forget to customize this homepage with your own. You typically have 3 choices :
-		</p>
-		<ul>
-			<li><b>1. </b> Create an _index.md document in <b>content</b> folder and fill it with Markdown content</li>
-			<li><b>2. </b> Create an <b>index.html</b> file in the <b>static</b> folder and fill the file with HTML content</li>
-		  <li><b>3. </b> Configure your server to automatically redirect home page to one your documentation page</li>
-		</ul>
+ 
+
+
+<h1 id="tmymoney-documentation">TMyMoney Documentation</h1>
+
+/tmymoney/intro/
+
+<p>I have been using KMyMoney to organise my finances for many years, I really like the program and I plan to continue using it. However, there are a few aspects of it that, for me, are lacking. The user interface doesn&rsquo;t cope well on smaller screens, there is no web interface, no mobile phone interface and no command line interface. Also it could perhaps be easier to input the sort of transactions that I input very regularly.<br />
+Furthermore, I have become spoiled by the benefits provided by many web apps in that you can access then from any machine - laptop, tablet or phone - and from anywhere. I have moved my daily computing life almost entirely into the cloud. But KMyMoney remains stubbornly local as it only runs on a laptop and has no facilities to synchronise different versions that have been changed on different laptops. As a workaround I use a cloud file server so that I can at least access the same master file from different computers. This works pretty well, but I like programming in Typescript and so I thought I&rsquo;d try to improve on this.</p>
+
+<p>TMyMoney aims to address some of these things. It runs in a terminal and provides a terminal interface and a web interface. It provides some of the existing functionality of KMyMoney and some additional functionality. It shares the same underlying KMyMoney file (.kmy file). There isn&rsquo;t any protection against both KMyMoney and TMyMoney using the file at the same time, so don&rsquo;t do this. But so long as you either use KMyMoney or TMyMoney at any particular time, and save the file, they should be able to coexist.</p>
+
+<p>TMyMoney actually works by providing a REST API to both the terminal program and the web app, on <a href="http://localhost:someport">http://localhost:someport</a>.<br />
+To access the web app through the internet, you can set up SSL and Google authentication on your web server (e.g. nginx) and then, once authenticated, have the web server forward calls to the localhost port.  You can also access the localhost API via SSH from another machine that you have set up to have access via SSH, using port forwarding. This way, you can use the terminal interface or the web interface from another machine while only having one master KMyMoney file.</p>
 	
   
         
@@ -223,19 +226,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/tmymoney/js/clipboard.min.js?1567237745"></script>
-    <script src="/tmymoney/js/perfect-scrollbar.min.js?1567237745"></script>
-    <script src="/tmymoney/js/perfect-scrollbar.jquery.min.js?1567237745"></script>
-    <script src="/tmymoney/js/jquery.sticky.js?1567237745"></script>
-    <script src="/tmymoney/js/featherlight.min.js?1567237745"></script>
-    <script src="/tmymoney/js/highlight.pack.js?1567237745"></script>
+    <script src="/tmymoney/js/clipboard.min.js?1567241188"></script>
+    <script src="/tmymoney/js/perfect-scrollbar.min.js?1567241188"></script>
+    <script src="/tmymoney/js/perfect-scrollbar.jquery.min.js?1567241188"></script>
+    <script src="/tmymoney/js/jquery.sticky.js?1567241188"></script>
+    <script src="/tmymoney/js/featherlight.min.js?1567241188"></script>
+    <script src="/tmymoney/js/highlight.pack.js?1567241188"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/tmymoney/js/modernizr.custom-3.6.0.js?1567237745"></script>
-    <script src="/tmymoney/js/learn.js?1567237745"></script>
-    <script src="/tmymoney/js/hugo-learn.js?1567237745"></script>
+    <script src="/tmymoney/js/modernizr.custom-3.6.0.js?1567241188"></script>
+    <script src="/tmymoney/js/learn.js?1567241188"></script>
+    <script src="/tmymoney/js/hugo-learn.js?1567241188"></script>
 
-    <link href="/tmymoney/mermaid/mermaid.css?1567237745" rel="stylesheet" />
-    <script src="/tmymoney/mermaid/mermaid.js?1567237745"></script>
+    <link href="/tmymoney/mermaid/mermaid.css?1567241188" rel="stylesheet" />
+    <script src="/tmymoney/mermaid/mermaid.js?1567241188"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
