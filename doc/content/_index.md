@@ -1,0 +1,3 @@
+# TMyMoney Documentation
+
+{{< ref "/intro" >}}
