@@ -87,35 +87,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="#angular">Angular</a></li>
-<li><a href="#pandoc">Pandoc</a></li>
-<li><a href="#git">Git</a></li>
 <li><a href="#background">Background</a></li>
-<li><a href="#110">110</a></li>
 <li><a href="#architecture">Architecture</a><ul>
 <li><a href="#overview">Overview</a></li>
 <li><a href="#node">Node</a></li>
-</ul></li>
-<li><a href="#20">20</a><ul>
 <li><a href="#typescript">Typescript</a></li>
+<li><a href="#angular">Angular</a></li>
+<li><a href="#git">Git</a></li>
+<li><a href="#pandoc">Pandoc</a></li>
 </ul></li>
 </ul>
 </nav>
-<h3 id="angular">Angular</h3>
-<p>I used <a href="https://angular.io">Angular</a>] for the web client. Angular produces static web sites - a web site where all the code is served once by the web server and then doesn't need to be served again for the entire running of the web app by the user, unless the user refreshes the web page. The advantage of this is that it's cheaper to serve and a lot of companies now offer free serving of static websites, such as Github with Github Pages. Plus, cloud file servers such as Google Drive and pCloud let you run a static web site just by putting the files into a folder on the cloud and making it public or selecting an option to publish.</p>
-<p>There is a back end that the web client uses but this is via RESTful API calls.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="ex">npm</span> install -g @angular/cli</span></code></pre></div>
-<h3 id="pandoc">Pandoc</h3>
-<p>I wrote this documentation using <a href="https://help.github.com/en/categories/writing-on-github">markdown</a> and then converted it to an html file and an ePUB ebook using <a href="https://pandoc.org">pandoc</a>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">sudo</span> apt install pandoc</span></code></pre></div>
-<p>The script file doc_update in the project directory creates the files based on what is in the /docs subdirectory. The .md files in the /docs subdirectory should start with a number then a space where the numbers determine the order that the files will be bought into the final file. A table of contents is automatically generated. It renames all the files to resequence them from 10, increasing each by 10. This makes it easier to add new files in the middle of the old sequence.</p>
-<p>The doc_update script is automatically called by the main git_update script to re-compile the documentation files before uploading them to Github Pages.</p>
-<h3 id="git">Git</h3>
-<p>Git is needed for version control and for safely storing code on Github.</p>
-<p>I used the Ubuntu packaged version of git.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">sudo</span> apt update</span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">sudo</span> apt install git</span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="fu">git</span> --version</span></code></pre></div>
 <p>This document is also <a href="tmymoney.epub">available as an ePUB ebook.</a></p>
 <h2 id="background">Background</h2>
 <p>I have been using KMyMoney to organise my finances for many years, I really like the program and I plan to continue using it. However, there are a few aspects of it that, for me, are lacking. The user interface doesn't cope well on smaller screens, there is no web interface, no mobile phone interface and no command line interface. Also it could perhaps be easier to input the sort of transactions that I input very regularly.<br />
@@ -123,7 +105,6 @@ Furthermore, I have become spoiled by the benefits provided by many web apps in 
 <p>TMyMoney aims to address some of these things. It runs in a terminal and provides a terminal interface and a scalable web interface. It provides some of the existing functionality of KMyMoney and some additional functionality. It shares the same underlying KMyMoney file (.kmy file). There isn't any protection against both KMyMoney and TMyMoney using the file at the same time, so don't do this. But so long as you either use KMyMoney or TMyMoney at any particular time, and save the file, they should be able to coexist.</p>
 <p>TMyMoney actually works by providing a REST API to both the terminal program and the web app, on <a href="http://localhost:someport">http://localhost:someport</a>.<br />
 To access the web app through the internet, you can set up SSL and Google authentication on your web server (e.g. nginx) and then, once authenticated, have the web server forward calls to the localhost port. You can also access the localhost port via SSH from another machine using port forwarding. This way, you can use the terminal interface or the web interface from another machine - mobile, tablet or laptop - and from anywhere with an internet connection while only having one master KMyMoney file.</p>
-<h2 id="110">110</h2>
 <h2 id="architecture">Architecture</h2>
 <h3 id="overview">Overview</h3>
 <p>While KMyMoney can be installed and used without much technical knowledge, I don't think this will ever be the case for TMyMoney. It runs in a terminal, it uses node, you need to be able to configure a web server with SSL and authentication if you want to use it over the internet. Setting up a free Google Cloud Platform VM is a good idea too.</p>
@@ -139,20 +120,34 @@ To access the web app through the internet, you can set up SSL and Google authen
 <h3 id="node">Node</h3>
 <p>I installed Node using the <a href="https://github.com/nvm-sh/nvm">Node Version Manager</a>.</p>
 <p>You can install it with apt too but this doesn't give such a recent version. After installing it per the instructions I installed the latest LTS version of Node.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">bash</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="bu">command</span> -v nvm</span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="ex">nvm</span> ls-remote</span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="ex">nvm</span> install --lts</span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="ex">node</span> --version</span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="fu">which</span> node</span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="fu">which</span> npm</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">bash</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="bu">command</span> -v nvm</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="ex">nvm</span> ls-remote</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="ex">nvm</span> install --lts</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="ex">node</span> --version</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="fu">which</span> node</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="fu">which</span> npm</span></code></pre></div>
 <p>The which commands should give paths that are under the directory ~/.nvm rather than under /usr.</p>
-<h2 id="20">20</h2>
 <h3 id="typescript">Typescript</h3>
 <p>I used <a href="https://www.typescriptlang.org">Typescript</a>.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1"></a><span class="ex">npm</span> install -g typescript</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="ex">npm</span> install -g typescript</span></code></pre></div>
 <p>Inside a node project (created later), you will need the node types.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1"></a><span class="ex">npm</span> install --save @types/node</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a><span class="ex">npm</span> install --save @types/node</span></code></pre></div>
 <p>A useful place to look for other types (for other npm packages you may want to use) is <a href="https://microsoft.github.io/TypeSearch/">Microsoft's TypeSearch page</a>.</p>
+<h3 id="angular">Angular</h3>
+<p>I used <a href="https://angular.io">Angular</a>] for the web client. Angular produces static web sites - a web site where all the code is served once by the web server and then doesn't need to be served again for the entire running of the web app by the user, unless the user refreshes the web page. The advantage of this is that it's cheaper to serve and a lot of companies now offer free serving of static websites, such as Github with Github Pages. Plus, cloud file servers such as Google Drive and pCloud let you run a static web site just by putting the files into a folder on the cloud and making it public or selecting an option to publish.</p>
+<p>There is a back end that the web client uses but this is via RESTful API calls.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1"></a><span class="ex">npm</span> install -g @angular/cli</span></code></pre></div>
+<h3 id="git">Git</h3>
+<p>Git is needed for version control and for safely storing code on Github.</p>
+<p>I used the Ubuntu packaged version of git.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">sudo</span> apt update</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">sudo</span> apt install git</span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="fu">git</span> --version</span></code></pre></div>
+<h3 id="pandoc">Pandoc</h3>
+<p>I wrote this documentation using <a href="https://pandoc.org/MANUAL.html#pandocs-markdown">markdown</a> and then converted it to an html file and an ePUB ebook using <a href="https://pandoc.org">pandoc</a>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">sudo</span> apt install pandoc</span></code></pre></div>
+<p>The script file doc_update in the project directory creates the files based on what is in the /docs subdirectory. The first three characters of the .md files in the /docs subdirectory should be 2 numbers then a space where the numbers determine the order that the files will be bought into the final file. A table of contents is automatically generated. It renames all the files to resequence them from 10, increasing each by 10. This makes it easier to add new files in the middle of the old sequence.</p>
+<p>The doc_update script is automatically called by the main git_update script to re-compile the documentation files before uploading them to Github Pages.</p>
 </body>
 </html>

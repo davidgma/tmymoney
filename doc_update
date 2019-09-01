@@ -7,28 +7,24 @@ rm -rf ../dist
 mkdir -p ../dist
 
 echo Resequencing files...
+pattern='(^[01234567890 ]*)(.*)'
+
+# count number of files
+fc=0
 for f in *.md;
 do
-    mv "$f" "$i${f:2}" 2>/dev/null
+    let "fc=fc+1"
+done
+echo $fc
+for f in *.md;
+do
+if [[ "$f" =~ $pattern ]]
+then
+   #echo matched \'${BASH_REMATCH[0]}\' \'${BASH_REMATCH[1]}\' \'${BASH_REMATCH[2]}\' $1
+    echo mv "$f" "$i ${BASH_REMATCH[2]}" 2>/dev/null
     let "i=i+10"
+fi
 done
 
-stub1="pandoc --standalone --toc --metadata pagetitle="TMyMoney" --highlight-style pygments -c pandoc"
-stub2=".css *.md --output "
-
-function convert {
-    echo Converting to $2...
-    rm -f $1.$2
-    ${stub1}$2${stub2}$1.$2
-    echo Copying to dist directory
-    cp $1.$2 ../dist/$1.$2
-    cp pandoc$2.css ../dist
-}
-convert index html
-convert tmymoney epub 
-
-echo Setting up the local busybox server
-cd ..
-pkill -f "busybox httpd -p 4202 -h ./dist"
-busybox httpd -p 4202 -h ./dist
-echo Hugo site served at http://localhost:4202
+test=$("(l(100)\/l(10))\/1 | bc -l")
+echo $test
