@@ -15,16 +15,43 @@ for f in *.md;
 do
     let "fc=fc+1"
 done
-echo $fc
+echo Number of files: $fc
+# calculate the number of digits needed
+let "fc=fc*10"
+calc="echo (l($fc)/l(10)) + 1"
+digitscount=$($calc | bc -l)
+calc="echo scale=0;$digitscount/1"
+digitscount=$($calc | bc -l)
+echo Digits needed in filename: $digitscount
+
 for f in *.md;
 do
 if [[ "$f" =~ $pattern ]]
 then
-   #echo matched \'${BASH_REMATCH[0]}\' \'${BASH_REMATCH[1]}\' \'${BASH_REMATCH[2]}\' $1
-    echo mv "$f" "$i ${BASH_REMATCH[2]}" 2>/dev/null
+    calc="printf %0${digitscount}d $i"
+    iformatted=$($calc)
+    mv "$f" "$iformatted ${BASH_REMATCH[2]}" 2>/dev/null
     let "i=i+10"
 fi
 done
 
-test=$("(l(100)\/l(10))\/1 | bc -l")
-echo $test
+stub1="pandoc --from gfm --standalone --toc --highlight-style pygments --metadata-file=pandoc-meta.yaml -c pandoc"
+stub2=".css *.md --output "
+
+function convert {
+    echo Converting to $2...
+    rm -f $1.$2
+    ${stub1}$2${stub2}$1.$2
+    echo Copying to dist directory
+    cp $1.$2 ../dist/$1.$2
+    cp pandoc$2.css ../dist
+}
+convert index html
+convert tmymoney epub 
+
+echo Setting up the local busybox server
+cd ..
+pkill -f "busybox httpd -p 4202 -h ./dist"
+busybox httpd -p 4202 -h ./dist
+echo Site served at http://localhost:4202
+
