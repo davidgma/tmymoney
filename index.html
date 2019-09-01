@@ -80,6 +80,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
+  <link rel="icon" href="/favicon.png">
 </head>
 <body>
 <header id="title-block-header">
@@ -95,6 +96,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="#angular">Angular</a></li>
 <li><a href="#git">Git</a></li>
 <li><a href="#pandoc">Pandoc</a></li>
+<li><a href="#bc---basic-calculator">bc - basic calculator</a></li>
+<li><a href="#visual-studio-code">Visual Studio Code</a></li>
+<li><a href="#ngh---angular-cli-ghpages">ngh - angular-cli-ghpages</a></li>
+<li><a href="#ncu---npm-check-updates">ncu - npm check updates</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -144,10 +149,57 @@ To access the web app through the internet, you can set up SSL and Google authen
 <div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">sudo</span> apt update</span>
 <span id="cb5-2"><a href="#cb5-2"></a><span class="fu">sudo</span> apt install git</span>
 <span id="cb5-3"><a href="#cb5-3"></a><span class="fu">git</span> --version</span></code></pre></div>
+<p>Usage examples:</p>
+<pre><code>git clone https://github.com/davidgma/tmymoney.git
+cd tmymoney
+npm install
+git status
+git add *
+git commit -a -m &quot;Initial sync.&quot;
+git status
+git remote rm origin
+git remote add origin https://github.com/davidgma/tmymoney.git
+git remote -v
+git push origin master
+git push --set-upstream origin master
+git add *
+git commit -a -m &quot;Upload changes.&quot;
+git push
+ngh
+</code></pre>
 <h3 id="pandoc">Pandoc</h3>
 <p>I wrote this documentation using <a href="https://help.github.com/en/categories/writing-on-github">markdown</a> and then converted it to an html file and an ePUB ebook using <a href="https://pandoc.org">pandoc</a>.</p>
 <p>The version of pandoc that comes with Ubuntu is very old and doesn't seem to work properly. I downloaded the latest version from <a href="https://pandoc.org/installing.html">pandoc</a>. I clicked on 'Download latest installer' and then found the .deb at the bottom of the page. Then I installed it with the QApt Package Installer.</p>
 <p>The script file doc_update in the project directory creates the files based on what is in the /docs subdirectory. The .md files in the /docs subdirectory should start with a number then a space where the numbers determine the order that the files will be bought into the final file. Actually, any alphabetical order will do - the script will add on the numbering. A table of contents is automatically generated. It renames all the files to resequence them from 10, increasing each by 10. This makes it easier to add new files in the middle of the old sequence.</p>
 <p>The doc_update script is automatically called by the main git_update script to re-compile the documentation files before uploading them to Github Pages.</p>
+<h3 id="bc---basic-calculator">bc - basic calculator</h3>
+<p>The script doc_update uses the program <a href="https://en.wikipedia.org/wiki/Bc_(programming_language)">bc</a> - the basic calculator. It's usually installed automatically as part of Ubuntu.</p>
+<h3 id="visual-studio-code">Visual Studio Code</h3>
+<p>I use <a href="https://code.visualstudio.com">Visual Studio Code</a> as an IDE. It works well with Typescript.</p>
+<p>I use the extensions:</p>
+<ul>
+<li>Better TOML</li>
+<li>Code Spell Checker</li>
+<li>Dart</li>
+<li>Debugger for Chrome</li>
+</ul>
+<h3 id="ngh---angular-cli-ghpages">ngh - angular-cli-ghpages</h3>
+<p><a href="https://www.npmjs.com/package/angular-cli-ghpages">angular-cli-ghpages</a> puts whatever static site is in the /dist folder, onto Github Pages. It's designed to work for Angular, as this creates static sites, but it works for any static site. In this project I put the documentation into Github Pages and the web client too.</p>
+<p>Contrary to the guide on the above page, I used the following to install it:</p>
+<pre><code>npm install -g angular-cli-ghpages
+
+ngh
+</code></pre>
+<h3 id="ncu---npm-check-updates">ncu - npm check updates</h3>
+<p>I use <a href="https://github.com/tjunnone/npm-check-updates">ncu</a> to update all the node packages to the latest versions.</p>
+<pre><code>npm install -g npm-check-updates
+ncu
+ncu -u
+npm update
+ncu
+rm package-lock.json
+npm install
+ng serve --open
+</code></pre>
 </body>
 </html>
