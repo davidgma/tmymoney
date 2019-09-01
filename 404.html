@@ -31,6 +31,7 @@
 <li><a href="#typescript">Typescript</a></li>
 <li><a href="#angular">Angular</a></li>
 <li><a href="#git">Git</a></li>
+<li><a href="#pandoc">Pandoc</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -80,5 +81,10 @@ which npm</code></pre>
 <pre><code>sudo apt update
 sudo apt install git
 git --version</code></pre>
+<h3 id="pandoc">Pandoc</h3>
+<p>I wrote this documentation using <a href="https://pandoc.org/MANUAL.html#pandocs-markdown">markdown</a> and then converted it to an html file and an ePUB ebook using <a href="https://pandoc.org">pandoc</a>.</p>
+<pre><code>sudo apt install pandoc</code></pre>
+<p>The script file doc_update in the project directory creates the files based on what is in the /docs subdirectory. The first three characters of the .md files in the /docs subdirectory should be 2 numbers then a space where the numbers determine the order that the files will be bought into the final file. A table of contents is automatically generated. It renames all the files to resequence them from 10, increasing each by 10. This makes it easier to add new files in the middle of the old sequence.</p>
+<p>The doc_update script is automatically called by the main git_update script to re-compile the documentation files before uploading them to Github Pages.</p>
 </body>
 </html>
