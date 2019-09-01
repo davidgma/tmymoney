@@ -8,3 +8,5 @@ cd ..
 
 pkill -f "busybox httpd -p 4202 -h ./dist-local"
 busybox httpd -p 4202 -h ./dist-local
+
+echo Hugo site served at http://localhost:4202
