@@ -14,10 +14,8 @@ fi
 
 echo $message
 
-# Build the Hugo documentation
-cd doc
-hugo --baseURL "https://davidgma.github.io/tmymoney/" --destination "../dist"
-cd ..
+# Build the documentation
+doc_update
 
 # Send to github
 git add *

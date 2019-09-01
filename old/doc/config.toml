@@ -1,0 +1,25 @@
+baseURL = "https://davidgma.github.io/tmymoney/"
+languageCode = "en-gb"
+DefaultContentLanguage = "en"
+title = "TMyMoney Documentation"
+theme = "hugo-theme-learn"
+defaultContentLanguageInSubdir = true
+publishDir = "../dist"
+
+# For search functionality
+[outputs]
+home = [ "HTML", "RSS", "JSON"]
+
+[params]
+  # Change default color scheme with a variant one. Can be "red", "blue", "green".
+  themeVariant = "blue"
+  editURL = "https://github.com/davidgma/tmymoney/tree/master/doc/content/"
+
+[Languages]
+[Languages.en]
+title = "TMyMoney Documentation"
+weight = 1
+languageName = "English"
+
+
+  
