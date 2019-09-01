@@ -49,6 +49,9 @@ function convert {
 convert index html
 convert tmymoney epub 
 
+# Copy in the favicon
+cp favicon.png ../dist
+
 echo Setting up the local busybox server
 cd ..
 pkill -f "busybox httpd -p 4202 -h ./dist"
