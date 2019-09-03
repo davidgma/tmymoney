@@ -172,6 +172,7 @@ ngh
 <p>The version of pandoc that comes with Ubuntu is very old and doesn't seem to work properly. I downloaded the latest version from <a href="https://pandoc.org/installing.html">pandoc</a>. I clicked on 'Download latest installer' and then found the .deb at the bottom of the page. Then I installed it with the QApt Package Installer.</p>
 <p>The script file doc_update in the project directory creates the files based on what is in the /docs subdirectory. The .md files in the /docs subdirectory should start with a number then a space where the numbers determine the order that the files will be bought into the final file. Actually, any alphabetical order will do - the script will add on the numbering. A table of contents is automatically generated. It renames all the files to resequence them from 10, increasing each by 10. This makes it easier to add new files in the middle of the old sequence.</p>
 <p>The doc_update script is automatically called by the main git_update script to re-compile the documentation files before uploading them to Github Pages.</p>
+<p>Github Markdown guide: <a href="https://github.github.com/gfm/">https://github.github.com/gfm/</a></p>
 <h3 id="bc---basic-calculator">bc - basic calculator</h3>
 <p>The script doc_update uses the program <a href="https://en.wikipedia.org/wiki/Bc_(programming_language)">bc</a> - the basic calculator. It's usually installed automatically as part of Ubuntu.</p>
 <h3 id="visual-studio-code">Visual Studio Code</h3>
