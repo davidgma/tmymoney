@@ -10,3 +10,6 @@ The script file doc_update in the project directory creates the files based on w
 
 The doc_update script is automatically called by the main git_update script to re-compile the documentation files before uploading them to Github Pages.
 
+Github Markdown guide:
+https://github.github.com/gfm/
+
