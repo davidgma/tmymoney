@@ -100,6 +100,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="#visual-studio-code">Visual Studio Code</a></li>
 <li><a href="#ngh---angular-cli-ghpages">ngh - angular-cli-ghpages</a></li>
 <li><a href="#ncu---npm-check-updates">ncu - npm check updates</a></li>
+<li><a href="#google-cloud-platform">Google Cloud Platform</a></li>
+<li><a href="#getting-a-domain-name">Getting a domain name</a></li>
+<li><a href="#nginx"><span>nginx</span></a></li>
 </ul></li>
 </ul>
 </nav>
@@ -118,7 +121,6 @@ To access the web app through the internet, you can set up SSL and Google authen
 <p>Web client: Written in <a href="https://www.typescriptlang.org">Typescript</a> and <a href="https://angular.io">Angular</a>.</p>
 <p>Processing KMyMoney file: The file is a <a href="https://docs.kde.org/trunk5/en/extragear-office/kmymoney/details.formats.compressed.html">gzip-compressed xml file</a> and I unzip it using <a href="https://linux.die.net/man/1/gunzip">gunzip</a> and then convert it to a json file using <a href="https://github.com/Cheedoong/xml2json">xml2json</a>.</p>
 <p>The server program then parses the json file and writes the bits it needs to an <a href="https://www.sqlite.org/index.html">sqlite3</a> database which it stores on a drive that is in memory - <a href="https://www.howtoforge.com/storing-files-directories-in-memory-with-tmpfs">/dev/shm</a>.</p>
-<p>Any changes that are made during the usage of the program are then written back to the master KMyMoney file using <a href="https://en.wikipedia.org/wiki/XQuery">xquery</a> and the tool <a href="http://xqilla.sourceforge.net/HomePage">xqilla</a>.</p>
 <p><a href="https://help.ubuntu.com/community/SSH/OpenSSH/Configuring">SSH</a> is used to connect to the VM from other computers where a terminal access is wanted, or to use the web client via port forwarding.</p>
 <p>For the documentation I used <a href="https://gohugo.io">Hugo</a> with the <a href="https://learn.netlify.com/en/">Learn Theme</a>.</p>
 <p>I used <a href="https://code.visualstudio.com/">Visual Studio Code</a> as my IDE.</p>
@@ -201,6 +203,97 @@ ncu
 rm package-lock.json
 npm install
 ng serve --open
+</code></pre>
+<h3 id="google-cloud-platform">Google Cloud Platform</h3>
+<p>Google Cloud Platform generously gives you a small but useful virtual machine for <a href="https://cloud.google.com/free/">free under the 'Compute Engine' brand name</a>. I don't know why they call it Compute Engine; Google Virtual Machines would have been a lot less confusing. For free you can get an 'f1 micro instance' with 1 virtual processor 0.6 GB ram and a 30 GB hard drive. It's not much but it's free indefinitely and a lot better than a slap in the face with a wet fish.</p>
+<h4 id="register-with-google-cloud-platform">Register with Google Cloud Platform</h4>
+<p>Setting up the VM in the first place is covered by various quickstarts and tutorials that are listed under the <a href="https://cloud.google.com/compute/docs">compute engine documentation</a>.</p>
+<p>First I signed up for the free 12 month trial with $300 dollars spending money for free. I only plan to use the free tier for the time being, but having the additional $300 (£244.01) is handy because then, if accidentally you've configured something that you get charged for, you can see it in the <a href="https://cloud.google.com/resource-manager/docs/creating-managing-projects">billing section</a> and work out what you've done wrong before they relieve you of any real hard-earned money.</p>
+<h4 id="create-a-project">Create a project</h4>
+<p>Then you have to <a href="https://cloud.google.com/resource-manager/docs/creating-managing-projects">create a project</a>. I don't know why, it's just the way they've set things up - all resources seem to sit within a project. Because I planned to have the main billed VM (it's free but in theory billed because if I increased the size above the free tier then they would bill me) inside the project I called it Main Billed with a project ID of main-billed. You won't be able to call yours exactly the same thing because project IDs are unique across all of GCP. They will suggest a project name by default but it's usually rather long. You might want to try to find something shorter. Also, sometimes they choose a project name for you made up of 2 random words that have nothing to do with your project at all. This reminds me of Compuserve, an old online service that pre-dated the web, where they would choose a password for you made up of 2 random words joined together with a hyphen as far as I remember. But someone once complained because they gave him the password wooden-penis. I don't know why he complained, he can't have had much of a sense of humour. I imagine that Google take more care with the allowed words list.</p>
+<h4 id="create-the-vm">Create the vm</h4>
+<p>Then you set up the new VM from: GCP, console, compute engine, having made sure that you are in the right project (selected at the top). You can mostly follow the instructions and choose the defaults except that:</p>
+<ul>
+<li>you need to make sure that your choices match up with what the free offering covers (e.g. an f1-micro in a US region)</li>
+<li>the default suggests a 10 GB 'standard persistent disk' but you can get a 30 GB drive one for free so you should change that</li>
+<li>you need to tick the checkboxes to allow http and https traffic. See the note about firewalls below.</li>
+<li>I installed Ubuntu rather than Debian although I have no objection to Debian, I'm just more used to Ubuntu.</li>
+</ul>
+<h4 id="get-a-static-ip-address">Get a static ip address</h4>
+<p>Then you need to request a static ip address as you are going to get a domain name and link it to that address. To do this, go to: GCP, console, compute engine, view network details (menu to right of instance listing), external ip addresses. If the type is listed an ephemeral or dynamic and has the option to change it there to static then do so. Otherwise click on 'reserve static address' above and set it to static or get another address that's static.</p>
+<h4 id="note-on-firewalls-for-the-vm">Note on firewalls for the VM</h4>
+<p>Google compute engine has its own firewall around the VM which is configured as part of the GCP console and so any firewall settings need to be made via this rather than via a firewall inside the VM itself. So ufw, for example, on Ubuntu remains inactive.</p>
+<p>SSH will automatically be set up to be allowed as part of the process of setting up the VM. To configure SSL (https) using Let's Encrypt, you need http to be active for the automated certificate routine to work, so even if you only plan to use https on your server going forward, you still need to initially allow http and https until you've successfully set up SSL and then you can remove the http again from the firewall if you wish.</p>
+<p>To configure the firewall, once the VM has been set up, it's GCP, console, compute engine, view network details (menu to right of instance listing), firewall rules.</p>
+<h3 id="getting-a-domain-name">Getting a domain name</h3>
+<p>To access your website via https you're going to need a domain name. These have a charge - currently at least £10 a year. I used <a href="https://domains.google">Google Domains</a> for this.</p>
+<h4 id="register-a-domain">Register a domain</h4>
+<p>First select 'register a domain' on Google Domains site and follow the instructions. Once you've chosen and paid for a domain then you can go to the 'my domains' section and see your domain.</p>
+<h4 id="set-up-dns">Set up DNS</h4>
+<p>To have your domain name forward to the right place (your vm on GCP) you need to tell Google Domains what you want. You can have the same domain forward to different places entirely depending on the subdomain. For example, my domain is davidgma.com. I want vm.davidgma.com to go to my GCP vm and chess.davidgma.com to go to my Chess Opening Trainer web app that is hosted on Github Pages.</p>
+<p>In Google Domains, choose DNS from the menu, and then go down to 'Custom resource records' at the bottom of the page.</p>
+<p>For the vm subdomain, create an A record with vm as the name and the static ip address from your vm as the ipv4 address.</p>
+<p>For the chess subdomain, create a CNAME record with chess as the name and your Github subdomain as the address. In my case, I put in davidgma.github.io. as the address. The web app is actually at <a href="https://davidgma.github.io/chess-opening-trainer/">https://davidgma.github.io/chess-opening-trainer/</a> but you can't put the whole thing into the CNAME record, just the subdomain. You then have to tell Github what to do with the request by going into the Github repository, settings, GitHub Pages, and then under 'Custom domain' put the subdomain from the DNS CNAME record, in my case chess.davidgma.com. Don't tick the checkbox for 'Enforce HTTPS' yet because it takes Github up to 24 hours to set it up. Once it's set up, then tick the checkbox.</p>
+<p>Now, going to <a href="https://chess.davidgma.com/">https://chess.davidgma.com/</a> will go to the Github pages web app and <a href="https://vm.davidgma.com">https://vm.davidgma.com</a> will go to the GCP VM.</p>
+<h3 id="nginx"><a href="http://nginx.org/">nginx</a></h3>
+<p>Apparently this is pronounced 'engine-x' and is a web server.</p>
+<p>To install it:</p>
+<pre><code>sudo apt install nginx
+systemctl status nginx
+sudo apt install lynx
+lynx http://localhost
+</code></pre>
+<p><a href="https://letsencrypt.org">Let's Encrypt</a> provide an automated and free way of getting an SSL certificate so that you can have an https website. It's important to have an https site rather than a plain http site because with https everything is encrypted, including the url that the browser requests. With RESTful APIs, for security reasons the server needs to authenticate the requester, so as not to send private data to a complete stranger, and this means sending passwords or authentication tokens in the url. So to keep it private and secure, the url needs to be encrypted.</p>
+<p>Let's Encrypt uses an automated method from <a href="https://certbot.eff.org">Certbot</a>. You can follow the instructions on their website.</p>
+<pre><code>sudo apt-get update
+sudo apt-get install software-properties-common
+sudo add-apt-repository universe
+sudo add-apt-repository ppa:certbot/certbot
+sudo apt-get update
+sudo apt-get install certbot python-certbot-nginx
+sudo certbot --nginx
+lynx https://localhost
+</code></pre>
+<p>This didn't work completely smoothly for me the first time. I had to manually change the nginx configuration file and remove a lot of conflicting config. Basically I removed the config that came when I installed nginx and left just what the certbot put in.</p>
+<pre><code>sudo nano /etc/nginx/sites-enabled/default
+sudo systemctl restart nginx
+</code></pre>
+<p>The /etc/nginx/sites-enabled/default ended up with</p>
+<pre><code>server {
+
+    root /var/www/html;
+
+    # Add index.php to the list if you are using PHP
+    index index.html index.htm index.nginx-debian.html;
+    server_name vm.davidgma.com; # managed by Certbot
+
+    location / {
+        # First attempt to serve request as file, then
+        # as directory, then fall back to displaying a 404.
+        try_files $uri $uri/ =404;
+    }
+
+    listen [::]:443 ssl ipv6only=on; # managed by Certbot
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/vm.davidgma.com/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/vm.davidgma.com/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+server {
+    if ($host = vm.davidgma.com) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+    listen 80 ;
+    listen [::]:80 ;
+    server_name vm.davidgma.com;
+    return 404; # managed by Certbot
+
+
+}
+
 </code></pre>
 </body>
 </html>
