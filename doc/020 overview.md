@@ -19,8 +19,6 @@ The file is a [gzip-compressed xml file](https://docs.kde.org/trunk5/en/extragea
 
 The server program then parses the json file and writes the bits it needs to an [sqlite3](https://www.sqlite.org/index.html) database which it stores on a drive that is in memory - [/dev/shm](https://www.howtoforge.com/storing-files-directories-in-memory-with-tmpfs).
 
-Any changes that are made during the usage of the program are then written back to the master KMyMoney file using [xquery](https://en.wikipedia.org/wiki/XQuery) and the tool [xqilla](http://xqilla.sourceforge.net/HomePage).
-
 [SSH](https://help.ubuntu.com/community/SSH/OpenSSH/Configuring) is used to connect to the VM from other computers where a terminal access is wanted, or to use the web client via port forwarding.
 
 For the documentation I used [Hugo](https://gohugo.io) with the [Learn Theme](https://learn.netlify.com/en/).
