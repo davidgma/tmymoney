@@ -15,7 +15,8 @@ Web client:
 Written in [Typescript](https://www.typescriptlang.org) and [Angular](https://angular.io).
 
 Processing KMyMoney file:
-The file is a [gzip-compressed xml file](https://docs.kde.org/trunk5/en/extragear-office/kmymoney/details.formats.compressed.html) and I unzip it using [gunzip](https://linux.die.net/man/1/gunzip) and then convert it to a json file using [xml2json](https://github.com/Cheedoong/xml2json).
+The file is a [gzip-compressed xml file](https://docs.kde.org/trunk5/en/extragear-office/kmymoney/details.formats.compressed.html). As a one-off step, I changed the extension to .gz, unzipped it using [gunzip](https://linux.die.net/man/1/gunzip) and then added the extension .xml. From then on I used the .xml file for normal usage in KMyMoney. KMyMoney is quite happy using the .xml file and saves any changes as .xml. The backups still work as normal and as doesn't have to uncompress and re-compress the file each time, it saves a bit of time.  
+The program, converts the xml file to a json file using [xml2json](https://github.com/Cheedoong/xml2json) and then imports that.
 
 The server program then parses the json file and writes the bits it needs to an [sqlite3](https://www.sqlite.org/index.html) database which it stores on a drive that is in memory - [/dev/shm](https://www.howtoforge.com/storing-files-directories-in-memory-with-tmpfs).
 
