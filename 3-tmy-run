@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# compile first
+./2-tmy-compile
+
+cd dist-tmymoney
+time node index.js
