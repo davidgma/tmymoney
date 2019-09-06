@@ -103,6 +103,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="#google-cloud-platform">Google Cloud Platform</a></li>
 <li><a href="#getting-a-domain-name">Getting a domain name</a></li>
 <li><a href="#nginx"><span>nginx</span></a></li>
+<li><a href="#unison-file-synchroniser">unison file synchroniser</a></li>
+<li><a href="#xml2json">xml2json</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -119,7 +121,8 @@ To access the web app through the internet, you can set up SSL and Google authen
 <p>This is the architecture of the application and the tools I used in building it.</p>
 <p>Server: Runs on a <a href="https://cloud.google.com/free/">Google Cloud Platform free</a> VM Uses the <a href="https://cloud.google.com/compute/">Compute Engine</a> product. <a href="https://nginx.org">nginx</a> web server. Free SSL certificate from <a href="https://letsencrypt.org">Let's Encrypt</a>. Google Authentication is used to authenticate the user (myself) so that only I can use the web client over the internet for my own installation.</p>
 <p>Web client: Written in <a href="https://www.typescriptlang.org">Typescript</a> and <a href="https://angular.io">Angular</a>.</p>
-<p>Processing KMyMoney file: The file is a <a href="https://docs.kde.org/trunk5/en/extragear-office/kmymoney/details.formats.compressed.html">gzip-compressed xml file</a> and I unzip it using <a href="https://linux.die.net/man/1/gunzip">gunzip</a> and then convert it to a json file using <a href="https://github.com/Cheedoong/xml2json">xml2json</a>.</p>
+<p>Processing KMyMoney file: The file is a <a href="https://docs.kde.org/trunk5/en/extragear-office/kmymoney/details.formats.compressed.html">gzip-compressed xml file</a>. As a one-off step, I changed the extension to .gz, unzipped it using <a href="https://linux.die.net/man/1/gunzip">gunzip</a> and then added the extension .xml. From then on I used the .xml file for normal usage in KMyMoney. KMyMoney is quite happy using the .xml file and saves any changes as .xml. The backups still work as normal and as doesn't have to uncompress and re-compress the file each time, it saves a bit of time.<br />
+The program, converts the xml file to a json file using <a href="https://github.com/Cheedoong/xml2json">xml2json</a> and then imports that.</p>
 <p>The server program then parses the json file and writes the bits it needs to an <a href="https://www.sqlite.org/index.html">sqlite3</a> database which it stores on a drive that is in memory - <a href="https://www.howtoforge.com/storing-files-directories-in-memory-with-tmpfs">/dev/shm</a>.</p>
 <p><a href="https://help.ubuntu.com/community/SSH/OpenSSH/Configuring">SSH</a> is used to connect to the VM from other computers where a terminal access is wanted, or to use the web client via port forwarding.</p>
 <p>For the documentation I used <a href="https://gohugo.io">Hugo</a> with the <a href="https://learn.netlify.com/en/">Learn Theme</a>.</p>
@@ -294,6 +297,46 @@ server {
 
 }
 
+</code></pre>
+<h3 id="unison-file-synchroniser">unison file synchroniser</h3>
+<p>I keep the master copy of my KMyMoney file on the GCP VM and then synchronise it to a local copy before and after each time I use KMyMoney on a local machine. That way, any changes made on any machine, or on the VM, will be kept.</p>
+<p>To install unison:</p>
+<pre><code>sudo apt install unison
+</code></pre>
+<p>On the local machine with a gui:</p>
+<pre><code>sudo apt install unison-gtk
+</code></pre>
+<p>Then, on the local machine, open the GUI and set up a sync profile between the local folder and the ssh folder on the VM. I called it kmymoney-vm. I ran it once manually to check it worked.</p>
+<p>Then create a bash script to do the syncs before and after opening KMyMoney.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="co"># Use KMyMoney with a sync to the GCP VM</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a></span>
+<span id="cb15-4"><a href="#cb15-4"></a><span class="co"># Sync with the VM</span></span>
+<span id="cb15-5"><a href="#cb15-5"></a><span class="bu">echo</span> Syncing with the VM</span>
+<span id="cb15-6"><a href="#cb15-6"></a><span class="ex">unison</span> kmymoney-vm -auto -batch -silent -ui text</span>
+<span id="cb15-7"><a href="#cb15-7"></a></span>
+<span id="cb15-8"><a href="#cb15-8"></a><span class="co"># Run KMyMoney</span></span>
+<span id="cb15-9"><a href="#cb15-9"></a><span class="bu">echo</span> Opening KMyMoney</span>
+<span id="cb15-10"><a href="#cb15-10"></a><span class="ex">kmymoney</span> <span class="va">$1</span></span>
+<span id="cb15-11"><a href="#cb15-11"></a></span>
+<span id="cb15-12"><a href="#cb15-12"></a><span class="co"># Sync with the VM</span></span>
+<span id="cb15-13"><a href="#cb15-13"></a><span class="bu">echo</span> Syncing with the VM</span>
+<span id="cb15-14"><a href="#cb15-14"></a><span class="ex">unison</span> kmymoney-vm -auto -batch -silent -ui text</span>
+<span id="cb15-15"><a href="#cb15-15"></a></span></code></pre></div>
+<p>Then create a new .desktop file in ~/.local/share/applications/ based on a copy of /usr/share/applications/org.kde.kmymoney.desktop. Change a few of the lines as follows:</p>
+<pre><code>Name=KMyMoney With Sync
+Name[en_GB]=KMyMoney With Sync
+GenericName=Personal Finance Manager with Sync
+GenericName[en_GB]=With Sync to VM
+Exec=/home/david/local/scripts/63-kmymoney %u
+Comment=Personal Finance Manager with Sync
+Comment[en_GB]=Personal Finance Manager with sync
+</code></pre>
+<h3 id="xml2json">xml2json</h3>
+<p>The xml file is converted to a json file using the command line program xml2json which is available at <a href="https://github.com/Cheedoong/xml2json">https://github.com/Cheedoong/xml2json</a>. Downloading and compiling the program is easy:</p>
+<pre><code>git clone https://github.com/Cheedoong/xml2json.git
+cd xml2json
+make
 </code></pre>
 </body>
 </html>
