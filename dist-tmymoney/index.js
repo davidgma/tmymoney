@@ -38,13 +38,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var logger_1 = require("./logger");
 var file_utils_1 = require("./file-utils");
 var fs_1 = require("fs");
-var logDir = "/home/david/.local/tmymoney";
+var os_1 = require("os");
+var logDir = os_1.homedir + "/.local/tmymoney";
 var logName = "tmymoney.log";
 function main() {
     return __awaiter(this, void 0, void 0, function () {
         var logger, command, args;
         return __generator(this, function (_a) {
             logger = new logger_1.Logger(logDir, logName);
+            console.log("homedir: " + os_1.homedir);
             console.log("Converting the KMyMoney file...");
             command = "./convert-xml";
             args = new Array();
