@@ -1,0 +1,6 @@
+#!/bin/bash
+cd ./tmymoney
+tsc
+
+echo copying the xml convertion script
+cp convert-xml ../dist-tmymoney/ 

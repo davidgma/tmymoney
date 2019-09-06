@@ -1,7 +1,7 @@
 
 ### unison file synchroniser
 
-I keep the master copy of my KMyMoney file on the GCP VM and then synchronise it to a local copy before and after each time I use KMyMoney on a local machine. That way, any changes made on any machine, or on the VM, will be kept.
+I keep the master copy of my KMyMoney file on the GCP VM and then synchronise it to a local copy before and after each time I use KMyMoney on a local machine. That way, any changes made on any machine, or on the VM, will be kept current.
 
 To install unison:
 ```
@@ -13,7 +13,7 @@ On the local machine with a gui:
 sudo apt install unison-gtk
 ```
 
-Then, on the local machine, open the GUI and set up a sync profile between the local folder and the ssh folder on the VM. I called it kmymoney-vm. I ran it once manually to check it worked.
+Then, on any local machine where you want to use KMyMoney, open the GUI and set up a sync profile between the local folder and the ssh folder on the VM. I called it kmymoney-vm. I ran it once manually to check it worked.
 
 Then create a bash script to do the syncs before and after opening KMyMoney.
 
@@ -46,3 +46,5 @@ Exec=/home/david/local/scripts/63-kmymoney %u
 Comment=Personal Finance Manager with Sync
 Comment[en_GB]=Personal Finance Manager with sync
 ```
+
+If KMyMoney was in your KDE Plasma Application Launcher favourites, remove the old KMyMoney favourite and add in the new one.

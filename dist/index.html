@@ -141,19 +141,29 @@ The program, converts the xml file to a json file using <a href="https://github.
 <h3 id="typescript">Typescript</h3>
 <p>I used <a href="https://www.typescriptlang.org">Typescript</a>.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="ex">npm</span> install -g typescript</span></code></pre></div>
-<p>Inside a node project (created later), you will need the node types.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a><span class="ex">npm</span> install --save @types/node</span></code></pre></div>
+<p>To create a new Typescript/Node project in a sub-folder called tmymoney within the tmymoney project:</p>
+<pre><code>cd tmymoney
+mkdir tmymoney
+cd tmymoney
+npm init
+tsc --init
+npm install --save @types/node
+</code></pre>
+<p>Amend the tsconfig.json with:</p>
+<pre><code>&quot;outDir&quot;: &quot;../dist-tmymoney&quot;,
+
+</code></pre>
 <p>A useful place to look for other types (for other npm packages you may want to use) is <a href="https://microsoft.github.io/TypeSearch/">Microsoft's TypeSearch page</a>.</p>
 <h3 id="angular">Angular</h3>
 <p>I used <a href="https://angular.io">Angular</a>] for the web client. Angular produces static web sites - a web site where all the code is served once by the web server and then doesn't need to be served again for the entire running of the web app by the user, unless the user refreshes the web page. The advantage of this is that it's cheaper to serve and a lot of companies now offer free serving of static websites, such as Github with Github Pages. Plus, cloud file servers such as Google Drive and pCloud let you run a static web site just by putting the files into a folder on the cloud and making it public or selecting an option to publish.</p>
 <p>There is a back end that the web client uses but this is via RESTful API calls.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1"></a><span class="ex">npm</span> install -g @angular/cli</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1"></a><span class="ex">npm</span> install -g @angular/cli</span></code></pre></div>
 <h3 id="git">Git</h3>
 <p>Git is needed for version control and for safely storing code on Github.</p>
 <p>I used the Ubuntu packaged version of git.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">sudo</span> apt update</span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">sudo</span> apt install git</span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="fu">git</span> --version</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">sudo</span> apt update</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="fu">sudo</span> apt install git</span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="fu">git</span> --version</span></code></pre></div>
 <p>Usage examples:</p>
 <pre><code>git clone https://github.com/davidgma/tmymoney.git
 cd tmymoney
@@ -299,30 +309,30 @@ server {
 
 </code></pre>
 <h3 id="unison-file-synchroniser">unison file synchroniser</h3>
-<p>I keep the master copy of my KMyMoney file on the GCP VM and then synchronise it to a local copy before and after each time I use KMyMoney on a local machine. That way, any changes made on any machine, or on the VM, will be kept.</p>
+<p>I keep the master copy of my KMyMoney file on the GCP VM and then synchronise it to a local copy before and after each time I use KMyMoney on a local machine. That way, any changes made on any machine, or on the VM, will be kept current.</p>
 <p>To install unison:</p>
 <pre><code>sudo apt install unison
 </code></pre>
 <p>On the local machine with a gui:</p>
 <pre><code>sudo apt install unison-gtk
 </code></pre>
-<p>Then, on the local machine, open the GUI and set up a sync profile between the local folder and the ssh folder on the VM. I called it kmymoney-vm. I ran it once manually to check it worked.</p>
+<p>Then, on any local machine where you want to use KMyMoney, open the GUI and set up a sync profile between the local folder and the ssh folder on the VM. I called it kmymoney-vm. I ran it once manually to check it worked.</p>
 <p>Then create a bash script to do the syncs before and after opening KMyMoney.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="co"># Use KMyMoney with a sync to the GCP VM</span></span>
-<span id="cb15-3"><a href="#cb15-3"></a></span>
-<span id="cb15-4"><a href="#cb15-4"></a><span class="co"># Sync with the VM</span></span>
-<span id="cb15-5"><a href="#cb15-5"></a><span class="bu">echo</span> Syncing with the VM</span>
-<span id="cb15-6"><a href="#cb15-6"></a><span class="ex">unison</span> kmymoney-vm -auto -batch -silent -ui text</span>
-<span id="cb15-7"><a href="#cb15-7"></a></span>
-<span id="cb15-8"><a href="#cb15-8"></a><span class="co"># Run KMyMoney</span></span>
-<span id="cb15-9"><a href="#cb15-9"></a><span class="bu">echo</span> Opening KMyMoney</span>
-<span id="cb15-10"><a href="#cb15-10"></a><span class="ex">kmymoney</span> <span class="va">$1</span></span>
-<span id="cb15-11"><a href="#cb15-11"></a></span>
-<span id="cb15-12"><a href="#cb15-12"></a><span class="co"># Sync with the VM</span></span>
-<span id="cb15-13"><a href="#cb15-13"></a><span class="bu">echo</span> Syncing with the VM</span>
-<span id="cb15-14"><a href="#cb15-14"></a><span class="ex">unison</span> kmymoney-vm -auto -batch -silent -ui text</span>
-<span id="cb15-15"><a href="#cb15-15"></a></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="co"># Use KMyMoney with a sync to the GCP VM</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a></span>
+<span id="cb16-4"><a href="#cb16-4"></a><span class="co"># Sync with the VM</span></span>
+<span id="cb16-5"><a href="#cb16-5"></a><span class="bu">echo</span> Syncing with the VM</span>
+<span id="cb16-6"><a href="#cb16-6"></a><span class="ex">unison</span> kmymoney-vm -auto -batch -silent -ui text</span>
+<span id="cb16-7"><a href="#cb16-7"></a></span>
+<span id="cb16-8"><a href="#cb16-8"></a><span class="co"># Run KMyMoney</span></span>
+<span id="cb16-9"><a href="#cb16-9"></a><span class="bu">echo</span> Opening KMyMoney</span>
+<span id="cb16-10"><a href="#cb16-10"></a><span class="ex">kmymoney</span> <span class="va">$1</span></span>
+<span id="cb16-11"><a href="#cb16-11"></a></span>
+<span id="cb16-12"><a href="#cb16-12"></a><span class="co"># Sync with the VM</span></span>
+<span id="cb16-13"><a href="#cb16-13"></a><span class="bu">echo</span> Syncing with the VM</span>
+<span id="cb16-14"><a href="#cb16-14"></a><span class="ex">unison</span> kmymoney-vm -auto -batch -silent -ui text</span>
+<span id="cb16-15"><a href="#cb16-15"></a></span></code></pre></div>
 <p>Then create a new .desktop file in ~/.local/share/applications/ based on a copy of /usr/share/applications/org.kde.kmymoney.desktop. Change a few of the lines as follows:</p>
 <pre><code>Name=KMyMoney With Sync
 Name[en_GB]=KMyMoney With Sync
@@ -332,9 +342,11 @@ Exec=/home/david/local/scripts/63-kmymoney %u
 Comment=Personal Finance Manager with Sync
 Comment[en_GB]=Personal Finance Manager with sync
 </code></pre>
+<p>If KMyMoney was in your KDE Plasma Application Launcher favourites, remove the old KMyMoney favourite and add in the new one.</p>
 <h3 id="xml2json">xml2json</h3>
 <p>The xml file is converted to a json file using the command line program xml2json which is available at <a href="https://github.com/Cheedoong/xml2json">https://github.com/Cheedoong/xml2json</a>. Downloading and compiling the program is easy:</p>
-<pre><code>git clone https://github.com/Cheedoong/xml2json.git
+<pre><code>cd ~/local/dev
+git clone https://github.com/Cheedoong/xml2json.git
 cd xml2json
 make
 </code></pre>
