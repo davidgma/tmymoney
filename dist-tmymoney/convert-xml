@@ -1,7 +1,0 @@
-#!/bin/bash
-
-# Check the directory exists.
-mkdir -p /dev/shm/tmymoney
-
-# Convert the KMyMoney xml file to a json file
-../../xml2json/xml2json ../../../kmymoney/KMyMoney_David.xml > /dev/shm/tmymoney/test.json
