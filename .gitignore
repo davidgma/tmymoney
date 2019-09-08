@@ -3,6 +3,7 @@
 # compiled output
 /dist
 /dist-tmymoney
+/dist-webclient
 /tmp
 /out-tsc
 

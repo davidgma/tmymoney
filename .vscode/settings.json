@@ -1,9 +1,11 @@
 {
     "cSpell.words": [
+        "admin",
         "certbot",
         "cmake",
         "davidgma",
         "debian",
+        "devkit",
         "dhparam",
         "dhparams",
         "downlevel",
@@ -29,14 +31,18 @@
         "nginx",
         "nginx's",
         "pandoc",
+        "polyfills",
         "privkey",
         "rsync",
         "sourcemap",
+        "spec",
         "ssl",
         "systemctl",
         "tslib",
         "typechecking",
         "url",
+        "url's",
+        "webclient",
         "wordpress"
     ]
 }
