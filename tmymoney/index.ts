@@ -5,6 +5,7 @@ import { homedir } from 'os';
 import { createServer } from 'http';
 //import {  } from 'express';
 import express from "express";
+import { extname, join } from 'path';
 
 const logDir = homedir + "/.local/tmymoney";
 const logName = "tmymoney.log";
@@ -40,9 +41,21 @@ async function servers() {
     const server_ssl = createServer(router_ssl);
     const server_cl = createServer(router_cl);
 
-    router_ssl.get('/', (req, res) => {
-        //console.log("here");
-        res.send('Hello World via ssl!');
+    router_ssl.get(/\/.*/, (req, res) => {
+        // console.log("homedir: " + homedir);
+        // console.log("Request url:" + req.url);
+        // console.log("req params: " + req.params.count.toString());
+        let filePath = req.url;
+        if (req.url == '/')
+            filePath = '/index.html';
+        console.log("sending file: " + filePath);
+        let rootFolder = homedir + "/local/dev/tmymoney/dist-webclient";
+        // console.log("root folder: " + rootFolder);
+        res.sendFile(filePath, { root: rootFolder }, (err) => {
+            if (err != undefined)
+                console.log("Error sending file: " + err.message);
+        });
+        //res.send('Hello World via ssl!');
     });
 
     router_cl.get('/', (req, res) => {

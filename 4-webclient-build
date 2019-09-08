@@ -1,0 +1,13 @@
+#!/bin/bash
+# The command to build the Angular project so that it can be served by the tmymoney server.
+# The angular.json file should have the outputPath set to the dist directory only:
+# "outputPath": "dist-webclient",
+
+# Build for github
+cd webclient
+#ng build --base-href "http://localhost:4203/" --outputPath "../dist-webclient"
+ng build --base-href "https://kira.davidgma.com/" --outputPath "../dist-webclient"
+echo Test on http://localhost:4203
+cd ..
+
+
