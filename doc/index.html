@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>TMyMoney</title>
+  <style>
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style>
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="pandochtml.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <link rel="icon" href="/favicon.png">
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">TMyMoney</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#background">Background</a></li>
+<li><a href="#architecture">Architecture</a><ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#node">Node</a></li>
+<li><a href="#typescript">Typescript</a></li>
+<li><a href="#working-in-a-terminal">Working in a terminal.</a></li>
+<li><a href="#tmux">tmux</a></li>
+<li><a href="#ranger">ranger</a></li>
+<li><a href="#nvim">nvim</a></li>
+<li><a href="#angular">Angular</a></li>
+<li><a href="#git">Git</a></li>
+<li><a href="#pandoc">Pandoc</a></li>
+<li><a href="#bc---basic-calculator">bc - basic calculator</a></li>
+<li><a href="#visual-studio-code">Visual Studio Code</a></li>
+<li><a href="#ngh---angular-cli-ghpages">ngh - angular-cli-ghpages</a></li>
+<li><a href="#ncu---npm-check-updates">ncu - npm check updates</a></li>
+<li><a href="#google-cloud-platform">Google Cloud Platform</a></li>
+<li><a href="#getting-a-domain-name">Getting a domain name</a></li>
+<li><a href="#nginx"><span>nginx</span></a></li>
+<li><a href="#unison-file-synchroniser">unison file synchroniser</a></li>
+</ul></li>
+</ul>
+</nav>
+<p>This document is also <a href="tmymoney.epub">available as an ePUB ebook.</a></p>
+<h2 id="background">Background</h2>
+<p>I have been using KMyMoney to organise my finances for many years, I really like the program and I plan to continue using it. However, there are a few aspects of it that, for me, are lacking. The user interface doesn't cope well on smaller screens, there is no web interface, no mobile phone interface and no command line interface. Also it could perhaps be easier to input the sort of transactions that I input very regularly.<br />
+Furthermore, I have become spoiled by the benefits provided by many web apps in that you can access then from any machine - laptop, tablet or phone - and from anywhere. I have moved my daily computing life almost entirely into the cloud. But KMyMoney remains stubbornly local as it only runs on a laptop and has no facilities to synchronise different versions that have been changed on different laptops. As a workaround I use a cloud file server mapped to a local directory so that I can at least access the same master file from different computers. This works pretty well, but I like programming in Typescript and so I thought I'd try to improve on this.</p>
+<p>TMyMoney aims to address some of these things. It runs in a terminal and provides a terminal interface and a scalable web interface. It provides some of the existing functionality of KMyMoney and some additional functionality. It shares the same underlying KMyMoney file (.xml file). There isn't any protection against both KMyMoney and TMyMoney using the file at the same time, so don't do this. But so long as you either use KMyMoney or TMyMoney at any particular time, and save the file, they should be able to coexist.</p>
+<p>TMyMoney actually works by providing a RESTful API to both a terminal-based CLI program via <a href="http://localhost:someport">http://localhost:someport</a> and a static web app on <a href="https://vm.davidgma.com">https://vm.davidgma.com</a>.<br />
+For accessing the API through the external internet, the call is made over SSL and authentication is carried out by the Node application.<br />
+The access on the localhost can be via the terminal program on the VM or via SSH from another machine using port forwarding. No authentication is carried out for localhost API requests.<br />
+This way, you can use the terminal interface or the web interface from another machine while only having one master KMyMoney file.</p>
+<h2 id="architecture">Architecture</h2>
+<h3 id="overview">Overview</h3>
+<p>While KMyMoney can be installed and used without much technical knowledge, I don't think this will ever be the case for TMyMoney. It runs in a terminal, it uses node, you need to be able to configure a web server with SSL and authentication if you want to use it over the internet. Setting up a free Google Cloud Platform VM is a good idea too.</p>
+<p>This is the architecture of the application and the tools I used in building it.</p>
+<p>Server: Runs on a <a href="https://cloud.google.com/free/">Google Cloud Platform free</a> VM Uses the <a href="https://cloud.google.com/compute/">Compute Engine</a> product. <a href="https://nginx.org">nginx</a> web server. Free SSL certificate from <a href="https://letsencrypt.org">Let's Encrypt</a>. Google Authentication is used to authenticate the user (myself) so that only I can use the web client over the internet for my own installation.</p>
+<p>Web client: Written in <a href="https://www.typescriptlang.org">Typescript</a> and <a href="https://angular.io">Angular</a>.</p>
+<p>Processing KMyMoney file: The file is a <a href="https://docs.kde.org/trunk5/en/extragear-office/kmymoney/details.formats.compressed.html">gzip-compressed xml file</a>. As a one-off step, I changed the extension to .gz, unzipped it using <a href="https://linux.die.net/man/1/gunzip">gunzip</a> and then added the extension .xml. From then on I used the .xml file for normal usage in KMyMoney. KMyMoney is quite happy using the .xml file and saves any changes as .xml. The backups still work as normal and as doesn't have to uncompress and re-compress the file each time, it saves a bit of time.<br />
+The program, converts the xml file to a json file using <a href="https://github.com/Cheedoong/xml2json">xml2json</a> and then imports that.</p>
+<p>The server program then parses the json file and writes the bits it needs to an <a href="https://www.sqlite.org/index.html">sqlite3</a> database which it stores on a drive that is in memory - <a href="https://www.howtoforge.com/storing-files-directories-in-memory-with-tmpfs">/dev/shm</a>.</p>
+<p><a href="https://help.ubuntu.com/community/SSH/OpenSSH/Configuring">SSH</a> is used to connect to the VM from other computers where a terminal access is wanted, or to use the web client via port forwarding.</p>
+<p>For the documentation I used <a href="https://gohugo.io">Hugo</a> with the <a href="https://learn.netlify.com/en/">Learn Theme</a>.</p>
+<p>I used <a href="https://code.visualstudio.com/">Visual Studio Code</a> as my IDE.</p>
+<h3 id="node">Node</h3>
+<p>I installed Node using the <a href="https://github.com/nvm-sh/nvm">Node Version Manager</a>.</p>
+<p>You can install it with apt too but this doesn't give such a recent version. After installing it per the instructions I installed the latest LTS version of Node.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">bash</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="bu">command</span> -v nvm</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="ex">nvm</span> ls-remote</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="ex">nvm</span> install --lts</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="ex">node</span> --version</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="fu">which</span> node</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="fu">which</span> npm</span></code></pre></div>
+<p>The which commands should give paths that are under the directory ~/.nvm rather than under /usr.</p>
+<h3 id="typescript">Typescript</h3>
+<p>I used <a href="https://www.typescriptlang.org">Typescript</a>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="ex">npm</span> install -g typescript</span></code></pre></div>
+<p>To create a new Typescript/Node project in a sub-folder called tmymoney within the tmymoney project:</p>
+<pre><code>cd tmymoney
+mkdir tmymoney
+cd tmymoney
+npm init
+tsc --init
+npm install --save @types/node
+</code></pre>
+<p>Amend the tsconfig.json with:</p>
+<pre><code>&quot;outDir&quot;: &quot;../dist-tmymoney&quot;,
+
+</code></pre>
+<p>A useful place to look for other types (for other npm packages you may want to use) is <a href="https://microsoft.github.io/TypeSearch/">Microsoft's TypeSearch page</a>.</p>
+<h3 id="working-in-a-terminal">Working in a terminal.</h3>
+<p>Working in a terminal rather than in a graphical window has the advantages of speed and accessibility. Terminals are always available, and in the case of the Google VM it is the most easily available option. You can work with the VM graphically using SSH with X forwarding but it's really slow.</p>
+<p>The disadvantage of working in terminals is that it's all about keyboard shortcuts and so there's a lot to get used to, and the initial setup is much harder for some reason.</p>
+<p>There are 3 main tools that I use for working in a terminal. First, tmux, a newer equivalent of screen, is useful for getting multiple terminals within one terminal and for being able to attach and reattach to your work and having it stay there in the background while you are away.</p>
+<p>Second, ranger is a newer version of Midnight Commander and works as a file manager.</p>
+<p>Third, neovim is a newer version of vim and is a text editor and can be configured to work with code files as well as an IDE.</p>
+<h3 id="tmux">tmux</h3>
+<pre><code>sudo apt install tmux
+sudo apt install xclip
+tmux -V
+tmux new -s main
+ctrl+b c # create a new window
+ctrl+b , # rename the new window
+ctrl+b d # detach from the session
+tmux ls 
+tmux attach -t main
+</code></pre>
+<p>A good list of commands is at <a href="https://tmuxcheatsheet.com">https://tmuxcheatsheet.com</a>.</p>
+<p>A good explanation of copying to the main clipboard is at <a href="https://www.rushiagr.com/blog/2016/06/16/everything-you-need-to-know-about-tmux-copy-pasting-ubuntu/">https://www.rushiagr.com/blog/2016/06/16/everything-you-need-to-know-about-tmux-copy-pasting-ubuntu/</a>.</p>
+<p>To copy text inside a tmux window, hold the shift key while dragging with the mouse and it will then work as normal. But you can also just drag the mouse over text to be copied.</p>
+<p>The config file is ~/.tmux.conf.</p>
+<pre><code>set -g mouse on 
+bind P paste-buffer
+bind-key -T copy-mode-vi v send-keys -X begin-selection
+bind-key -T copy-mode-vi y send-keys -X copy-selection
+bind-key -T copy-mode-vi r send-keys -X rectangle-toggle
+set-option -g set-clipboard on
+bind-key -T copy-mode-vi y send-keys -X copy-pipe &quot;xclip -sel clip -i&quot;
+bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe &quot;xclip -sel clip -i&quot;
+</code></pre>
+<h3 id="ranger">ranger</h3>
+<pre><code>sudo apt install ranger
+sudo apt install xsel
+ranger --version
+ranger --copy-config=all
+vi ~/.config/ranger/rifle.conf
+</code></pre>
+<p>In the rifle.conf file, update the list of file extensions for the editor to include .ts files.</p>
+<p>Useful commands in ranger are</p>
+<ul>
+<li>S to go to a terminal</li>
+<li>yn, yd and yp to copy the file name, directory and path to the clipboard.</li>
+</ul>
+<p>A useful list of ranger commands can be found <a href="https://gist.github.com/heroheman/aba73e47443340c35526755ef79647eb">here</a>.</p>
+<h3 id="nvim">nvim</h3>
+<p>I installed the latest version of neovim from their <a href="https://neovim.io/">web site</a>.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1"></a><span class="bu">cd</span> ~/local/dev</span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">mkdir</span> nvim</span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="bu">cd</span> nvim</span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="fu">wget</span> https://github.com/neovim/neovim/releases/download/v0.3.8/nvim.appimage</span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="fu">chmod</span> a+x nvim.appimage</span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="fu">sudo</span> rm /usr/bin/vi</span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="fu">sudo</span> cp ~/local/dev/nvim/nvim.appimage /usr/bin/nvim</span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="fu">sudo</span> ln -s /usr/bin/nvim /usr/bin/vi</span>
+<span id="cb8-9"><a href="#cb8-9"></a></span></code></pre></div>
+<p>Installing all the plugins is an awkward process. I'm not completely sure how I did it, but it was something along the following lines.</p>
+<pre><code>npm install -g neovim
+sudo apt install python3-pip
+pip3 install --user pynvim
+
+mkdir ~/.config/nvim
+vi ~/.config/nvim/init.vim
+# copy in the init.vim text further down below. 
+curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh &gt; installer.sh 
+sh ./installer.sh ~/.cache/dein 
+vi 
+:call dein#install()
+:UpdateRemotePlugins 
+:call dein#install()
+:UpdateRemotePlugins 
+</code></pre>
+<p>~/.config/nvim/init.vim</p>
+<pre><code>
+if &amp;compatible
+  set nocompatible
+endif
+
+&quot; Add the dein installation directory into runtimepath
+set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
+
+if dein#load_state(&#39;~/.cache/dein&#39;)
+  call dein#begin(&#39;~/.cache/dein&#39;)
+
+  call dein#add(&#39;~/.cache/dein/repos/github.com/Shougo/dein.vim&#39;)
+  call dein#add(&#39;Shougo/deoplete.nvim&#39;)
+  if !has(&#39;nvim&#39;)
+    call dein#add(&#39;roxma/nvim-yarp&#39;)
+    call dein#add(&#39;roxma/vim-hug-neovim-rpc&#39;)
+  endif
+
+  &quot; Dein
+  call dein#add(&#39;HerringtonDarkholme/yats.vim&#39;)
+  call dein#add(&#39;mhartington/nvim-typescript&#39;, {&#39;build&#39;: &#39;./install.sh&#39;})
+ &quot; For async completion
+ &quot; For Denite features
+  call dein#add(&#39;Shougo/denite.nvim&#39;)
+
+  &quot; For formatting
+  &quot; post install (yarn install | npm install)
+  call dein#add(&#39;prettier/vim-prettier&#39;, { &#39;build&#39;: &#39;npm install&#39; })
+
+  &quot; Enable deoplete at startup
+  let g:deoplete#enable_at_startup = 1
+
+  call dein#end()
+  call dein#save_state()
+  &quot; call dein#update()
+  &quot; call dein#check_clean()
+
+
+endif
+
+filetype plugin indent on
+syntax enable
+
+set mouse=a
+
+&quot; spell languages
+set spelllang=en_gb
+set spell
+set spellfile=$HOME/local/scripts/en.utf-8.add
+
+set whichwrap+=&lt;,&gt;,h,l,[,]
+set wrap linebreak nolist
+set clipboard=unnamedplus
+nnoremap &lt;silent&gt; &lt;F10&gt; :set spell!&lt;cr&gt;
+inoremap &lt;silent&gt; &lt;F10&gt; &lt;C-O&gt;:set spell!&lt;cr&gt;
+
+&quot; &lt;ENTER&gt;: completion.
+&quot;    inoremap &lt;expr&gt;&lt;ENTER&gt;  pumvisible() ? &quot;\&lt;C-n&gt;&quot; : &quot;\&lt;ENTER&gt;&quot;
+
+:inoremap ( ()&lt;Esc&gt;i
+:inoremap [ []&lt;Esc&gt;i
+:inoremap { {}&lt;Esc&gt;i
+</code></pre>
+<p>This should enable the spell check functionality.</p>
+<ul>
+<li>To add a word to the dictionary: zg</li>
+<li>To get a list of suggestions: z=</li>
+<li>To go to the previous spelling error: [s</li>
+<li>To go to the next spelling error: ]s</li>
+<li>To toggle spell check: F10.</li>
+</ul>
+<p>Where some non-functioning plugins cause trouble, I found the following cleaned things out.</p>
+<pre><code>rm -rf /home/david/.cache/dein/.cache
+# then uncomment the line in the ~/.config/nvim/init.vim that has the 
+call dein#update()
+# then rerun the commands in nvim:
+:UpdateRemotePlugins 
+:call dein#install()
+# then uncomment the line with the dein#update command again.
+
+
+</code></pre>
+<p>Some useful websites: <a href="https://www.vimfromscratch.com/articles/setting-up-vim-for-typescript/">https://www.vimfromscratch.com/articles/setting-up-vim-for-typescript/</a> <a href="https://github.com/prettier/vim-prettier">https://github.com/prettier/vim-prettier</a> <a href="https://prettier.io/docs/en/vim.html">https://prettier.io/docs/en/vim.html</a></p>
+<h3 id="angular">Angular</h3>
+<p>I used <a href="https://angular.io">Angular</a>] for the web client. Angular produces static web sites - a web site where all the code is served once by the web server and then doesn't need to be served again for the entire running of the web app by the user, unless the user refreshes the web page. The advantage of this is that it's cheaper to serve and a lot of companies now offer free serving of static websites, such as Github with Github Pages. Plus, cloud file servers such as Google Drive and pCloud let you run a static web site just by putting the files into a folder on the cloud and making it public or selecting an option to publish.</p>
+<p>There is a back end that the web client uses but this is via RESTful API calls.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1"></a><span class="ex">npm</span> install -g @angular/cli</span></code></pre></div>
+<h3 id="git">Git</h3>
+<p>Git is needed for version control and for safely storing code on Github.</p>
+<p>I used the Ubuntu packaged version of git.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">sudo</span> apt update</span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="fu">sudo</span> apt install git</span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="fu">git</span> --version</span></code></pre></div>
+<p>Usage examples:</p>
+<pre><code>git clone https://github.com/davidgma/tmymoney.git
+cd tmymoney
+npm install
+git status
+git add *
+git commit -a -m &quot;Initial sync.&quot;
+git status
+git remote rm origin
+git remote add origin https://github.com/davidgma/tmymoney.git
+git remote -v
+git push origin master
+git push --set-upstream origin master
+git add *
+git commit -a -m &quot;Upload changes.&quot;
+git push
+ngh
+</code></pre>
+<h3 id="pandoc">Pandoc</h3>
+<p>I wrote this documentation using <a href="https://help.github.com/en/categories/writing-on-github">markdown</a> and then converted it to an html file and an ePUB ebook using <a href="https://pandoc.org">pandoc</a>.</p>
+<p>The version of pandoc that comes with Ubuntu is very old and doesn't seem to work properly. I downloaded the latest version from <a href="https://pandoc.org/installing.html">pandoc</a>. I clicked on 'Download latest installer' and then found the .deb at the bottom of the page. Then I installed it with the QApt Package Installer.</p>
+<p>The script file doc_update in the project directory creates the files based on what is in the /docs subdirectory. The .md files in the /docs subdirectory should start with a number then a space where the numbers determine the order that the files will be bought into the final file. Actually, any alphabetical order will do - the script will add on the numbering. A table of contents is automatically generated. It renames all the files to resequence them from 10, increasing each by 10. This makes it easier to add new files in the middle of the old sequence.</p>
+<p>The doc_update script is automatically called by the main git_update script to re-compile the documentation files before uploading them to Github Pages.</p>
+<p>Github Markdown guide: <a href="https://github.github.com/gfm/">https://github.github.com/gfm/</a></p>
+<h3 id="bc---basic-calculator">bc - basic calculator</h3>
+<p>The script doc_update uses the program <a href="https://en.wikipedia.org/wiki/Bc_(programming_language)">bc</a> - the basic calculator. It's usually installed automatically as part of Ubuntu.</p>
+<h3 id="visual-studio-code">Visual Studio Code</h3>
+<p>I use <a href="https://code.visualstudio.com">Visual Studio Code</a> as an IDE. It works well with Typescript.</p>
+<p>I use the extensions:</p>
+<ul>
+<li>Better TOML</li>
+<li>Code Spell Checker</li>
+<li>Dart</li>
+<li>Debugger for Chrome</li>
+</ul>
+<h3 id="ngh---angular-cli-ghpages">ngh - angular-cli-ghpages</h3>
+<p><a href="https://www.npmjs.com/package/angular-cli-ghpages">angular-cli-ghpages</a> puts whatever static site is in the /dist folder, onto Github Pages. It's designed to work for Angular, as this creates static sites, but it works for any static site. In this project I put the documentation into Github Pages and the web client too.</p>
+<p>Contrary to the guide on the above page, I used the following to install it:</p>
+<pre><code>npm install -g angular-cli-ghpages
+
+ngh
+</code></pre>
+<h3 id="ncu---npm-check-updates">ncu - npm check updates</h3>
+<p>I use <a href="https://github.com/tjunnone/npm-check-updates">ncu</a> to update all the node packages to the latest versions.</p>
+<pre><code>npm install -g npm-check-updates
+ncu
+ncu -u
+npm update
+ncu
+rm package-lock.json
+npm install
+ng serve --open
+</code></pre>
+<h3 id="google-cloud-platform">Google Cloud Platform</h3>
+<p>Google Cloud Platform generously gives you a small but useful virtual machine for <a href="https://cloud.google.com/free/">free under the 'Compute Engine' brand name</a>. I don't know why they call it Compute Engine; Google Virtual Machines would have been a lot less confusing. For free you can get an 'f1 micro instance' with 1 virtual processor 0.6 GB ram and a 30 GB hard drive. It's not much but it's free indefinitely and a lot better than a slap in the face with a wet fish.</p>
+<h4 id="register-with-google-cloud-platform">Register with Google Cloud Platform</h4>
+<p>Setting up the VM in the first place is covered by various quickstarts and tutorials that are listed under the <a href="https://cloud.google.com/compute/docs">compute engine documentation</a>.</p>
+<p>First I signed up for the free 12 month trial with $300 dollars spending money for free. I only plan to use the free tier for the time being, but having the additional $300 (£244.01) is handy because then, if accidentally you've configured something that you get charged for, you can see it in the <a href="https://cloud.google.com/resource-manager/docs/creating-managing-projects">billing section</a> and work out what you've done wrong before they relieve you of any real hard-earned money.</p>
+<h4 id="create-a-project">Create a project</h4>
+<p>Then you have to <a href="https://cloud.google.com/resource-manager/docs/creating-managing-projects">create a project</a>. I don't know why, it's just the way they've set things up - all resources seem to sit within a project. Because I planned to have the main billed VM (it's free but in theory billed because if I increased the size above the free tier then they would bill me) inside the project I called it Main Billed with a project ID of main-billed. You won't be able to call yours exactly the same thing because project IDs are unique across all of GCP. They will suggest a project name by default but it's usually rather long. You might want to try to find something shorter. Also, sometimes they choose a project name for you made up of 2 random words that have nothing to do with your project at all. This reminds me of Compuserve, an old online service that pre-dated the web, where they would choose a password for you made up of 2 random words joined together with a hyphen as far as I remember. But someone once complained because they gave him the password wooden-penis. I don't know why he complained, he can't have had much of a sense of humour. I imagine that Google take more care with the allowed words list.</p>
+<h4 id="create-the-vm">Create the vm</h4>
+<p>Then you set up the new VM from: GCP, console, compute engine, having made sure that you are in the right project (selected at the top). You can mostly follow the instructions and choose the defaults except that:</p>
+<ul>
+<li>you need to make sure that your choices match up with what the free offering covers (e.g. an f1-micro in a US region)</li>
+<li>the default suggests a 10 GB 'standard persistent disk' but you can get a 30 GB drive one for free so you should change that</li>
+<li>you need to tick the checkboxes to allow http and https traffic. See the note about firewalls below.</li>
+<li>I installed Ubuntu rather than Debian although I have no objection to Debian, I'm just more used to Ubuntu.</li>
+</ul>
+<h4 id="get-a-static-ip-address">Get a static ip address</h4>
+<p>Then you need to request a static ip address as you are going to get a domain name and link it to that address. To do this, go to: GCP, console, compute engine, view network details (menu to right of instance listing), external ip addresses. If the type is listed an ephemeral or dynamic and has the option to change it there to static then do so. Otherwise click on 'reserve static address' above and set it to static or get another address that's static.</p>
+<h4 id="note-on-firewalls-for-the-vm">Note on firewalls for the VM</h4>
+<p>Google compute engine has its own firewall around the VM which is configured as part of the GCP console and so any firewall settings need to be made via this rather than via a firewall inside the VM itself. So ufw, for example, on Ubuntu remains inactive.</p>
+<p>SSH will automatically be set up to be allowed as part of the process of setting up the VM. To configure SSL (https) using Let's Encrypt, you need http to be active for the automated certificate routine to work, so even if you only plan to use https on your server going forward, you still need to initially allow http and https until you've successfully set up SSL and then you can remove the http again from the firewall if you wish.</p>
+<p>To configure the firewall, once the VM has been set up, it's GCP, console, compute engine, view network details (menu to right of instance listing), firewall rules.</p>
+<h3 id="getting-a-domain-name">Getting a domain name</h3>
+<p>To access your website via https you're going to need a domain name. These have a charge - currently at least £10 a year. I used <a href="https://domains.google">Google Domains</a> for this.</p>
+<h4 id="register-a-domain">Register a domain</h4>
+<p>First select 'register a domain' on Google Domains site and follow the instructions. Once you've chosen and paid for a domain then you can go to the 'my domains' section and see your domain.</p>
+<h4 id="set-up-dns">Set up DNS</h4>
+<p>To have your domain name forward to the right place (your vm on GCP) you need to tell Google Domains what you want. You can have the same domain forward to different places entirely depending on the subdomain. For example, my domain is davidgma.com. I want vm.davidgma.com to go to my GCP vm and chess.davidgma.com to go to my Chess Opening Trainer web app that is hosted on Github Pages.</p>
+<p>In Google Domains, choose DNS from the menu, and then go down to 'Custom resource records' at the bottom of the page.</p>
+<p>For the vm subdomain, create an A record with vm as the name and the static ip address from your vm as the ipv4 address.</p>
+<p>For the chess subdomain, create a CNAME record with chess as the name and your Github subdomain as the address. In my case, I put in davidgma.github.io. as the address. The web app is actually at <a href="https://davidgma.github.io/chess-opening-trainer/">https://davidgma.github.io/chess-opening-trainer/</a> but you can't put the whole thing into the CNAME record, just the subdomain. You then have to tell Github what to do with the request by going into the Github repository, settings, GitHub Pages, and then under 'Custom domain' put the subdomain from the DNS CNAME record, in my case chess.davidgma.com. Don't tick the checkbox for 'Enforce HTTPS' yet because it takes Github up to 24 hours to set it up. Once it's set up, then tick the checkbox.</p>
+<p>Now, going to <a href="https://chess.davidgma.com/">https://chess.davidgma.com/</a> will go to the Github pages web app and <a href="https://vm.davidgma.com">https://vm.davidgma.com</a> will go to the GCP VM.</p>
+<h3 id="nginx"><a href="https://nginx.org/">nginx</a></h3>
+<p>Apparently this is pronounced 'engine-x' and is a web server.</p>
+<p>To install it:</p>
+<pre><code>sudo apt install nginx
+systemctl status nginx
+sudo apt install lynx
+lynx http://localhost
+</code></pre>
+<p><a href="https://letsencrypt.org">Let's Encrypt</a> provide an automated and free way of getting an SSL certificate so that you can have an https website. It's important to have an https site rather than a plain http site because with https everything is encrypted, including the url that the browser requests. With RESTful APIs, for security reasons the server needs to authenticate the requester, so as not to send private data to a complete stranger, and this means sending passwords or authentication tokens in the url. So to keep it private and secure, the url needs to be encrypted.</p>
+<p>Let's Encrypt uses an automated method from <a href="https://certbot.eff.org">Certbot</a>. You can follow the instructions on their website.</p>
+<pre><code>sudo apt-get update
+sudo apt-get install software-properties-common
+sudo add-apt-repository universe
+sudo add-apt-repository ppa:certbot/certbot
+sudo apt-get update
+sudo apt-get install certbot python-certbot-nginx
+sudo certbot --nginx
+lynx https://localhost
+</code></pre>
+<p>This didn't work completely smoothly for me the first time. I had to manually change the nginx configuration file and remove a lot of conflicting config. Basically I removed the config that came when I installed nginx and left just what the certbot put in.</p>
+<pre><code>sudo nano /etc/nginx/sites-enabled/default
+sudo systemctl restart nginx
+</code></pre>
+<p>The /etc/nginx/sites-enabled/default ended up with</p>
+<pre><code>##
+# You should look at the following URL&#39;s in order to grasp a solid understanding
+# of Nginx configuration files in order to fully unleash the power of Nginx.
+# https://www.nginx.com/resources/wiki/start/
+# https://www.nginx.com/resources/wiki/start/topics/tutorials/config_pitfalls/
+# https://wiki.debian.org/Nginx/DirectoryStructure
+#
+# In most cases, administrators will remove this file from sites-enabled/ and
+# leave it as reference inside of sites-available where it will continue to be
+# updated by the nginx packaging team.
+#
+# This file will automatically load configuration files provided by other
+# applications, such as Drupal or Wordpress. These applications will be made
+# available underneath a path with that package name, such as /drupal8.
+#
+# Please see /usr/share/doc/nginx-doc/examples/ for more detailed examples.
+##
+
+
+server {
+
+    # SSL configuration
+
+    # root /var/www/html;
+
+    # Add index.php to the list if you are using PHP
+    index index.html index.htm index.nginx-debian.html;
+    server_name vm.davidgma.com; # managed by Certbot
+
+
+    location / {
+        proxy_pass http://localhost:4210;
+        # First attempt to serve request as file, then
+        # as directory, then fall back to displaying a 404.
+        # try_files $uri $uri/ =404;
+    }
+
+    # pass PHP scripts to FastCGI server
+    #
+    #location ~ \.php$ {
+    #   include snippets/fastcgi-php.conf;
+    #
+    #   # With php-fpm (or other unix sockets):
+    #   fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
+    #   # With php-cgi (or other tcp sockets):
+    #   fastcgi_pass 127.0.0.1:9000;
+    #}
+
+    # deny access to .htaccess files, if Apache&#39;s document root
+    # concurs with nginx&#39;s one
+    #
+    #location ~ /\.ht {
+    #   deny all;
+    #}
+
+
+    listen [::]:443 ssl ipv6only=on; # managed by Certbot
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/vm.davidgma.com/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/vm.davidgma.com/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+server {
+    if ($host = vm.davidgma.com) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+    
+    listen 80 ;
+    listen [::]:80 ;
+   
+    server_name vm.davidgma.com;
+    return 404; # managed by Certbot
+
+
+}
+
+server {
+
+    location / {
+        proxy_pass http://localhost:4211/;
+    }
+    
+    listen 80 ;
+    listen [::]:80 ;
+    server_name localhost;
+}
+
+
+</code></pre>
+<h3 id="unison-file-synchroniser">unison file synchroniser</h3>
+<p>I keep the master copy of my KMyMoney file on the GCP VM and then synchronise it to a local copy before and after each time I use KMyMoney on a local machine. That way, any changes made on any machine, or on the VM, will be kept current.</p>
+<p>To install unison:</p>
+<pre><code>sudo apt install unison
+</code></pre>
+<p>On the local machine with a gui:</p>
+<pre><code>sudo apt install unison-gtk
+</code></pre>
+<p>Then, on any local machine where you want to use KMyMoney, open the GUI and set up a sync profile between the local folder and the ssh folder on the VM. I called it kmymoney-vm. I ran it once manually to check it worked.</p>
+<p>Then create a bash script to do the syncs before and after opening KMyMoney.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="co"># Use KMyMoney with a sync to the GCP VM</span></span>
+<span id="cb23-3"><a href="#cb23-3"></a></span>
+<span id="cb23-4"><a href="#cb23-4"></a><span class="co"># Sync with the VM</span></span>
+<span id="cb23-5"><a href="#cb23-5"></a><span class="bu">echo</span> Syncing with the VM</span>
+<span id="cb23-6"><a href="#cb23-6"></a><span class="ex">unison</span> kmymoney-vm -auto -batch -silent -ui text</span>
+<span id="cb23-7"><a href="#cb23-7"></a></span>
+<span id="cb23-8"><a href="#cb23-8"></a><span class="co"># Run KMyMoney</span></span>
+<span id="cb23-9"><a href="#cb23-9"></a><span class="bu">echo</span> Opening KMyMoney</span>
+<span id="cb23-10"><a href="#cb23-10"></a><span class="ex">kmymoney</span> <span class="va">$1</span></span>
+<span id="cb23-11"><a href="#cb23-11"></a></span>
+<span id="cb23-12"><a href="#cb23-12"></a><span class="co"># Sync with the VM</span></span>
+<span id="cb23-13"><a href="#cb23-13"></a><span class="bu">echo</span> Syncing with the VM</span>
+<span id="cb23-14"><a href="#cb23-14"></a><span class="ex">unison</span> kmymoney-vm -auto -batch -silent -ui text</span>
+<span id="cb23-15"><a href="#cb23-15"></a></span></code></pre></div>
+<p>Then create a new .desktop file in ~/.local/share/applications/ based on a copy of /usr/share/applications/org.kde.kmymoney.desktop. Change a few of the lines as follows:</p>
+<pre><code>Name=KMyMoney With Sync
+Name[en_GB]=KMyMoney With Sync
+GenericName=Personal Finance Manager with Sync
+GenericName[en_GB]=With Sync to VM
+Exec=/home/david/local/scripts/63-kmymoney %u
+Comment=Personal Finance Manager with Sync
+Comment[en_GB]=Personal Finance Manager with sync
+</code></pre>
+<p>If KMyMoney was in your KDE Plasma Application Launcher favourites, remove the old KMyMoney favourite and add in the new one.</p>
+</body>
+</html>
