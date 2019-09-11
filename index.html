@@ -234,12 +234,12 @@ vi
 endif
 
 &quot; Add the dein installation directory into runtimepath
-set runtimepath+=~/.local/share/dein/repos/github.com/Shougo/dein.vim
+set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 
-if dein#load_state(&#39;~/.local/share/dein&#39;)
-  call dein#begin(&#39;~/.local/share/dein&#39;)
+if dein#load_state(&#39;~/.cache/dein&#39;)
+  call dein#begin(&#39;~/.cache/dein&#39;)
 
-  call dein#add(&#39;~/.local/share/dein/repos/github.com/Shougo/dein.vim&#39;)
+  call dein#add(&#39;~/.cache/dein/repos/github.com/Shougo/dein.vim&#39;)
   call dein#add(&#39;Shougo/deoplete.nvim&#39;)
   if !has(&#39;nvim&#39;)
     call dein#add(&#39;roxma/nvim-yarp&#39;)
