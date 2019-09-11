@@ -119,5 +119,10 @@ call dein#update()
 
 
 ```
+Some useful websites:
+https://www.vimfromscratch.com/articles/setting-up-vim-for-typescript/
+https://github.com/prettier/vim-prettier
+https://prettier.io/docs/en/vim.html
+
 
 
