@@ -93,7 +93,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="#overview">Overview</a></li>
 <li><a href="#node">Node</a></li>
 <li><a href="#typescript">Typescript</a></li>
-<li><a href="#tmux-ranger-neovim">tmux ranger neovim</a></li>
+<li><a href="#working-in-a-terminal">Working in a terminal.</a></li>
+<li><a href="#tmux">tmux</a></li>
+<li><a href="#ranger">ranger</a></li>
+<li><a href="#nvim">nvim</a></li>
 <li><a href="#angular">Angular</a></li>
 <li><a href="#git">Git</a></li>
 <li><a href="#pandoc">Pandoc</a></li>
@@ -157,13 +160,13 @@ npm install --save @types/node
 
 </code></pre>
 <p>A useful place to look for other types (for other npm packages you may want to use) is <a href="https://microsoft.github.io/TypeSearch/">Microsoft's TypeSearch page</a>.</p>
-<h3 id="tmux-ranger-neovim">tmux ranger neovim</h3>
+<h3 id="working-in-a-terminal">Working in a terminal.</h3>
 <p>Working in a terminal rather than in a graphical window has the advantages of speed and accessibility. Terminals are always available, and in the case of the Google VM it is the most easily available option. You can work with the VM graphically using SSH with X forwarding but it's really slow.</p>
 <p>The disadvantage of working in terminals is that it's all about keyboard shortcuts and so there's a lot to get used to, and the initial setup is much harder for some reason.</p>
 <p>There are 3 main tools that I use for working in a terminal. First, tmux, a newer equivalent of screen, is useful for getting multiple terminals within one terminal and for being able to attach and reattach to your work and having it stay there in the background while you are away.</p>
 <p>Second, ranger is a newer version of Midnight Commander and works as a file manager.</p>
 <p>Third, neovim is a newer version of vim and is a text editor and can be configured to work with code files as well as an IDE.</p>
-<h4 id="tmux">tmux</h4>
+<h3 id="tmux">tmux</h3>
 <pre><code>sudo apt install tmux
 sudo apt install xclip
 tmux -V
@@ -187,7 +190,7 @@ set-option -g set-clipboard on
 bind-key -T copy-mode-vi y send-keys -X copy-pipe &quot;xclip -sel clip -i&quot;
 bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe &quot;xclip -sel clip -i&quot;
 </code></pre>
-<h4 id="ranger">ranger</h4>
+<h3 id="ranger">ranger</h3>
 <pre><code>sudo apt install ranger
 sudo apt install xsel
 ranger --version
@@ -201,7 +204,7 @@ vi ~/.config/ranger/rifle.conf
 <li>yn, yd and yp to copy the file name, directory and path to the clipboard.</li>
 </ul>
 <p>A useful list of ranger commands can be found <a href="https://gist.github.com/heroheman/aba73e47443340c35526755ef79647eb">here</a>.</p>
-<h4 id="nvim">nvim</h4>
+<h3 id="nvim">nvim</h3>
 <p>I installed the latest version of neovim from their <a href="https://neovim.io/">web site</a>.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1"></a><span class="bu">cd</span> ~/local/dev</span>
 <span id="cb8-2"><a href="#cb8-2"></a><span class="fu">mkdir</span> nvim</span>
@@ -280,7 +283,7 @@ nnoremap &lt;silent&gt; &lt;F10&gt; :set spell!&lt;cr&gt;
 inoremap &lt;silent&gt; &lt;F10&gt; &lt;C-O&gt;:set spell!&lt;cr&gt;
 
 &quot; &lt;ENTER&gt;: completion.
-    inoremap &lt;expr&gt;&lt;ENTER&gt;  pumvisible() ? &quot;\&lt;C-n&gt;&quot; : &quot;\&lt;ENTER&gt;&quot;
+&quot;    inoremap &lt;expr&gt;&lt;ENTER&gt;  pumvisible() ? &quot;\&lt;C-n&gt;&quot; : &quot;\&lt;ENTER&gt;&quot;
 </code></pre>
 <p>This should enable the spell check functionality.</p>
 <ul>
