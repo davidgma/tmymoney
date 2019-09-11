@@ -3,6 +3,6 @@ cd ./tmymoney
 tsc
 
 echo copying the xml convertion script
-cp convert-xml ../dist-tmymoney/ 
+rsync convert-xml ../dist-tmymoney/ 
 echo copying node modules
-cp -r node_modules ../dist-tmymoney
+rsync -r node_modules ../dist-tmymoney

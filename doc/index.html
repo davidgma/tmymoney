@@ -93,6 +93,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="#overview">Overview</a></li>
 <li><a href="#node">Node</a></li>
 <li><a href="#typescript">Typescript</a></li>
+<li><a href="#tmux-ranger-neovim">tmux ranger neovim</a></li>
 <li><a href="#angular">Angular</a></li>
 <li><a href="#git">Git</a></li>
 <li><a href="#pandoc">Pandoc</a></li>
@@ -156,16 +157,36 @@ npm install --save @types/node
 
 </code></pre>
 <p>A useful place to look for other types (for other npm packages you may want to use) is <a href="https://microsoft.github.io/TypeSearch/">Microsoft's TypeSearch page</a>.</p>
+<h3 id="tmux-ranger-neovim">tmux ranger neovim</h3>
+<p>Working in a terminal rather than in a graphical window has the advantages of speed and accessibility. Terminals are always available, and in the case of the Google VM it is the most easily available option. You can work with the VM graphically using SSH with X forwarding but it's really slow.</p>
+<p>The disadvantage of working in terminals is that it's all about keyboard shortcuts and the initial setup is much harder for some reason. So it takes a lot of getting used to.</p>
+<p>There are 3 main tools that I use for working in a terminal. First, tmux, a newer equivalent of screen, is useful for getting multiple terminals within one terminal and for being able to attach and reattach to your work and having it stay there in the background while you are away.</p>
+<p>Second, ranger is a newer version of Midnight Commander and works as a file manager.</p>
+<p>Third, neovim is a newer version of vim and is a text editor and can be configured to work with code files as well as an IDE.</p>
+<h4 id="tmux">tmux</h4>
+<pre><code>sudo apt install tmux
+sudo apt install xsel
+tmux -V
+tmux new -s main
+ctrl+b c # create a new window
+ctrl+b , # rename the new window
+ctrl+b d # detach from the session
+tmux ls 
+tmux attach -t main
+</code></pre>
+<p>A good list of commands is at <a href="https://tmuxcheatsheet.com">https://tmuxcheatsheet.com</a>.</p>
+<p>To copy text inside a tmux window, hold the shift key while dragging with the mouse and it will then work as normal.</p>
+<p>The config file is ~/.tmux.conf.</p>
 <h3 id="angular">Angular</h3>
 <p>I used <a href="https://angular.io">Angular</a>] for the web client. Angular produces static web sites - a web site where all the code is served once by the web server and then doesn't need to be served again for the entire running of the web app by the user, unless the user refreshes the web page. The advantage of this is that it's cheaper to serve and a lot of companies now offer free serving of static websites, such as Github with Github Pages. Plus, cloud file servers such as Google Drive and pCloud let you run a static web site just by putting the files into a folder on the cloud and making it public or selecting an option to publish.</p>
 <p>There is a back end that the web client uses but this is via RESTful API calls.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1"></a><span class="ex">npm</span> install -g @angular/cli</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1"></a><span class="ex">npm</span> install -g @angular/cli</span></code></pre></div>
 <h3 id="git">Git</h3>
 <p>Git is needed for version control and for safely storing code on Github.</p>
 <p>I used the Ubuntu packaged version of git.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">sudo</span> apt update</span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="fu">sudo</span> apt install git</span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="fu">git</span> --version</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">sudo</span> apt update</span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">sudo</span> apt install git</span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="fu">git</span> --version</span></code></pre></div>
 <p>Usage examples:</p>
 <pre><code>git clone https://github.com/davidgma/tmymoney.git
 cd tmymoney
@@ -375,21 +396,21 @@ server {
 </code></pre>
 <p>Then, on any local machine where you want to use KMyMoney, open the GUI and set up a sync profile between the local folder and the ssh folder on the VM. I called it kmymoney-vm. I ran it once manually to check it worked.</p>
 <p>Then create a bash script to do the syncs before and after opening KMyMoney.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb16-2"><a href="#cb16-2"></a><span class="co"># Use KMyMoney with a sync to the GCP VM</span></span>
-<span id="cb16-3"><a href="#cb16-3"></a></span>
-<span id="cb16-4"><a href="#cb16-4"></a><span class="co"># Sync with the VM</span></span>
-<span id="cb16-5"><a href="#cb16-5"></a><span class="bu">echo</span> Syncing with the VM</span>
-<span id="cb16-6"><a href="#cb16-6"></a><span class="ex">unison</span> kmymoney-vm -auto -batch -silent -ui text</span>
-<span id="cb16-7"><a href="#cb16-7"></a></span>
-<span id="cb16-8"><a href="#cb16-8"></a><span class="co"># Run KMyMoney</span></span>
-<span id="cb16-9"><a href="#cb16-9"></a><span class="bu">echo</span> Opening KMyMoney</span>
-<span id="cb16-10"><a href="#cb16-10"></a><span class="ex">kmymoney</span> <span class="va">$1</span></span>
-<span id="cb16-11"><a href="#cb16-11"></a></span>
-<span id="cb16-12"><a href="#cb16-12"></a><span class="co"># Sync with the VM</span></span>
-<span id="cb16-13"><a href="#cb16-13"></a><span class="bu">echo</span> Syncing with the VM</span>
-<span id="cb16-14"><a href="#cb16-14"></a><span class="ex">unison</span> kmymoney-vm -auto -batch -silent -ui text</span>
-<span id="cb16-15"><a href="#cb16-15"></a></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="co"># Use KMyMoney with a sync to the GCP VM</span></span>
+<span id="cb17-3"><a href="#cb17-3"></a></span>
+<span id="cb17-4"><a href="#cb17-4"></a><span class="co"># Sync with the VM</span></span>
+<span id="cb17-5"><a href="#cb17-5"></a><span class="bu">echo</span> Syncing with the VM</span>
+<span id="cb17-6"><a href="#cb17-6"></a><span class="ex">unison</span> kmymoney-vm -auto -batch -silent -ui text</span>
+<span id="cb17-7"><a href="#cb17-7"></a></span>
+<span id="cb17-8"><a href="#cb17-8"></a><span class="co"># Run KMyMoney</span></span>
+<span id="cb17-9"><a href="#cb17-9"></a><span class="bu">echo</span> Opening KMyMoney</span>
+<span id="cb17-10"><a href="#cb17-10"></a><span class="ex">kmymoney</span> <span class="va">$1</span></span>
+<span id="cb17-11"><a href="#cb17-11"></a></span>
+<span id="cb17-12"><a href="#cb17-12"></a><span class="co"># Sync with the VM</span></span>
+<span id="cb17-13"><a href="#cb17-13"></a><span class="bu">echo</span> Syncing with the VM</span>
+<span id="cb17-14"><a href="#cb17-14"></a><span class="ex">unison</span> kmymoney-vm -auto -batch -silent -ui text</span>
+<span id="cb17-15"><a href="#cb17-15"></a></span></code></pre></div>
 <p>Then create a new .desktop file in ~/.local/share/applications/ based on a copy of /usr/share/applications/org.kde.kmymoney.desktop. Change a few of the lines as follows:</p>
 <pre><code>Name=KMyMoney With Sync
 Name[en_GB]=KMyMoney With Sync
