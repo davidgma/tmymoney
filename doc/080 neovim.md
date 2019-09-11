@@ -36,6 +36,7 @@ vi
 
 ~/.config/nvim/init.vim
 ```
+
 if &compatible
   set nocompatible
 endif
@@ -58,16 +59,21 @@ if dein#load_state('~/.cache/dein')
   call dein#add('mhartington/nvim-typescript', {'build': './install.sh'})
  " For async completion
  " For Denite features
-
   call dein#add('Shougo/denite.nvim')
 
+  " For formatting
+  " post install (yarn install | npm install)
+  call dein#add('prettier/vim-prettier', { 'build': 'npm install' })
 
-
-" Enable deoplete at startup
-
+  " Enable deoplete at startup
   let g:deoplete#enable_at_startup = 1
+
   call dein#end()
   call dein#save_state()
+  " call dein#update()
+  " call dein#check_clean()
+
+
 endif
 
 filetype plugin indent on
@@ -88,6 +94,10 @@ inoremap <silent> <F10> <C-O>:set spell!<cr>
 
 " <ENTER>: completion.
 "    inoremap <expr><ENTER>  pumvisible() ? "\<C-n>" : "\<ENTER>"
+
+:inoremap ( ()<Esc>i
+:inoremap [ []<Esc>i
+:inoremap { {}<Esc>i
 ```
 
 This should enable the spell check functionality. 
@@ -96,3 +106,18 @@ This should enable the spell check functionality.
 - To go to the previous spelling error: [s
 - To go to the next spelling error: ]s
 - To toggle spell check: F10.
+
+Where some non-functioning plugins cause trouble, I found the following cleaned things out. 
+```
+rm -rf /home/david/.cache/dein/.cache
+# then uncomment the line in the ~/.config/nvim/init.vim that has the 
+call dein#update()
+# then rerun the commands in nvim:
+:UpdateRemotePlugins 
+:call dein#install()
+# then uncomment the line with the dein#update command again.
+
+
+```
+
+
