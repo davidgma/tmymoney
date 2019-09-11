@@ -159,13 +159,13 @@ npm install --save @types/node
 <p>A useful place to look for other types (for other npm packages you may want to use) is <a href="https://microsoft.github.io/TypeSearch/">Microsoft's TypeSearch page</a>.</p>
 <h3 id="tmux-ranger-neovim">tmux ranger neovim</h3>
 <p>Working in a terminal rather than in a graphical window has the advantages of speed and accessibility. Terminals are always available, and in the case of the Google VM it is the most easily available option. You can work with the VM graphically using SSH with X forwarding but it's really slow.</p>
-<p>The disadvantage of working in terminals is that it's all about keyboard shortcuts and the initial setup is much harder for some reason. So it takes a lot of getting used to.</p>
+<p>The disadvantage of working in terminals is that it's all about keyboard shortcuts and so there's a lot to get used to, and the initial setup is much harder for some reason.</p>
 <p>There are 3 main tools that I use for working in a terminal. First, tmux, a newer equivalent of screen, is useful for getting multiple terminals within one terminal and for being able to attach and reattach to your work and having it stay there in the background while you are away.</p>
 <p>Second, ranger is a newer version of Midnight Commander and works as a file manager.</p>
 <p>Third, neovim is a newer version of vim and is a text editor and can be configured to work with code files as well as an IDE.</p>
 <h4 id="tmux">tmux</h4>
 <pre><code>sudo apt install tmux
-sudo apt install xsel
+sudo apt install xclip
 tmux -V
 tmux new -s main
 ctrl+b c # create a new window
@@ -175,18 +175,131 @@ tmux ls
 tmux attach -t main
 </code></pre>
 <p>A good list of commands is at <a href="https://tmuxcheatsheet.com">https://tmuxcheatsheet.com</a>.</p>
-<p>To copy text inside a tmux window, hold the shift key while dragging with the mouse and it will then work as normal.</p>
+<p>A good explanation of copying to the main clipboard is at <a href="https://www.rushiagr.com/blog/2016/06/16/everything-you-need-to-know-about-tmux-copy-pasting-ubuntu/">https://www.rushiagr.com/blog/2016/06/16/everything-you-need-to-know-about-tmux-copy-pasting-ubuntu/</a>.</p>
+<p>To copy text inside a tmux window, hold the shift key while dragging with the mouse and it will then work as normal. But you can also just drag the mouse over text to be copied.</p>
 <p>The config file is ~/.tmux.conf.</p>
+<pre><code>set -g mouse on 
+bind P paste-buffer
+bind-key -T copy-mode-vi v send-keys -X begin-selection
+bind-key -T copy-mode-vi y send-keys -X copy-selection
+bind-key -T copy-mode-vi r send-keys -X rectangle-toggle
+set-option -g set-clipboard on
+bind-key -T copy-mode-vi y send-keys -X copy-pipe &quot;xclip -sel clip -i&quot;
+bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe &quot;xclip -sel clip -i&quot;
+</code></pre>
+<h4 id="ranger">ranger</h4>
+<pre><code>sudo apt install ranger
+sudo apt install xsel
+ranger --version
+ranger --copy-config=all
+vi ~/.config/ranger/rifle.conf
+</code></pre>
+<p>In the rifle.conf file, update the list of file extensions for the editor to include .ts files.</p>
+<p>Useful commands in ranger are</p>
+<ul>
+<li>S to go to a terminal</li>
+<li>yn, yd and yp to copy the file name, directory and path to the clipboard.</li>
+</ul>
+<p>A useful list of ranger commands can be found <a href="https://gist.github.com/heroheman/aba73e47443340c35526755ef79647eb">here</a>.</p>
+<h4 id="nvim">nvim</h4>
+<p>I installed the latest version of neovim from their <a href="https://neovim.io/">web site</a>.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1"></a><span class="bu">cd</span> ~/local/dev</span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">mkdir</span> nvim</span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="bu">cd</span> nvim</span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="fu">wget</span> https://github.com/neovim/neovim/releases/download/v0.3.8/nvim.appimage</span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="fu">chmod</span> a+x nvim.appimage</span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="fu">sudo</span> rm /usr/bin/vi</span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="fu">sudo</span> cp ~/local/dev/nvim/nvim.appimage /usr/bin/nvim</span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="fu">sudo</span> ln -s /usr/bin/nvim /usr/bin/vi</span>
+<span id="cb8-9"><a href="#cb8-9"></a></span></code></pre></div>
+<p>Installing all the plugins is an awkward process. I'm not completely sure how I did it, but it was something along the following lines.</p>
+<pre><code>npm install -g neovim
+sudo apt install python3-pip
+pip3 install --user pynvim
+
+mkdir ~/.config/nvim
+vi ~/.config/nvim/init.vim
+# copy in the init.vim text further down below. 
+curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh &gt; installer.sh 
+sh ./installer.sh ~/.cache/dein 
+vi 
+:call dein#install()
+:UpdateRemotePlugins 
+:call dein#install()
+:UpdateRemotePlugins 
+</code></pre>
+<p>~/.config/nvim/init.vim</p>
+<pre><code>if &amp;compatible
+  set nocompatible
+endif
+
+&quot; Add the dein installation directory into runtimepath
+set runtimepath+=~/.local/share/dein/repos/github.com/Shougo/dein.vim
+
+if dein#load_state(&#39;~/.local/share/dein&#39;)
+  call dein#begin(&#39;~/.local/share/dein&#39;)
+
+  call dein#add(&#39;~/.local/share/dein/repos/github.com/Shougo/dein.vim&#39;)
+  call dein#add(&#39;Shougo/deoplete.nvim&#39;)
+  if !has(&#39;nvim&#39;)
+    call dein#add(&#39;roxma/nvim-yarp&#39;)
+    call dein#add(&#39;roxma/vim-hug-neovim-rpc&#39;)
+  endif
+
+  &quot; Dein
+  call dein#add(&#39;HerringtonDarkholme/yats.vim&#39;)
+  call dein#add(&#39;mhartington/nvim-typescript&#39;, {&#39;build&#39;: &#39;./install.sh&#39;})
+ &quot; For async completion
+ &quot; For Denite features
+
+  call dein#add(&#39;Shougo/denite.nvim&#39;)
+
+
+
+&quot; Enable deoplete at startup
+
+  let g:deoplete#enable_at_startup = 1
+  call dein#end()
+  call dein#save_state()
+endif
+
+filetype plugin indent on
+syntax enable
+
+set mouse=a
+
+&quot; spell languages
+set spelllang=en_gb
+set spell
+set spellfile=$HOME/local/scripts/en.utf-8.add
+
+set whichwrap+=&lt;,&gt;,h,l,[,]
+set wrap linebreak nolist
+set clipboard=unnamedplus
+nnoremap &lt;silent&gt; &lt;F10&gt; :set spell!&lt;cr&gt;
+inoremap &lt;silent&gt; &lt;F10&gt; &lt;C-O&gt;:set spell!&lt;cr&gt;
+
+&quot; &lt;ENTER&gt;: completion.
+    inoremap &lt;expr&gt;&lt;ENTER&gt;  pumvisible() ? &quot;\&lt;C-n&gt;&quot; : &quot;\&lt;ENTER&gt;&quot;
+</code></pre>
+<p>This should enable the spell check functionality.</p>
+<ul>
+<li>To add a word to the dictionary: zg</li>
+<li>To get a list of suggestions: z=</li>
+<li>To go to the previous spelling error: [s</li>
+<li>To go to the next spelling error: ]s</li>
+<li>To toggle spell check: F10.</li>
+</ul>
 <h3 id="angular">Angular</h3>
 <p>I used <a href="https://angular.io">Angular</a>] for the web client. Angular produces static web sites - a web site where all the code is served once by the web server and then doesn't need to be served again for the entire running of the web app by the user, unless the user refreshes the web page. The advantage of this is that it's cheaper to serve and a lot of companies now offer free serving of static websites, such as Github with Github Pages. Plus, cloud file servers such as Google Drive and pCloud let you run a static web site just by putting the files into a folder on the cloud and making it public or selecting an option to publish.</p>
 <p>There is a back end that the web client uses but this is via RESTful API calls.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1"></a><span class="ex">npm</span> install -g @angular/cli</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1"></a><span class="ex">npm</span> install -g @angular/cli</span></code></pre></div>
 <h3 id="git">Git</h3>
 <p>Git is needed for version control and for safely storing code on Github.</p>
 <p>I used the Ubuntu packaged version of git.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">sudo</span> apt update</span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">sudo</span> apt install git</span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="fu">git</span> --version</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">sudo</span> apt update</span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="fu">sudo</span> apt install git</span>
+<span id="cb12-3"><a href="#cb12-3"></a><span class="fu">git</span> --version</span></code></pre></div>
 <p>Usage examples:</p>
 <pre><code>git clone https://github.com/davidgma/tmymoney.git
 cd tmymoney
@@ -396,21 +509,21 @@ server {
 </code></pre>
 <p>Then, on any local machine where you want to use KMyMoney, open the GUI and set up a sync profile between the local folder and the ssh folder on the VM. I called it kmymoney-vm. I ran it once manually to check it worked.</p>
 <p>Then create a bash script to do the syncs before and after opening KMyMoney.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb17-2"><a href="#cb17-2"></a><span class="co"># Use KMyMoney with a sync to the GCP VM</span></span>
-<span id="cb17-3"><a href="#cb17-3"></a></span>
-<span id="cb17-4"><a href="#cb17-4"></a><span class="co"># Sync with the VM</span></span>
-<span id="cb17-5"><a href="#cb17-5"></a><span class="bu">echo</span> Syncing with the VM</span>
-<span id="cb17-6"><a href="#cb17-6"></a><span class="ex">unison</span> kmymoney-vm -auto -batch -silent -ui text</span>
-<span id="cb17-7"><a href="#cb17-7"></a></span>
-<span id="cb17-8"><a href="#cb17-8"></a><span class="co"># Run KMyMoney</span></span>
-<span id="cb17-9"><a href="#cb17-9"></a><span class="bu">echo</span> Opening KMyMoney</span>
-<span id="cb17-10"><a href="#cb17-10"></a><span class="ex">kmymoney</span> <span class="va">$1</span></span>
-<span id="cb17-11"><a href="#cb17-11"></a></span>
-<span id="cb17-12"><a href="#cb17-12"></a><span class="co"># Sync with the VM</span></span>
-<span id="cb17-13"><a href="#cb17-13"></a><span class="bu">echo</span> Syncing with the VM</span>
-<span id="cb17-14"><a href="#cb17-14"></a><span class="ex">unison</span> kmymoney-vm -auto -batch -silent -ui text</span>
-<span id="cb17-15"><a href="#cb17-15"></a></span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="co"># Use KMyMoney with a sync to the GCP VM</span></span>
+<span id="cb22-3"><a href="#cb22-3"></a></span>
+<span id="cb22-4"><a href="#cb22-4"></a><span class="co"># Sync with the VM</span></span>
+<span id="cb22-5"><a href="#cb22-5"></a><span class="bu">echo</span> Syncing with the VM</span>
+<span id="cb22-6"><a href="#cb22-6"></a><span class="ex">unison</span> kmymoney-vm -auto -batch -silent -ui text</span>
+<span id="cb22-7"><a href="#cb22-7"></a></span>
+<span id="cb22-8"><a href="#cb22-8"></a><span class="co"># Run KMyMoney</span></span>
+<span id="cb22-9"><a href="#cb22-9"></a><span class="bu">echo</span> Opening KMyMoney</span>
+<span id="cb22-10"><a href="#cb22-10"></a><span class="ex">kmymoney</span> <span class="va">$1</span></span>
+<span id="cb22-11"><a href="#cb22-11"></a></span>
+<span id="cb22-12"><a href="#cb22-12"></a><span class="co"># Sync with the VM</span></span>
+<span id="cb22-13"><a href="#cb22-13"></a><span class="bu">echo</span> Syncing with the VM</span>
+<span id="cb22-14"><a href="#cb22-14"></a><span class="ex">unison</span> kmymoney-vm -auto -batch -silent -ui text</span>
+<span id="cb22-15"><a href="#cb22-15"></a></span></code></pre></div>
 <p>Then create a new .desktop file in ~/.local/share/applications/ based on a copy of /usr/share/applications/org.kde.kmymoney.desktop. Change a few of the lines as follows:</p>
 <pre><code>Name=KMyMoney With Sync
 Name[en_GB]=KMyMoney With Sync
