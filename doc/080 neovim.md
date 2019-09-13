@@ -64,6 +64,9 @@ if dein#load_state('~/.cache/dein')
  " For Denite features
   call dein#add('Shougo/denite.nvim')
 
+  " For dictionary completion 
+  call dein#add('deoplete-plugins/deoplete-dictionary')
+
   " For formatting
   " post install (yarn install | npm install)
   call dein#add('prettier/vim-prettier', { 'build': 'npm install' })
@@ -75,8 +78,6 @@ if dein#load_state('~/.cache/dein')
   call dein#save_state()
   " call dein#update()
   " call dein#check_clean()
-
-
 endif
 
 filetype plugin indent on
@@ -96,11 +97,25 @@ nnoremap <silent> <F10> :set spell!<cr>
 inoremap <silent> <F10> <C-O>:set spell!<cr>
 
 " <ENTER>: completion.
-"    inoremap <expr><ENTER>  pumvisible() ? "\<C-n>" : "\<ENTER>"
-
+    inoremap <expr><ENTER>  pumvisible() ? "\<C-n>" : "\<ENTER>"
 :inoremap ( ()<Esc>i
 :inoremap [ []<Esc>i
 :inoremap { {}<Esc>i
+
+" Sample configuration for dictionary source with multiple
+" dictionary files.
+setlocal dictionary+=/usr/share/dict/words
+setlocal dictionary+=/usr/share/dict/british-english
+" Remove this if you'd like to use fuzzy search
+call deoplete#custom#source(
+\ 'dictionary', 'matchers', ['matcher_head'])
+" If dictionary is already sorted, no need to sort it again.
+call deoplete#custom#source(
+\ 'dictionary', 'sorters', [])
+" Do not complete too short words
+call deoplete#custom#source(
+			\ 'dictionary', 'min_pattern_length', 3)
+
 ```
 
 This should enable the spell check functionality. 
