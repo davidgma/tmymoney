@@ -97,6 +97,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="#tmux">tmux</a></li>
 <li><a href="#ranger">ranger</a></li>
 <li><a href="#nvim">nvim</a></li>
+<li><a href="#termux">Termux</a></li>
 <li><a href="#angular">Angular</a></li>
 <li><a href="#git">Git</a></li>
 <li><a href="#pandoc">Pandoc</a></li>
@@ -168,6 +169,7 @@ npm install --save @types/node
 <h3 id="tmux">tmux</h3>
 <pre><code>sudo apt install tmux
 sudo apt install xclip
+sudo apt install bc
 tmux -V
 tmux new -s main
 ctrl+b c # create a new window
@@ -195,8 +197,12 @@ sudo apt install xsel
 ranger --version
 ranger --copy-config=all
 vi ~/.config/ranger/rifle.conf
+vi ~/.bashrc
 </code></pre>
 <p>In the rifle.conf file, update the list of file extensions for the editor to include .ts files.</p>
+<p>In the .bashrc file, put the following line so that ranger uses neovim as the default editor:</p>
+<pre><code>export EDITOR=&quot;/usr/bin/vi&quot;
+</code></pre>
 <p>Useful commands in ranger are</p>
 <ul>
 <li>S to go to a terminal</li>
@@ -205,15 +211,15 @@ vi ~/.config/ranger/rifle.conf
 <p>A useful list of ranger commands can be found <a href="https://gist.github.com/heroheman/aba73e47443340c35526755ef79647eb">here</a>.</p>
 <h3 id="nvim">nvim</h3>
 <p>I installed the latest version of neovim from their <a href="https://neovim.io/">web site</a>.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1"></a><span class="bu">cd</span> ~/local/dev</span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">mkdir</span> nvim</span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="bu">cd</span> nvim</span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="fu">wget</span> https://github.com/neovim/neovim/releases/download/v0.3.8/nvim.appimage</span>
-<span id="cb8-5"><a href="#cb8-5"></a><span class="fu">chmod</span> a+x nvim.appimage</span>
-<span id="cb8-6"><a href="#cb8-6"></a><span class="fu">sudo</span> rm /usr/bin/vi</span>
-<span id="cb8-7"><a href="#cb8-7"></a><span class="fu">sudo</span> cp ~/local/dev/nvim/nvim.appimage /usr/bin/nvim</span>
-<span id="cb8-8"><a href="#cb8-8"></a><span class="fu">sudo</span> ln -s /usr/bin/nvim /usr/bin/vi</span>
-<span id="cb8-9"><a href="#cb8-9"></a></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1"></a><span class="bu">cd</span> ~/local/dev</span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">mkdir</span> nvim</span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="bu">cd</span> nvim</span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="fu">wget</span> https://github.com/neovim/neovim/releases/download/v0.3.8/nvim.appimage</span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="fu">chmod</span> a+x nvim.appimage</span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="fu">sudo</span> rm /usr/bin/vi</span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="fu">sudo</span> cp ~/local/dev/nvim/nvim.appimage /usr/bin/nvim</span>
+<span id="cb9-8"><a href="#cb9-8"></a><span class="fu">sudo</span> ln -s /usr/bin/nvim /usr/bin/vi</span>
+<span id="cb9-9"><a href="#cb9-9"></a></span></code></pre></div>
 <p>Installing all the plugins is an awkward process. I'm not completely sure how I did it, but it was something along the following lines.</p>
 <pre><code>npm install -g neovim
 sudo apt install python3-pip
@@ -229,9 +235,13 @@ vi
 :UpdateRemotePlugins 
 :call dein#install()
 :UpdateRemotePlugins 
+
 </code></pre>
 <p>~/.config/nvim/init.vim</p>
-<pre><code>
+<pre><code># The following 2 lines are only needed where accessed over SSH
+# let $NVIM_TUI_ENABLE_CURSOR_SHAPE=0
+# set guicursor=
+
 if &amp;compatible
   set nocompatible
 endif
@@ -314,16 +324,37 @@ call dein#update()
 
 </code></pre>
 <p>Some useful websites: <a href="https://www.vimfromscratch.com/articles/setting-up-vim-for-typescript/">https://www.vimfromscratch.com/articles/setting-up-vim-for-typescript/</a> <a href="https://github.com/prettier/vim-prettier">https://github.com/prettier/vim-prettier</a> <a href="https://prettier.io/docs/en/vim.html">https://prettier.io/docs/en/vim.html</a></p>
+<h3 id="termux">Termux</h3>
+<p><a href="https://termux.com">Termux</a> is an amazing Android app that creates a Linux terminal inside of Android. It actually allows you to do pretty much all of the things inside the terminal discussed in this documentation and it doesn't even need root access.</p>
+<p>Termux uses pkg as a package manager and the following can be installed.</p>
+<pre><code>pkg install neovim git tmux bc xsel ranger man nodejs-lts python clang python-dev vim-python openssh 
+pip3 install --user pynvim
+
+# If you have an SD card 
+termux-setup-storage  
+</code></pre>
+<p>Note that to set up SSH to the VM, don't use the metadata section of the Google Cloud Console, but instead, use the <a href="https://cloud.google.com/compute/docs/instances/managing-instance-access">os-login feature</a>. Copy the .pub file to the Google Cloud Shell using upload, and then put it in the ssh directory there and use a command in the Cloud Shell to set it up.</p>
+<p>In the Google Cloud Shell:</p>
+<pre><code>cd ssh
+gcloud compute os-login ssh-keys add --key-file t700_id_rsa.p
+ub 
+</code></pre>
+<p>Then in Termux:</p>
+<pre><code>ssh-keygen -t rsa -C dmlh02_gmail_com
+# then upload the .pub key file to the Cloud Shell and add the key
+
+ssh dmlh02_gmail_com@vm.davidgma.com 
+</code></pre>
 <h3 id="angular">Angular</h3>
 <p>I used <a href="https://angular.io">Angular</a>] for the web client. Angular produces static web sites - a web site where all the code is served once by the web server and then doesn't need to be served again for the entire running of the web app by the user, unless the user refreshes the web page. The advantage of this is that it's cheaper to serve and a lot of companies now offer free serving of static websites, such as Github with Github Pages. Plus, cloud file servers such as Google Drive and pCloud let you run a static web site just by putting the files into a folder on the cloud and making it public or selecting an option to publish.</p>
 <p>There is a back end that the web client uses but this is via RESTful API calls.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1"></a><span class="ex">npm</span> install -g @angular/cli</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1"></a><span class="ex">npm</span> install -g @angular/cli</span></code></pre></div>
 <h3 id="git">Git</h3>
 <p>Git is needed for version control and for safely storing code on Github.</p>
 <p>I used the Ubuntu packaged version of git.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">sudo</span> apt update</span>
-<span id="cb13-2"><a href="#cb13-2"></a><span class="fu">sudo</span> apt install git</span>
-<span id="cb13-3"><a href="#cb13-3"></a><span class="fu">git</span> --version</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">sudo</span> apt update</span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="fu">sudo</span> apt install git</span>
+<span id="cb17-3"><a href="#cb17-3"></a><span class="fu">git</span> --version</span></code></pre></div>
 <p>Usage examples:</p>
 <pre><code>git clone https://github.com/davidgma/tmymoney.git
 cd tmymoney
@@ -533,21 +564,21 @@ server {
 </code></pre>
 <p>Then, on any local machine where you want to use KMyMoney, open the GUI and set up a sync profile between the local folder and the ssh folder on the VM. I called it kmymoney-vm. I ran it once manually to check it worked.</p>
 <p>Then create a bash script to do the syncs before and after opening KMyMoney.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb23-2"><a href="#cb23-2"></a><span class="co"># Use KMyMoney with a sync to the GCP VM</span></span>
-<span id="cb23-3"><a href="#cb23-3"></a></span>
-<span id="cb23-4"><a href="#cb23-4"></a><span class="co"># Sync with the VM</span></span>
-<span id="cb23-5"><a href="#cb23-5"></a><span class="bu">echo</span> Syncing with the VM</span>
-<span id="cb23-6"><a href="#cb23-6"></a><span class="ex">unison</span> kmymoney-vm -auto -batch -silent -ui text</span>
-<span id="cb23-7"><a href="#cb23-7"></a></span>
-<span id="cb23-8"><a href="#cb23-8"></a><span class="co"># Run KMyMoney</span></span>
-<span id="cb23-9"><a href="#cb23-9"></a><span class="bu">echo</span> Opening KMyMoney</span>
-<span id="cb23-10"><a href="#cb23-10"></a><span class="ex">kmymoney</span> <span class="va">$1</span></span>
-<span id="cb23-11"><a href="#cb23-11"></a></span>
-<span id="cb23-12"><a href="#cb23-12"></a><span class="co"># Sync with the VM</span></span>
-<span id="cb23-13"><a href="#cb23-13"></a><span class="bu">echo</span> Syncing with the VM</span>
-<span id="cb23-14"><a href="#cb23-14"></a><span class="ex">unison</span> kmymoney-vm -auto -batch -silent -ui text</span>
-<span id="cb23-15"><a href="#cb23-15"></a></span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a><span class="co"># Use KMyMoney with a sync to the GCP VM</span></span>
+<span id="cb27-3"><a href="#cb27-3"></a></span>
+<span id="cb27-4"><a href="#cb27-4"></a><span class="co"># Sync with the VM</span></span>
+<span id="cb27-5"><a href="#cb27-5"></a><span class="bu">echo</span> Syncing with the VM</span>
+<span id="cb27-6"><a href="#cb27-6"></a><span class="ex">unison</span> kmymoney-vm -auto -batch -silent -ui text</span>
+<span id="cb27-7"><a href="#cb27-7"></a></span>
+<span id="cb27-8"><a href="#cb27-8"></a><span class="co"># Run KMyMoney</span></span>
+<span id="cb27-9"><a href="#cb27-9"></a><span class="bu">echo</span> Opening KMyMoney</span>
+<span id="cb27-10"><a href="#cb27-10"></a><span class="ex">kmymoney</span> <span class="va">$1</span></span>
+<span id="cb27-11"><a href="#cb27-11"></a></span>
+<span id="cb27-12"><a href="#cb27-12"></a><span class="co"># Sync with the VM</span></span>
+<span id="cb27-13"><a href="#cb27-13"></a><span class="bu">echo</span> Syncing with the VM</span>
+<span id="cb27-14"><a href="#cb27-14"></a><span class="ex">unison</span> kmymoney-vm -auto -batch -silent -ui text</span>
+<span id="cb27-15"><a href="#cb27-15"></a></span></code></pre></div>
 <p>Then create a new .desktop file in ~/.local/share/applications/ based on a copy of /usr/share/applications/org.kde.kmymoney.desktop. Change a few of the lines as follows:</p>
 <pre><code>Name=KMyMoney With Sync
 Name[en_GB]=KMyMoney With Sync

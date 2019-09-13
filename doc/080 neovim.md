@@ -32,10 +32,13 @@ vi
 :UpdateRemotePlugins 
 :call dein#install()
 :UpdateRemotePlugins 
-```
 
+```
 ~/.config/nvim/init.vim
 ```
+# The following 2 lines are only needed where accessed over SSH
+# let $NVIM_TUI_ENABLE_CURSOR_SHAPE=0
+# set guicursor=
 
 if &compatible
   set nocompatible
