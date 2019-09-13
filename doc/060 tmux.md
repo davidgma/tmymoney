@@ -4,6 +4,7 @@
 ```
 sudo apt install tmux
 sudo apt install xclip
+sudo apt install bc
 tmux -V
 tmux new -s main
 ctrl+b c # create a new window
