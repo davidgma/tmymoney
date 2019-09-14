@@ -6,7 +6,9 @@
 # Build for github
 cd webclient
 #ng build --base-href "http://localhost:4203/" --outputPath "../dist-webclient"
-ng build --base-href "https://kira.davidgma.com/" --outputPath "../dist-webclient"
+#ng build --base-href "https://kira.davidgma.com/" --outputPath "../dist-webclient"
+#ng build --base-href "https://envy.davidgma.com/" --outputPath "../dist-webclient"
+ng build --base-href "/" --outputPath "../dist-webclient"
 echo Test on http://localhost:4203
 cd ..
 
