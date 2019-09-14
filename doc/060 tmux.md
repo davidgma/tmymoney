@@ -29,5 +29,7 @@ bind-key -T copy-mode-vi r send-keys -X rectangle-toggle
 set-option -g set-clipboard on
 bind-key -T copy-mode-vi y send-keys -X copy-pipe "xclip -sel clip -i"
 bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe "xclip -sel clip -i"
+set-option -sg escape-time 10
+set-option -g default-terminal "screen-256color"
 ```
 
