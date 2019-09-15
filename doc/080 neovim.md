@@ -15,6 +15,7 @@ sudo ln -s /usr/bin/nvim /usr/bin/vi
 ```
 
 Installing all the plugins is an awkward process. I'm not completely sure how I did it, but it was something along the following lines.
+Also, remember to add tags to all .gitignore files.
 
 
 ```
