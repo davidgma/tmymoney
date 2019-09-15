@@ -21,10 +21,17 @@ Installing all the plugins is an awkward process. I'm not completely sure how I 
 npm install -g neovim
 sudo apt install python3-pip
 pip3 install --user pynvim
+sudo snap install universal-ctags
+sudo ln -s /snap/universal-ctags/current/bin/ctags /usr/bin/ctags
 
 mkdir ~/.config/nvim
 vi ~/.config/nvim/init.vim
 # copy in the init.vim text further down below. 
+
+mkdir $HOME/.ctags.d
+vi $HOME/.ctags.d/default.ctags
+# copy in the default.ctags text further down.
+
 curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh 
 sh ./installer.sh ~/.cache/dein 
 vi 
@@ -73,6 +80,10 @@ if dein#load_state('~/.cache/dein')
   " Enable deoplete at startup
   let g:deoplete#enable_at_startup = 1
 
+  " For tags 
+  call dein#add('ludovicchabant/vim-gutentags')
+  call dein#add('majutsushi/tagbar')
+
   call dein#end()
   call dein#save_state()
   " call dein#update()
@@ -117,6 +128,25 @@ call deoplete#custom#source(
 
 ```
 
+from https://github.com/jb55/typescript-ctags
+$HOME/.ctags.d/default.ctags 
+```
+--langdef=typescript
+--langmap=typescript:.ts.tsx
+--regex-typescript=/^[ \t]*(export[ \t]+([a-z]+[ \t]+)?)?class[ \t]+([a-zA-Z0-9_$]+)/\3/c,classes/
+--regex-typescript=/^[ \t]*(declare[ \t]+)?namespace[ \t]+([a-zA-Z0-9_$]+)/\2/c,modules/
+--regex-typescript=/^[ \t]*(export[ \t]+)?module[ \t]+([a-zA-Z0-9_$]+)/\2/n,modules/
+--regex-typescript=/^[ \t]*(export[ \t]+)?(default[ \t]+)?(async[ \t]+)?function(\*)?[ \t]+([a-zA-Z0-9_$]+)/\5/f,functions/
+--regex-typescript=/^[ \t]*export[ \t]+(var|let|const)[ \t]+([a-zA-Z0-9_$]+)/\2/v,variables/
+--regex-typescript=/^[ \t]*(var|let|const)[ \t]+([a-zA-Z0-9_$]+)[ \t]*=[ \t]*function[ \t]*[*]?[ \t]*\(\)/\2/v,varlambdas/
+--regex-typescript=/^[ \t]*(export[ \t]+)?(public|protected|private)[ \t]+(static[ \t]+)?(abstract[ \t]+)?(((get|set|readonly)[ \t]+)|(async[ \t]+[*]*[ \t]*))?([a-zA-Z1-9_$]+)/\9/m,members/
+--regex-typescript=/^[ \t]*(export[ \t]+)?interface[ \t]+([a-zA-Z0-9_$]+)/\2/i,interfaces/
+--regex-typescript=/^[ \t]*(export[ \t]+)?type[ \t]+([a-zA-Z0-9_$]+)/\2/t,types/
+--regex-typescript=/^[ \t]*(export[ \t]+)?enum[ \t]+([a-zA-Z0-9_$]+)/\2/e,enums/
+--regex-typescript=/^[ \t]*import[ \t]+([a-zA-Z0-9_$]+)/\1/I,imports/
+
+```
+
 This should enable the spell check functionality. 
 - To add a word to the dictionary: zg 
 - To get a list of suggestions: z=
@@ -140,6 +170,5 @@ Some useful websites:
 https://www.vimfromscratch.com/articles/setting-up-vim-for-typescript/
 https://github.com/prettier/vim-prettier
 https://prettier.io/docs/en/vim.html
-
 
 
