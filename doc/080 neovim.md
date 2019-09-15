@@ -36,9 +36,8 @@ vi
 ```
 ~/.config/nvim/init.vim
 ```
-" The following 2 lines are only needed where accessed over SSH
-" let $NVIM_TUI_ENABLE_CURSOR_SHAPE=0
-" set guicursor=
+" The following line is only needed where accessed over SSH
+set guicursor=
 
 if &compatible
   set nocompatible
