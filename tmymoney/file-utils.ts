@@ -2,7 +2,7 @@ import {stat} from 'fs';
 import {ChildProcess, spawn} from 'child_process';
 
 export class FileUtils {
-  static isFile(path: string): Promise<boolean> {
+  public static isFile(path: string): Promise<boolean> {
     if (path == null) {
       return new Promise<boolean>((resolve, reject) => {
         console.log('Error: null path sent to isFile.');
@@ -22,7 +22,7 @@ export class FileUtils {
     });
   }
 
-  static isDirectory(path: string): Promise<boolean> {
+  public static isDirectory(path: string): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
       stat(path, (err, stats) => {
         if (err) {
@@ -36,7 +36,10 @@ export class FileUtils {
     });
   }
 
-  static execute(command: string, args: Array<string>): Promise<Array<string>> {
+  public static execute(
+    command: string,
+    args: Array<string>,
+  ): Promise<Array<string>> {
     let ret: Array<string> = new Array<string>();
     return new Promise<Array<string>>((resolve, reject) => {
       let process: ChildProcess = spawn(command, args);
@@ -60,9 +63,5 @@ export class FileUtils {
         resolve(ret);
       });
     });
-  }
-
-  static test() {
-    let x = 1;
   }
 } // End of FileUtils class
