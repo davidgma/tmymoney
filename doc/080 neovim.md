@@ -98,7 +98,7 @@ set mouse=a
 
 " spell languages
 set spelllang=en_gb
-set spell
+" set spell
 set spellfile=$HOME/local/scripts/en.utf-8.add
 
 set whichwrap+=<,>,h,l,[,]
@@ -154,6 +154,13 @@ This should enable the spell check functionality.
 - To go to the previous spelling error: [s
 - To go to the next spelling error: ]s
 - To toggle spell check: F10.
+
+To get the spell check to be active with markdown files only, create the file /home/david/.config/nvim/after/ftplugin/markdown.vim
+
+```
+setlocal spell
+```
+
 
 Where some non-functioning plugins cause trouble, I found the following cleaned things out. 
 ```

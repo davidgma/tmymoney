@@ -302,7 +302,7 @@ set mouse=a
 
 &quot; spell languages
 set spelllang=en_gb
-set spell
+&quot; set spell
 set spellfile=$HOME/local/scripts/en.utf-8.add
 
 set whichwrap+=&lt;,&gt;,h,l,[,]
@@ -356,6 +356,9 @@ call deoplete#custom#source(
 <li>To go to the next spelling error: ]s</li>
 <li>To toggle spell check: F10.</li>
 </ul>
+<p>To get the spell check to be active with markdown files only, create the file /home/david/.config/nvim/after/ftplugin/markdown.vim</p>
+<pre><code>setlocal spell
+</code></pre>
 <p>Where some non-functioning plugins cause trouble, I found the following cleaned things out.</p>
 <pre><code>rm -rf /home/david/.cache/dein/.cache
 # then uncomment the line in the ~/.config/nvim/init.vim that has the 
@@ -392,13 +395,13 @@ ssh dmlh02_gmail_com@vm.davidgma.com
 <h3 id="angular">Angular</h3>
 <p>I used <a href="https://angular.io">Angular</a>] for the web client. Angular produces static web sites - a web site where all the code is served once by the web server and then doesn't need to be served again for the entire running of the web app by the user, unless the user refreshes the web page. The advantage of this is that it's cheaper to serve and a lot of companies now offer free serving of static websites, such as Github with Github Pages. Plus, cloud file servers such as Google Drive and pCloud let you run a static web site just by putting the files into a folder on the cloud and making it public or selecting an option to publish.</p>
 <p>There is a back end that the web client uses but this is via RESTful API calls.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1"></a><span class="ex">npm</span> install -g @angular/cli</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1"></a><span class="ex">npm</span> install -g @angular/cli</span></code></pre></div>
 <h3 id="git">Git</h3>
 <p>Git is needed for version control and for safely storing code on Github.</p>
 <p>I used the Ubuntu packaged version of git.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">sudo</span> apt update</span>
-<span id="cb18-2"><a href="#cb18-2"></a><span class="fu">sudo</span> apt install git</span>
-<span id="cb18-3"><a href="#cb18-3"></a><span class="fu">git</span> --version</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">sudo</span> apt update</span>
+<span id="cb19-2"><a href="#cb19-2"></a><span class="fu">sudo</span> apt install git</span>
+<span id="cb19-3"><a href="#cb19-3"></a><span class="fu">git</span> --version</span></code></pre></div>
 <p>Usage examples:</p>
 <pre><code>git clone https://github.com/davidgma/tmymoney.git
 cd tmymoney
@@ -608,21 +611,21 @@ server {
 </code></pre>
 <p>Then, on any local machine where you want to use KMyMoney, open the GUI and set up a sync profile between the local folder and the ssh folder on the VM. I called it kmymoney-vm. I ran it once manually to check it worked.</p>
 <p>Then create a bash script to do the syncs before and after opening KMyMoney.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb28-2"><a href="#cb28-2"></a><span class="co"># Use KMyMoney with a sync to the GCP VM</span></span>
-<span id="cb28-3"><a href="#cb28-3"></a></span>
-<span id="cb28-4"><a href="#cb28-4"></a><span class="co"># Sync with the VM</span></span>
-<span id="cb28-5"><a href="#cb28-5"></a><span class="bu">echo</span> Syncing with the VM</span>
-<span id="cb28-6"><a href="#cb28-6"></a><span class="ex">unison</span> kmymoney-vm -auto -batch -silent -ui text</span>
-<span id="cb28-7"><a href="#cb28-7"></a></span>
-<span id="cb28-8"><a href="#cb28-8"></a><span class="co"># Run KMyMoney</span></span>
-<span id="cb28-9"><a href="#cb28-9"></a><span class="bu">echo</span> Opening KMyMoney</span>
-<span id="cb28-10"><a href="#cb28-10"></a><span class="ex">kmymoney</span> <span class="va">$1</span></span>
-<span id="cb28-11"><a href="#cb28-11"></a></span>
-<span id="cb28-12"><a href="#cb28-12"></a><span class="co"># Sync with the VM</span></span>
-<span id="cb28-13"><a href="#cb28-13"></a><span class="bu">echo</span> Syncing with the VM</span>
-<span id="cb28-14"><a href="#cb28-14"></a><span class="ex">unison</span> kmymoney-vm -auto -batch -silent -ui text</span>
-<span id="cb28-15"><a href="#cb28-15"></a></span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a><span class="co"># Use KMyMoney with a sync to the GCP VM</span></span>
+<span id="cb29-3"><a href="#cb29-3"></a></span>
+<span id="cb29-4"><a href="#cb29-4"></a><span class="co"># Sync with the VM</span></span>
+<span id="cb29-5"><a href="#cb29-5"></a><span class="bu">echo</span> Syncing with the VM</span>
+<span id="cb29-6"><a href="#cb29-6"></a><span class="ex">unison</span> kmymoney-vm -auto -batch -silent -ui text</span>
+<span id="cb29-7"><a href="#cb29-7"></a></span>
+<span id="cb29-8"><a href="#cb29-8"></a><span class="co"># Run KMyMoney</span></span>
+<span id="cb29-9"><a href="#cb29-9"></a><span class="bu">echo</span> Opening KMyMoney</span>
+<span id="cb29-10"><a href="#cb29-10"></a><span class="ex">kmymoney</span> <span class="va">$1</span></span>
+<span id="cb29-11"><a href="#cb29-11"></a></span>
+<span id="cb29-12"><a href="#cb29-12"></a><span class="co"># Sync with the VM</span></span>
+<span id="cb29-13"><a href="#cb29-13"></a><span class="bu">echo</span> Syncing with the VM</span>
+<span id="cb29-14"><a href="#cb29-14"></a><span class="ex">unison</span> kmymoney-vm -auto -batch -silent -ui text</span>
+<span id="cb29-15"><a href="#cb29-15"></a></span></code></pre></div>
 <p>Then create a new .desktop file in ~/.local/share/applications/ based on a copy of /usr/share/applications/org.kde.kmymoney.desktop. Change a few of the lines as follows:</p>
 <pre><code>Name=KMyMoney With Sync
 Name[en_GB]=KMyMoney With Sync
