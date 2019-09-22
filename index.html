@@ -110,6 +110,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="#nginx"><span>nginx</span></a></li>
 <li><a href="#unison-file-synchroniser">unison file synchroniser</a></li>
 <li><a href="#xml2json">xml2json</a></li>
+<li><a href="#puppeteer">Puppeteer</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -289,6 +290,9 @@ if dein#load_state(&#39;~/.cache/dein&#39;)
   call dein#add(&#39;ludovicchabant/vim-gutentags&#39;)
   call dein#add(&#39;majutsushi/tagbar&#39;)
 
+&quot; For comment toggling
+  call dein#add(&#39;tpope/vim-commentary&#39;)
+
   call dein#end()
   call dein#save_state()
   &quot; call dein#update()
@@ -330,6 +334,11 @@ call deoplete#custom#source(
 &quot; Do not complete too short words
 call deoplete#custom#source(
             \ &#39;dictionary&#39;, &#39;min_pattern_length&#39;, 3)
+
+&quot; map alt up and down to move a line 
+nnoremap &lt;A-Down&gt; :m+&lt;cr&gt;
+nnoremap &lt;A-Up&gt; :m .-2&lt;cr&gt; 
+
 
 </code></pre>
 <p>from <a href="https://github.com/jb55/typescript-ctags">https://github.com/jb55/typescript-ctags</a> $HOME/.ctags.d/default.ctags</p>
@@ -643,5 +652,7 @@ git clone https://github.com/Cheedoong/xml2json.git
 cd xml2json
 make
 </code></pre>
+<h3 id="puppeteer">Puppeteer</h3>
+<p><a href="https://pptr.dev">https://pptr.dev</a> <a href="https://developers.google.com/web/tools/puppeteer/">https://developers.google.com/web/tools/puppeteer/</a></p>
 </body>
 </html>
