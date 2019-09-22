@@ -85,6 +85,9 @@ if dein#load_state('~/.cache/dein')
   call dein#add('ludovicchabant/vim-gutentags')
   call dein#add('majutsushi/tagbar')
 
+" For comment toggling
+  call dein#add('tpope/vim-commentary')
+
   call dein#end()
   call dein#save_state()
   " call dein#update()
@@ -126,6 +129,11 @@ call deoplete#custom#source(
 " Do not complete too short words
 call deoplete#custom#source(
 			\ 'dictionary', 'min_pattern_length', 3)
+
+" map alt up and down to move a line 
+nnoremap <A-Down> :m+<cr>
+nnoremap <A-Up> :m .-2<cr> 
+
 
 ```
 
