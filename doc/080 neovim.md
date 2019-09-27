@@ -44,9 +44,14 @@ vi
 ```
 ~/.config/nvim/init.vim
 ```
+
+" :call dein#install()
+" :UpdateRemotePlugins
+
 " The following line is only needed where accessed over SSH
 set guicursor=
 
+" This is for Netrw
 if &compatible
   set nocompatible
 endif
@@ -73,7 +78,7 @@ if dein#load_state('~/.cache/dein')
 
   " For dictionary completion 
   call dein#add('deoplete-plugins/deoplete-dictionary')
-
+  
   " For formatting
   " post install (yarn install | npm install)
   call dein#add('prettier/vim-prettier', { 'build': 'npm install' })
@@ -85,15 +90,20 @@ if dein#load_state('~/.cache/dein')
   call dein#add('ludovicchabant/vim-gutentags')
   call dein#add('majutsushi/tagbar')
 
-" For comment toggling
+  " For comment toggling
   call dein#add('tpope/vim-commentary')
+
+	" For ranger
+	call dein#add('rbgrouleff/bclose.vim')
+	call dein#add('francoiscabrol/ranger.vim')
 
   call dein#end()
   call dein#save_state()
   " call dein#update()
-  " call dein#check_clean()
+  call map(dein#check_clean(), "delete(v:val, 'rf')")
 endif
 
+" This is for Netrw
 filetype plugin indent on
 syntax enable
 
@@ -111,10 +121,13 @@ nnoremap <silent> <F10> :set spell!<cr>
 inoremap <silent> <F10> <C-O>:set spell!<cr>
 
 " <ENTER>: completion.
-    inoremap <expr><ENTER>  pumvisible() ? "\<C-n>" : "\<ENTER>"
+"    inoremap <expr><ENTER>  pumvisible() ? "\<C-n>" : "\<ENTER>"
+
 :inoremap ( ()<Esc>i
 :inoremap [ []<Esc>i
 :inoremap { {}<Esc>i
+:inoremap " ""<Esc>i
+:inoremap ' ''<Esc>i
 
 " Sample configuration for dictionary source with multiple
 " dictionary files.
@@ -133,6 +146,35 @@ call deoplete#custom#source(
 " map alt up and down to move a line 
 nnoremap <A-Down> :m+<cr>
 nnoremap <A-Up> :m .-2<cr> 
+nnoremap t :TagbarToggle<cr><C-w>15> 
+nnoremap <A-Right> :tabnext<CR>
+nnoremap <A-Left> :tabprevious<cr>
+
+" set tabs
+set shiftwidth=2
+set tabstop=2
+
+" Prettier shortcut
+nnoremap <C-p> :Prettier<cr>
+
+" Numbering
+nnoremap <C-N> :set number!<cr>
+
+" escape delay
+set timeoutlen=1000 ttimeoutlen=0
+
+" Open explorer
+nnoremap O :RangerNewTab<cr>
+let g:netrw_browse_split = 3
+
+" clear highlighting
+nnoremap c :noh<cr>
+
+" TSType
+nnoremap T :TSDoc<cr>
+
+nnoremap J <C-w><C-w>
+nnoremap X <C-w><C-w><C-w>o
 
 
 ```
