@@ -5,16 +5,16 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>TMyMoney</title>
-  <style>
+  <style type="text/css">
       code{white-space: pre-wrap;}
       span.smallcaps{font-variant: small-caps;}
       span.underline{text-decoration: underline;}
       div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
-  <style>
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+  <style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -24,16 +24,14 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -42,9 +40,9 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  {  }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+a.sourceLine::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -77,16 +75,13 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="pandochtml.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
-  <link rel="icon" href="/favicon.png">
+  &lt;link rel="icon" href="/favicon.png"&gt;
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">TMyMoney</h1>
 </header>
-<nav id="TOC" role="doc-toc">
+<nav id="TOC">
 <ul>
 <li><a href="#background">Background</a></li>
 <li><a href="#architecture">Architecture</a><ul>
@@ -138,17 +133,17 @@ The program, converts the xml file to a json file using <a href="https://github.
 <h3 id="node">Node</h3>
 <p>I installed Node using the <a href="https://github.com/nvm-sh/nvm">Node Version Manager</a>.</p>
 <p>You can install it with apt too but this doesn't give such a recent version. After installing it per the instructions I installed the latest LTS version of Node.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">bash</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="bu">command</span> -v nvm</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="ex">nvm</span> ls-remote</span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="ex">nvm</span> install --lts</span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="ex">node</span> --version</span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="fu">which</span> node</span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="fu">which</span> npm</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" title="1"><span class="fu">bash</span></a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="bu">command</span> -v nvm</a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="ex">nvm</span> ls-remote</a>
+<a class="sourceLine" id="cb1-4" title="4"><span class="ex">nvm</span> install --lts</a>
+<a class="sourceLine" id="cb1-5" title="5"><span class="ex">node</span> --version</a>
+<a class="sourceLine" id="cb1-6" title="6"><span class="fu">which</span> node</a>
+<a class="sourceLine" id="cb1-7" title="7"><span class="fu">which</span> npm</a></code></pre></div>
 <p>The which commands should give paths that are under the directory ~/.nvm rather than under /usr.</p>
 <h3 id="typescript">Typescript</h3>
 <p>I used <a href="https://www.typescriptlang.org">Typescript</a>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="ex">npm</span> install -g typescript</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb2-1" title="1"><span class="ex">npm</span> install -g typescript</a></code></pre></div>
 <p>To create a new Typescript/Node project in a sub-folder called tmymoney within the tmymoney project:</p>
 <pre><code>cd tmymoney
 mkdir tmymoney
@@ -215,15 +210,15 @@ vi ~/.bashrc
 <p>A useful list of ranger commands can be found <a href="https://gist.github.com/heroheman/aba73e47443340c35526755ef79647eb">here</a>.</p>
 <h3 id="nvim">nvim</h3>
 <p>I installed the latest version of neovim from their <a href="https://neovim.io/">web site</a>.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1"></a><span class="bu">cd</span> ~/local/dev</span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">mkdir</span> nvim</span>
-<span id="cb9-3"><a href="#cb9-3"></a><span class="bu">cd</span> nvim</span>
-<span id="cb9-4"><a href="#cb9-4"></a><span class="fu">wget</span> https://github.com/neovim/neovim/releases/download/v0.3.8/nvim.appimage</span>
-<span id="cb9-5"><a href="#cb9-5"></a><span class="fu">chmod</span> a+x nvim.appimage</span>
-<span id="cb9-6"><a href="#cb9-6"></a><span class="fu">sudo</span> rm /usr/bin/vi</span>
-<span id="cb9-7"><a href="#cb9-7"></a><span class="fu">sudo</span> cp ~/local/dev/nvim/nvim.appimage /usr/bin/nvim</span>
-<span id="cb9-8"><a href="#cb9-8"></a><span class="fu">sudo</span> ln -s /usr/bin/nvim /usr/bin/vi</span>
-<span id="cb9-9"><a href="#cb9-9"></a></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb9-1" title="1"><span class="bu">cd</span> ~/local/dev</a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="fu">mkdir</span> nvim</a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="bu">cd</span> nvim</a>
+<a class="sourceLine" id="cb9-4" title="4"><span class="fu">wget</span> https://github.com/neovim/neovim/releases/download/v0.3.8/nvim.appimage</a>
+<a class="sourceLine" id="cb9-5" title="5"><span class="fu">chmod</span> a+x nvim.appimage</a>
+<a class="sourceLine" id="cb9-6" title="6"><span class="fu">sudo</span> rm /usr/bin/vi</a>
+<a class="sourceLine" id="cb9-7" title="7"><span class="fu">sudo</span> cp ~/local/dev/nvim/nvim.appimage /usr/bin/nvim</a>
+<a class="sourceLine" id="cb9-8" title="8"><span class="fu">sudo</span> ln -s /usr/bin/nvim /usr/bin/vi</a>
+<a class="sourceLine" id="cb9-9" title="9"></a></code></pre></div>
 <p>Installing all the plugins is an awkward process. I'm not completely sure how I did it, but it was something along the following lines. Also, remember to add tags to all .gitignore files.</p>
 <pre><code>npm install -g neovim
 sudo apt install python3-pip
@@ -446,13 +441,13 @@ ssh dmlh02_gmail_com@vm.davidgma.com
 <h3 id="angular">Angular</h3>
 <p>I used <a href="https://angular.io">Angular</a>] for the web client. Angular produces static web sites - a web site where all the code is served once by the web server and then doesn't need to be served again for the entire running of the web app by the user, unless the user refreshes the web page. The advantage of this is that it's cheaper to serve and a lot of companies now offer free serving of static websites, such as Github with Github Pages. Plus, cloud file servers such as Google Drive and pCloud let you run a static web site just by putting the files into a folder on the cloud and making it public or selecting an option to publish.</p>
 <p>There is a back end that the web client uses but this is via RESTful API calls.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1"></a><span class="ex">npm</span> install -g @angular/cli</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb18-1" title="1"><span class="ex">npm</span> install -g @angular/cli</a></code></pre></div>
 <h3 id="git">Git</h3>
 <p>Git is needed for version control and for safely storing code on Github.</p>
 <p>I used the Ubuntu packaged version of git.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">sudo</span> apt update</span>
-<span id="cb19-2"><a href="#cb19-2"></a><span class="fu">sudo</span> apt install git</span>
-<span id="cb19-3"><a href="#cb19-3"></a><span class="fu">git</span> --version</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb19-1" title="1"><span class="fu">sudo</span> apt update</a>
+<a class="sourceLine" id="cb19-2" title="2"><span class="fu">sudo</span> apt install git</a>
+<a class="sourceLine" id="cb19-3" title="3"><span class="fu">git</span> --version</a></code></pre></div>
 <p>Usage examples:</p>
 <pre><code>git clone https://github.com/davidgma/tmymoney.git
 cd tmymoney
@@ -662,21 +657,21 @@ server {
 </code></pre>
 <p>Then, on any local machine where you want to use KMyMoney, open the GUI and set up a sync profile between the local folder and the ssh folder on the VM. I called it kmymoney-vm. I ran it once manually to check it worked.</p>
 <p>Then create a bash script to do the syncs before and after opening KMyMoney.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb29-2"><a href="#cb29-2"></a><span class="co"># Use KMyMoney with a sync to the GCP VM</span></span>
-<span id="cb29-3"><a href="#cb29-3"></a></span>
-<span id="cb29-4"><a href="#cb29-4"></a><span class="co"># Sync with the VM</span></span>
-<span id="cb29-5"><a href="#cb29-5"></a><span class="bu">echo</span> Syncing with the VM</span>
-<span id="cb29-6"><a href="#cb29-6"></a><span class="ex">unison</span> kmymoney-vm -auto -batch -silent -ui text</span>
-<span id="cb29-7"><a href="#cb29-7"></a></span>
-<span id="cb29-8"><a href="#cb29-8"></a><span class="co"># Run KMyMoney</span></span>
-<span id="cb29-9"><a href="#cb29-9"></a><span class="bu">echo</span> Opening KMyMoney</span>
-<span id="cb29-10"><a href="#cb29-10"></a><span class="ex">kmymoney</span> <span class="va">$1</span></span>
-<span id="cb29-11"><a href="#cb29-11"></a></span>
-<span id="cb29-12"><a href="#cb29-12"></a><span class="co"># Sync with the VM</span></span>
-<span id="cb29-13"><a href="#cb29-13"></a><span class="bu">echo</span> Syncing with the VM</span>
-<span id="cb29-14"><a href="#cb29-14"></a><span class="ex">unison</span> kmymoney-vm -auto -batch -silent -ui text</span>
-<span id="cb29-15"><a href="#cb29-15"></a></span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb29-1" title="1"><span class="co">#!/bin/bash</span></a>
+<a class="sourceLine" id="cb29-2" title="2"><span class="co"># Use KMyMoney with a sync to the GCP VM</span></a>
+<a class="sourceLine" id="cb29-3" title="3"></a>
+<a class="sourceLine" id="cb29-4" title="4"><span class="co"># Sync with the VM</span></a>
+<a class="sourceLine" id="cb29-5" title="5"><span class="bu">echo</span> Syncing with the VM</a>
+<a class="sourceLine" id="cb29-6" title="6"><span class="ex">unison</span> kmymoney-vm -auto -batch -silent -ui text</a>
+<a class="sourceLine" id="cb29-7" title="7"></a>
+<a class="sourceLine" id="cb29-8" title="8"><span class="co"># Run KMyMoney</span></a>
+<a class="sourceLine" id="cb29-9" title="9"><span class="bu">echo</span> Opening KMyMoney</a>
+<a class="sourceLine" id="cb29-10" title="10"><span class="ex">kmymoney</span> <span class="va">$1</span></a>
+<a class="sourceLine" id="cb29-11" title="11"></a>
+<a class="sourceLine" id="cb29-12" title="12"><span class="co"># Sync with the VM</span></a>
+<a class="sourceLine" id="cb29-13" title="13"><span class="bu">echo</span> Syncing with the VM</a>
+<a class="sourceLine" id="cb29-14" title="14"><span class="ex">unison</span> kmymoney-vm -auto -batch -silent -ui text</a>
+<a class="sourceLine" id="cb29-15" title="15"></a></code></pre></div>
 <p>Then create a new .desktop file in ~/.local/share/applications/ based on a copy of /usr/share/applications/org.kde.kmymoney.desktop. Change a few of the lines as follows:</p>
 <pre><code>Name=KMyMoney With Sync
 Name[en_GB]=KMyMoney With Sync
