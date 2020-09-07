@@ -9,10 +9,10 @@
   "author": "David Ma",
   "license": "MIT",
   "dependencies": {
-    "@types/node": "^12.7.5",
-    "terminal-kit": "^1.31.3"
+    "@types/node": "^12.12.55",
+    "terminal-kit": "^1.43.0"
   },
   "devDependencies": {
-    "@types/terminal-kit": "^1.28.0"
+    "@types/terminal-kit": "^1.28.2"
   }
 }
