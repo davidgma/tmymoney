@@ -11,6 +11,7 @@
 /node_modules
 /tmymoney/node_modules
 /webclient/node_modules
+#/cli/node_modules
 
 
 # IDEs and editors
