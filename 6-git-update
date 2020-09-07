@@ -19,9 +19,25 @@ echo $message
 # Build the server
 ./2-tmy-update 
 
-# Send to github
+# Send master files to github
+git checkout master
 git add *
 git commit -a -m "${message}"
-git push
-ngh
+git push origin master
+
+# Update github pages
+ehco Updating github pages...
+echo checkout gh-pages
+git checkout gh-pages
+git branch
+rm -rf ./dist
+echo Copying dist directory from master
+git checkout master dist/*
+cp -r ./dist/* .
+rm -r dist
+git add *
+git commit -a -m "${message}"
+git push origin gh-pages
+
+git checkout master
 
